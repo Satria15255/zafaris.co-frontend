@@ -21,19 +21,19 @@ const Footer = () => {
           <h4 className="text-sm font-bold text-xl pb-2">SOCIAL ACCOUNT</h4>
           <ul className=" py-4  md:mt-0">
             <li>
-              <a target="_blank" rel="noopener noreferrer" className="text-sm hover:text-blue-400">
+              <p target="_blank" rel="noopener noreferrer" className="text-sm hover:text-blue-400">
                 Instagram
-              </a>
+              </p>
             </li>
             <li>
-              <a target="_blank" rel="noopener noreferrer" className="text-sm hover:text-blue-400">
+              <p target="_blank" rel="noopener noreferrer" className="text-sm hover:text-blue-400">
                 Tik Tok
-              </a>
+              </p>
             </li>
             <li>
-              <a target="_blank" rel="noopener noreferrer" className="text-sm  hover:text-blue-400">
+              <p target="_blank" rel="noopener noreferrer" className="text-sm  hover:text-blue-400">
                 WhatsApp
-              </a>
+              </p>
             </li>
           </ul>
         </div>
@@ -41,24 +41,24 @@ const Footer = () => {
           <h4 className="text-sm font-bold text-xl pb-2 ">SERVICE</h4>
           <ul className="py-3 md:mt-0">
             <li>
-              <a target="_blank" rel="noopener noreferrer" className="text-sm hover:text-blue-400">
+              <p target="_blank" rel="noopener noreferrer" className="text-sm hover:text-blue-400">
                 Store
-              </a>
+              </p>
             </li>
             <li>
-              <a target="_blank" rel="noopener noreferrer" className="text-sm hover:text-blue-400">
+              <p target="_blank" rel="noopener noreferrer" className="text-sm hover:text-blue-400">
                 Gift Voucher
-              </a>
+              </p>
             </li>
             <li>
-              <a target="_blank" rel="noopener noreferrer" className="text-sm  hover:text-blue-400">
+              <p target="_blank" rel="noopener noreferrer" className="text-sm  hover:text-blue-400">
                 Affilaites
-              </a>
+              </p>
             </li>
             <li>
-              <a target="_blank" rel="noopener noreferrer" className="text-sm  hover:text-blue-400">
+              <p target="_blank" rel="noopener noreferrer" className="text-sm  hover:text-blue-400">
                 Specials
-              </a>
+              </p>
             </li>
           </ul>
         </div>
@@ -66,29 +66,29 @@ const Footer = () => {
           <h4 className="text-sm font-bold pb-4 text-xl pb-2">INFORMATION</h4>
           <ul className=" md:mt-0">
             <li>
-              <a target="_blank" rel="noopener noreferrer" className="text-sm hover:text-blue-400">
+              <p target="_blank" rel="noopener noreferrer" className="text-sm hover:text-blue-400">
                 About us
-              </a>
+              </p>
             </li>
             <li>
-              <a target="_blank" rel="noopener noreferrer" className="text-sm hover:text-blue-400">
+              <p target="_blank" rel="noopener noreferrer" className="text-sm hover:text-blue-400">
                 Delivery Information
-              </a>
+              </p>
             </li>
             <li>
-              <a target="_blank" rel="noopener noreferrer" className="text-sm  hover:text-blue-400">
+              <p target="_blank" rel="noopener noreferrer" className="text-sm  hover:text-blue-400">
                 Privacy Policy
-              </a>
+              </p>
             </li>
             <li>
-              <a target="_blank" rel="noopener noreferrer" className="text-sm  hover:text-blue-400">
+              <p target="_blank" rel="noopener noreferrer" className="text-sm  hover:text-blue-400">
                 Terms & Conditions
-              </a>
+              </p>
             </li>
             <li>
-              <a target="_blank" rel="noopener noreferrer" className="text-sm  hover:text-blue-400">
+              <p target="_blank" rel="noopener noreferrer" className="text-sm  hover:text-blue-400">
                 Purchase Theme
-              </a>
+              </p>
             </li>
           </ul>
         </div>
