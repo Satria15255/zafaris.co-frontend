@@ -17,18 +17,19 @@ const ShoppingCart = ({ cart, onRemoveFromCart, onQuantityChange, decreaseQuanti
       <h1 className="text-2xl font-semibold mb-6">Your cart</h1>
 
       {/* Tabel Cart */}
-      <div className="w-full  bg-white  p-6 overflow-y-auto max-h-[70vh]">
+      <div className="w-full  bg-white  p-6 overflow-x-hidden overflow-y-auto max-h-[70vh]">
         {cart.length === 0 ? (
           <p className="text-gray-500 text-center">Your cart is empty</p>
         ) : (
           <table className="w-full border-collapse">
-            <thead>
-              <tr className="border-b ">
+            <thead className="hidden md:table-header-group">
+              <tr className="border-b">
                 <th className="text-left text-xs pb-2">PRODUCT</th>
                 <th className="text-center text-xs pb-2">QUANTITY</th>
                 <th className="text-right text-xs pb-2">TOTAL</th>
               </tr>
             </thead>
+
             <tbody>
               {cart.map((item) => {
                 const quantity = item.quantity || 0;
@@ -38,13 +39,13 @@ const ShoppingCart = ({ cart, onRemoveFromCart, onQuantityChange, decreaseQuanti
                     <td className="flex items-center py-4">
                       <img src={item.image} alt={item.name} className="w-16 h-16 object-cover rounded mr-4" />
                       <div>
-                        <h2 className="text-xs font-medium">{item.text}</h2>
+                        <h2 className="text-lg md:text-xl font-medium">{item.text}</h2>
                         <p className="text-gray-600">${item.price.toFixed(2)}</p>
                       </div>
                     </td>
 
                     {/* Quantity */}
-                    <td className="text-center">
+                    <td className="text-center hidden md:table-cell">
                       <div className="flex items-center justify-center">
                         <button className="px-2 py-1 border rounded" onClick={() => decreaseQuantity(item.id, quantity - 1)}>
                           -
@@ -60,7 +61,7 @@ const ShoppingCart = ({ cart, onRemoveFromCart, onQuantityChange, decreaseQuanti
                     </td>
 
                     {/* Total Harga per Item */}
-                    <td className="text-right text-yellow-500 font-semibold">${(item.price * quantity).toFixed(2)}</td>
+                    <td className="text-right text-yellow-500 font-semibold  hidden md:block">${(item.price * quantity).toFixed(2)}</td>
                   </tr>
                 );
               })}
