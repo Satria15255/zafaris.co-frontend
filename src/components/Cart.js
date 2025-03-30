@@ -41,7 +41,7 @@ const ShoppingCart = ({ cart, onRemoveFromCart, onQuantityChange, decreaseQuanti
                       <div>
                         <h2 className="text-lg md:text-xl font-medium">{item.text}</h2>
                         <p className="text-gray-600">${item.price.toFixed(2)}</p>
-                        <div className="flex items-center">
+                        <div className="flex items-center md:hidden">
                           <button className="px-2 py-1 border rounded" onClick={() => decreaseQuantity(item.id, quantity - 1)}>
                             -
                           </button>
