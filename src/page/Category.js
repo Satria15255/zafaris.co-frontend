@@ -1,12 +1,15 @@
 import React from "react";
 import { motion } from "framer-motion";
+import { Link } from "react-router-dom";
+import { Nav } from "react-bootstrap"; // Import Nav from react-bootstrap
+import { NavLink } from "react-router-dom"; // Import NavLink from react-router-dom
 
 function Category() {
   const categories = [
-    { title: "BASKETBALL", products: 8, image: require("../assets/product/img/basketball.png") },
-    { title: "SNEAKERS", products: 10, image: require("../assets/product/img/sneakers.png") },
-    { title: "RUNNING", products: 9, image: require("../assets/product/img/running.png") },
-    { title: "CASUAL", products: 9, image: require("../assets/product/img/cat1.png") },
+    { title: "BASKETBALL", products: 8, image: require("../assets/product/img/basketball.png"), url: "./products/basketball" },
+    { title: "SNEAKERS", products: 10, image: require("../assets/product/img/sneakers.png"), url: "./products/sneakers" },
+    { title: "RUNNING", products: 9, image: require("../assets/product/img/running.png"), url: "./products/running" },
+    { title: "CASUAL", products: 9, image: require("../assets/product/img/cat1.png"), url: "./products/casual" },
   ];
 
   return (
@@ -24,10 +27,10 @@ function Category() {
           {categories.map((category, index) => (
             <div key={index} className="relative h-80 flex items-center justify-center bg-cover bg-center shadow-md" style={{ backgroundImage: `url(${category.image})` }}>
               {/* Kotak untuk teks */}
-              <div className="absolute bg-white w-64 lg:w-64 text-center px-6 py-4  hover:scale-105 transition-transform duration-300 shadow-md">
-                <h2 className="text-lg flex justify-center font-semibold text-gray-800">{category.title}</h2>
-                <p className="text-sm text-gray-600">{category.products} products</p>
-              </div>
+              <Nav.Link as={NavLink} to={category.url} className="absolute bg-white w-64 lg:w-64 text-center px-6 py-4  hover:scale-105 transition-transform duration-300 shadow-md">
+                <Link to={category.url}>{category.title}</Link>
+                <p className="text-sm text-gray-600">See Products</p>
+              </Nav.Link>
             </div>
           ))}
         </div>

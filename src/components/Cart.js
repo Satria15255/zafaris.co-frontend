@@ -39,7 +39,7 @@ const ShoppingCart = ({ cart, onRemoveFromCart, onQuantityChange, decreaseQuanti
                     <td className="flex items-center py-4">
                       <img src={item.image} alt={item.name} className="w-16 h-16 object-cover rounded mr-4" />
                       <div>
-                        <h2 className="text-lg md:text-xl font-medium">{item.text}</h2>
+                        <h2 className="text-lg md:text-xl font-medium">{item.name}</h2>
                         <p className="text-gray-600">${item.price.toFixed(2)}</p>
                         <div className="flex items-center md:hidden">
                           <button className="px-2 py-1 border rounded" onClick={() => decreaseQuantity(item.id, quantity - 1)}>

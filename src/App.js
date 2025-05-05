@@ -9,6 +9,9 @@ import Onweek from "./page/Onweek";
 import Bestseller from "./page/Bestseller";
 import Category from "./page/Category";
 import Footer from "./components/Footer";
+import { Route, Routes } from "react-router-dom";
+import ProductPage from "./page/ProductPage";
+import ScrollToTop from "./components/ScrollToTop";
 
 function App() {
   const [cart, setCart] = useState([]);
@@ -79,61 +82,75 @@ function App() {
   };
 
   return (
-    <div>
+    <>
+      <ScrollToTop />
       <NavbarSection cartCount={cart.length} onCartClick={() => setIsCartOpen(true)} onClose={handleCloseModal} />
-      <Banner style={{ width: "100vh" }} />
-      <div className="flex flex-col md:flex-row md:gap-4">
-        <div className="flex-col-8">
-          <Onweek />
-        </div>
-        <div className="flex-col-4">
-          <Bestseller />
-        </div>
-      </div>
-      <Category />
-      {/* List Product */}
-      <motion.div
-        initial={{ opacity: 0, y: 50 }} // Awalnya transparan dan turun 50px
-        whileInView={{ opacity: 1, y: 0 }} // Saat muncul, fade-in & naik ke atas
-        transition={{ duration: 1.0 }} // Animasi selama 0.6 detik
-        viewport={{ once: true }}
-      >
-        <div class="flex flex-col justify-center items-center h-40   ">
-          <p class="text-lg  md:text-5xl font-bold text-dark">Feature Products</p>
-        </div>
-      </motion.div>
-      <div className="min-h-screen flex justify-content-center gap-4 " style={{ width: "100%" }}>
-        <div className="flex">
-          <main className="flex-1 p-6">
-            <ProductList onAddToCart={handleAddToCart} onOpenModal={handleOpenModal} />
-          </main>
-
-          {/* Sidebar untuk shopping cart */}
-          {isCartOpen && (
+      <Routes>
+        <Route path="zafaris.co/products/:category" element={<ProductPage onAddToCart={handleAddToCart} onOpenModal={handleOpenModal} />} />
+        <Route
+          path="/zafaris.co"
+          element={
             <>
-              {/* Overlay dengan efek fade-in */}
-              <motion.div initial={{ opacity: 0 }} animate={{ opacity: 0.5 }} exit={{ opacity: 0 }} transition={{ duration: 0.3 }} className="fixed inset-0 bg-black z-40" onClick={() => setIsCartOpen(false)}></motion.div>
-              {/* Shopping Cart dengan animasi slide-in */}
-              <motion.div initial={{ x: "100%" }} animate={{ x: 0 }} exit={{ x: "100%" }} transition={{ type: "spring", stiffness: 1200, damping: 50 }} className="fixed right-0 top-0 h-full w-50 bg-white z-50 shadow-lg"></motion.div>
-              {/* bg gelap */}
-              <div className="fixed inset-0 bg-black bg-opacity-50 z-40" onClick={() => setIsCartOpen(false)}></div>
-              <div ref={cartRef}>
-                <Sidebar
-                  cart={cart}
-                  onRemoveFromCart={removeFromCart}
-                  onQuantityChange={handleQuantityChange}
-                  decreaseQuantity={decreaseQuantity}
-                  onClose={() => setIsCartOpen(false)} // Menutup sidebar
-                />
+              <Banner style={{ width: "100vh" }} />
+
+              <div className="flex flex-col md:flex-row md:gap-4">
+                <div className="flex-col-8">
+                  <Onweek />
+                </div>
+                <div className="flex-col-4">
+                  <Bestseller />
+                </div>
               </div>
+              <Category />
+
+              {/* List Product */}
+              <motion.div
+                initial={{ opacity: 0, y: 50 }} // Awalnya transparan dan turun 50px
+                whileInView={{ opacity: 1, y: 0 }} // Saat muncul, fade-in & naik ke atas
+                transition={{ duration: 1.0 }} // Animasi selama 0.6 detik
+                viewport={{ once: true }}
+              >
+                <div class="flex flex-col justify-center items-center h-40   ">
+                  <p class="text-lg  md:text-5xl font-bold text-dark">Feature Products</p>
+                </div>
+              </motion.div>
+              <div className="min-h-screen flex justify-content-center gap-4 " style={{ width: "100%" }}>
+                <div className="flex">
+                  <main className="flex-1 p-6">
+                    <ProductList onAddToCart={handleAddToCart} onOpenModal={handleOpenModal} />
+                  </main>
+
+                  {/* Sidebar untuk shopping cart */}
+                </div>
+              </div>
+              {/* List Product */}
             </>
-          )}
-        </div>
-        {isModalOpen && <ProductModal product={currentProduct} onAddToCart={handleAddToCart} onClose={handleCloseModal} />}
-      </div>
-      {/* List Product */}
+          }
+        />
+      </Routes>
+      {isCartOpen && (
+        <>
+          {/* Overlay dengan efek fade-in */}
+          <motion.div initial={{ opacity: 0 }} animate={{ opacity: 0.5 }} exit={{ opacity: 0 }} transition={{ duration: 0.3 }} className="fixed inset-0 bg-black z-40" onClick={() => setIsCartOpen(false)}></motion.div>
+          {/* Shopping Cart dengan animasi slide-in */}
+          <motion.div initial={{ x: "100%" }} animate={{ x: 0 }} exit={{ x: "100%" }} transition={{ type: "spring", stiffness: 1200, damping: 50 }} className="fixed right-0 top-0 h-full w-50 bg-white z-50 shadow-lg"></motion.div>
+          {/* bg gelap */}
+          <div className="fixed inset-0 bg-black bg-opacity-50 z-40" onClick={() => setIsCartOpen(false)}></div>
+          <div ref={cartRef}>
+            <Sidebar
+              cart={cart}
+              onRemoveFromCart={removeFromCart}
+              onQuantityChange={handleQuantityChange}
+              decreaseQuantity={decreaseQuantity}
+              onClose={() => setIsCartOpen(false)} // Menutup sidebar
+            />
+          </div>
+        </>
+      )}
+
+      {isModalOpen && <ProductModal product={currentProduct} onAddToCart={handleAddToCart} onClose={handleCloseModal} />}
       <Footer style={{ width: "100vh" }} />
-    </div>
+    </>
   );
 }
 

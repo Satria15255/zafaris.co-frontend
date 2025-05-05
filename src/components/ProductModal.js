@@ -7,7 +7,7 @@ function ProductModal({ product, onClose, onAddToCart }) {
       <div className="bg-white p-6 rounded-lg w-full h-full md:w-4/5 md:h-auto flex-row md:flex-col overflow-y-auto">
         <Row>
           <div className="flex flex-row md:hidden justify-between">
-            <h2 className="lg:text-3xl md:text-lg pb-4 lg:pb-4 font-bold w-full border-bottom ">{product.text}</h2>
+            <h2 className="lg:text-3xl md:text-lg pb-4 lg:pb-4 font-bold w-full border-bottom ">{product.name}</h2>
             <button onClick={onClose} className="text-gray-500 -mt-6 text-lg hover:text-gray-700 top-0">
               ×
             </button>
@@ -17,7 +17,7 @@ function ProductModal({ product, onClose, onAddToCart }) {
           </Col>
           <Col md={7} className="flex justify-arround flex-col">
             <div className="flex flex-row justify-between hidden md:flex">
-              <h2 className="lg:text-3xl md:text-lg pb-3 lg:pb-4 font-bold w-full border-bottom ">{product.text}</h2>
+              <h2 className="lg:text-3xl md:text-lg pb-3 lg:pb-4 font-bold w-full border-bottom ">{product.name}</h2>
               <button onClick={onClose} className="text-gray-500 -mt-6 text-lg hover:text-gray-700 top-0">
                 ×
               </button>

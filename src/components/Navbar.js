@@ -1,5 +1,6 @@
-import { Nav, NavLink } from "react-bootstrap";
+import { Nav } from "react-bootstrap";
 import { AlignJustify, ShoppingCart } from "lucide-react";
+import { NavLink } from "react-router-dom";
 import React, { useState } from "react";
 import Container from "react-bootstrap/Container";
 import Navbar from "react-bootstrap/Navbar";
@@ -8,18 +9,25 @@ function NavbarSection({ cartCount, onCartClick }) {
   const [open, setOpen] = useState(false);
 
   return (
-    <Navbar className="  z-50 bg-white shadow-sm flex justify-center items-center  left-0 w-full">
+    <Navbar className="fixed top-0  z-50 bg-white shadow-sm flex justify-center items-center  left-0 w-full">
       <Container fluid>
         <Navbar.Brand href="#" className="font-bold font-sans md:flex text-xl md:px-3">
-          {" "}
           Zafaris<span style={{ color: "red" }}>.</span>
         </Navbar.Brand>
         <div className="flex items-center">
           <Nav className="font-bold space-px-5 mx-auto hidden md:flex justify-center">
-            <NavLink>Home</NavLink>
-            <NavLink>On Sale</NavLink>
-            <NavLink>Shoop</NavLink>
-            <NavLink>Blog</NavLink>
+            <Nav.Link as={NavLink} to="/zafaris.co">
+              Home
+            </Nav.Link>
+            <Nav.Link as={NavLink} to="/">
+              On Sale
+            </Nav.Link>
+            <Nav.Link as={NavLink} to="/">
+              Product
+            </Nav.Link>
+            <Nav.Link as={NavLink} to="/">
+              Store
+            </Nav.Link>
           </Nav>
           <button onClick={onCartClick} className="relative btn hover:text-gray-900">
             <ShoppingCart />
@@ -38,12 +46,12 @@ function NavbarSection({ cartCount, onCartClick }) {
           X
         </button>
         <ul className="mt-16 space-y-4 p-6 font-semibold text-lg text-gray-800">
-          <li className="border-b py-2 flex justify-between items-center">
-            <>Home</>
-          </li>
-          <li className="border-b py-2 flex justify-between items-center">
-            <>Shop</>
-          </li>
+          <Nav.Link as={NavLink} to="/zafaris.co">
+            Home
+          </Nav.Link>
+          <Nav.Link as={NavLink} to="/">
+            Product
+          </Nav.Link>
           <li onClick={onCartClick} className="border-b py-2 flex justify-between items-center">
             <>Cart</>
           </li>
