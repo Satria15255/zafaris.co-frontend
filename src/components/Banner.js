@@ -1,5 +1,7 @@
 import React from "react";
 import Slide2 from "../assets/elemen/img/banner 1.2.png";
+import { NavLink } from "react-router-dom";
+import { Nav } from "react-bootstrap";
 
 function Banner() {
   return (
@@ -17,7 +19,9 @@ function Banner() {
         </h2>
         <p className="text-xs md:text-xl text-color-gray-200 mt-4">Find the best shoes for every step you take!</p>
         <div className="flex flex-col md:flex-row gap-2 py-2 mt-4 w-full md:w-50">
-          <button className="border border-black w-2/4 md:w-1/5 py-3 md:py-4 hover:bg-gray-900 hover:text-white text-center bg-gray-400 w transition duration-100">SHOOP</button>
+          <Nav.Link as={NavLink} to="/zafaris.co/products" className="border border-black w-2/4 md:w-1/5 py-3 md:py-4 hover:bg-gray-900 hover:text-white text-center bg-gray-400 w transition duration-100">
+            SHOOP
+          </Nav.Link>
           <button className="border border-black w-2/4 md:w-1/5 py-3 md:py-4 hover:bg-gray-900 hover:text-white text-center transition duration-100">DETAIL</button>
         </div>
       </div>

@@ -2,7 +2,7 @@ import React from "react";
 import ProductCard from "./ProductCard";
 import products from "../data/product";
 
-function ProductList({ onAddToCart, onOpenModal }) {
+function ProductPages({ onAddToCart, onOpenModal }) {
   return (
     <div className="grid grid-cols-1 h-75 py-12 mt-4 sm:grid-cols-4 gap-3">
       {products.map((product) => (
@@ -12,4 +12,4 @@ function ProductList({ onAddToCart, onOpenModal }) {
   );
 }
 
-export default ProductList;
+export default ProductPages;

@@ -1,7 +1,7 @@
 const products = [
   // Basketball
   {
-    id: 1,
+    id: 2,
     category: "basketball",
     image: require("../assets/product/product/basket1.png"),
     name: "Nike Lebron XXI",
@@ -10,7 +10,7 @@ const products = [
     price: 225,
   },
   {
-    id: 2,
+    id: 1,
     category: "basketball",
     image: require("../assets/product/product/basket2.png"),
     name: "Nike Kyrie 5 Low",

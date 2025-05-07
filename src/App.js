@@ -10,7 +10,8 @@ import Bestseller from "./page/Bestseller";
 import Category from "./page/Category";
 import Footer from "./components/Footer";
 import { Route, Routes } from "react-router-dom";
-import ProductPage from "./page/ProductPage";
+import CategoryPages from "./page/CategoryPage";
+import ProductPages from "./components/ProductPages";
 import ScrollToTop from "./components/ScrollToTop";
 
 function App() {
@@ -86,7 +87,9 @@ function App() {
       <ScrollToTop />
       <NavbarSection cartCount={cart.length} onCartClick={() => setIsCartOpen(true)} onClose={handleCloseModal} />
       <Routes>
-        <Route path="zafaris.co/products/:category" element={<ProductPage onAddToCart={handleAddToCart} onOpenModal={handleOpenModal} />} />
+        <Route path="zafaris.co/products/:category" element={<CategoryPages onAddToCart={handleAddToCart} onOpenModal={handleOpenModal} />} />
+        <Route path="/zafaris.co/products" element={<ProductPages onAddToCart={handleAddToCart} onOpenModal={handleOpenModal} />} />
+
         <Route
           path="/zafaris.co"
           element={
@@ -119,8 +122,6 @@ function App() {
                   <main className="flex-1 p-6">
                     <ProductList onAddToCart={handleAddToCart} onOpenModal={handleOpenModal} />
                   </main>
-
-                  {/* Sidebar untuk shopping cart */}
                 </div>
               </div>
               {/* List Product */}
