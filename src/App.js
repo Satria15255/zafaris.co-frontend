@@ -118,7 +118,7 @@ function App() {
                 </div>
               </motion.div>
               <div className="min-h-screen flex justify-content-center gap-4 " style={{ width: "100%" }}>
-                <div className="flex">
+                <div className="flex flex-col">
                   <main className="flex-1 p-6">
                     <ProductList onAddToCart={handleAddToCart} onOpenModal={handleOpenModal} />
                   </main>
