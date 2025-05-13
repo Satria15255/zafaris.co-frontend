@@ -1,7 +1,36 @@
 import React from "react";
+import { useState } from "react";
 import { Col, Row } from "react-bootstrap";
+import { useNavigate } from "react-router-dom";
 
 function ProductModal({ product, onClose, onAddToCart }) {
+  const [selectedSize, setSelectedSize] = useState("");
+  const navigate = useNavigate();
+
+  // Fungsi Checkout product
+  const handleChekoutNow = () => {
+    if (!selectedSize) {
+      alert("Please select a size before adding to cart.");
+      return;
+    } else {
+      onClose();
+    }
+
+    const productWithSize = {
+      ...product,
+      size: selectedSize,
+      quantity: 1,
+    };
+
+    navigate("/zafaris.co/chekout", { state: { chekoutItems: [productWithSize] } });
+  };
+
+  // const closed = () => {
+  //   if (selectedSize) {
+  //     onClose();
+  //   }
+  // };
+
   return (
     <div className="fixed inset-0 flex items-center justify-center z-50 bg-gray-800 bg-opacity-50">
       <div className="bg-white p-6 rounded-lg w-full h-full md:w-4/5 md:h-auto flex-row md:flex-col overflow-y-auto">
@@ -26,18 +55,41 @@ function ProductModal({ product, onClose, onAddToCart }) {
               <span className="lg:text-2xl md:text-sm pb-1 lg:py-4 font-semibold">${product.price.toFixed(2)}</span>
             </div>
             <p className="py-3 text-sm lg:text-lg border-bottom w-full ">{product.description}</p>
+            <select value={selectedSize} onChange={(e) => setSelectedSize(e.target.value)} className="border px-2 py-1 rounded" required>
+              <option value="">Pilih Ukuran</option>
+              <option value="38">38</option>
+              <option value="39">39</option>
+              <option value="40">40</option>
+              <option value="41">41</option>
+              <option value="42">42</option>
+            </select>
             <div className="mt-auto flex flex-col justify-arround hidden xl:flex items-end ">
-              <button onClick={() => onAddToCart(product)} className="mt-3 w-full px-2 py-3 bg-gray-200  hover:text-white rounded-md hover:bg-black transition">
+              <button onClick={() => onAddToCart(product, selectedSize)} className="mt-3 w-full px-2 py-3 bg-gray-200  hover:text-white rounded-md hover:bg-black transition">
                 Add to Cart
               </button>
-              <button className="mt-2 w-full px-2 py-3 bg-gray-200  hover:text-white rounded-md hover:bg-black transition">Chekout</button>
+              <button
+                onClick={() => {
+                  handleChekoutNow();
+                  // closed();
+                }}
+                className="mt-2 w-full px-2 py-3 bg-gray-200  hover:text-white rounded-md hover:bg-black transition"
+              >
+                Chekout
+              </button>
             </div>
           </Col>
           <div className="mt-auto flex flex-col justify-arround xl:hidden items-end ">
-            <button onClick={() => onAddToCart(product)} className="mt-3 w-full px-2 py-3 bg-gray-200  hover:text-white rounded-md hover:bg-black transition">
+            <button onClick={() => onAddToCart(product, selectedSize)} className="mt-3 w-full px-2 py-3 bg-gray-200  hover:text-white rounded-md hover:bg-black transition">
               Add to Cart
             </button>
-            <button className="mt-2 w-full px-2 py-3 bg-gray-200  hover:text-white rounded-md hover:bg-black transition">Chekout</button>
+            <button
+              onClick={() => {
+                handleChekoutNow();
+              }}
+              className="mt-2 w-full px-2 py-3 bg-gray-200  hover:text-white rounded-md hover:bg-black transition"
+            >
+              Chekout
+            </button>
           </div>
         </Row>
       </div>

@@ -10,12 +10,14 @@ import Bestseller from "./page/Bestseller";
 import Category from "./page/Category";
 import Footer from "./components/Footer";
 import { Route, Routes } from "react-router-dom";
+import { useCart } from "./context/CartContext";
 import CategoryPages from "./page/CategoryPage";
 import ProductPages from "./components/ProductPages";
 import ScrollToTop from "./components/ScrollToTop";
+import ChekoutPage from "./page/ChekoutPage";
 
 function App() {
-  const [cart, setCart] = useState([]);
+  const [cart, setCart] = useCart();
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [currentProduct, setCurrentProduct] = useState(null);
   const [isCartOpen, setIsCartOpen] = useState(false);
@@ -41,16 +43,20 @@ function App() {
   }, [isCartOpen]);
 
   // Fungsi untuk menambahkan produk ke dalam cart
-  const handleAddToCart = (product) => {
+  const handleAddToCart = (product, selectedSize) => {
+    if (!selectedSize) {
+      alert("Please select a size before adding to cart.");
+      return;
+    }
     setCart((prevCart) => {
-      const existingItem = prevCart.find((item) => item.id === product.id);
+      const existingItem = prevCart.find((item) => item.id === product.id && item.size === selectedSize);
 
       if (existingItem) {
         // Jika produk sudah ada, tambah quantity
-        return prevCart.map((item) => (item.id === product.id ? { ...item, quantity: (item.quantity || 1) + 1 } : item));
+        return prevCart.map((item) => (item.id === product.id && item.size === selectedSize ? { ...item, quantity: (item.quantity || 1) + 1 } : item));
       } else {
         // Jika produk belum ada, tambahkan ke cart dengan quantity awal = 1
-        return [...prevCart, { ...product, quantity: 1 }];
+        return [...prevCart, { ...product, size: selectedSize, quantity: 1 }];
       }
     });
   };
@@ -89,19 +95,18 @@ function App() {
       <Routes>
         <Route path="zafaris.co/products/:category" element={<CategoryPages onAddToCart={handleAddToCart} onOpenModal={handleOpenModal} />} />
         <Route path="/zafaris.co/products" element={<ProductPages onAddToCart={handleAddToCart} onOpenModal={handleOpenModal} />} />
-
+        <Route path="/zafaris.co/chekout" element={<ChekoutPage cart={cart} onRemoveFromCart={removeFromCart} onQuantityChange={handleQuantityChange} decreaseQuantity={decreaseQuantity} onClose={() => setIsCartOpen(false)} />} />
         <Route
           path="/zafaris.co"
           element={
             <>
-              <Banner style={{ width: "100vh" }} />
-
+              <Banner style={{ width: "100vh" }} onOpenModal={handleOpenModal} />
               <div className="flex flex-col md:flex-row md:gap-4">
                 <div className="flex-col-8">
-                  <Onweek />
+                  <Onweek onOpenModal={handleOpenModal} />
                 </div>
                 <div className="flex-col-4">
-                  <Bestseller />
+                  <Bestseller onOpenModal={handleOpenModal} />
                 </div>
               </div>
               <Category />

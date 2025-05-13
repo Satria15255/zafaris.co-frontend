@@ -11,7 +11,7 @@ function NavbarSection({ cartCount, onCartClick }) {
   return (
     <Navbar className="fixed top-0  z-50 bg-white shadow-sm flex justify-center items-center  left-0 w-full">
       <Container fluid>
-        <Navbar.Brand href="#" className="font-bold font-sans md:flex text-xl md:px-3">
+        <Navbar.Brand as={NavLink} to="/zafaris.co" href="#" className="font-bold font-sans md:flex text-xl md:px-3">
           Zafaris<span style={{ color: "red" }}>.</span>
         </Navbar.Brand>
         <div className="flex items-center">

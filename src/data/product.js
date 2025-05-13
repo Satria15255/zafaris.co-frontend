@@ -79,10 +79,10 @@ const products = [
   {
     id: 9,
     category: "running",
-    image: require("../assets/product/product/running1.png"),
-    name: "Nike Air Zoom Pegasus 40",
+    image: require("../assets/product/product/running5.png"),
+    name: "Nike Lunarcharge Triple Black",
     description:
-      "The Nike Air Zoom Pegasus 40 is a versatile running shoe designed for comfort and speed. It features responsive Zoom Air cushioning, a breathable mesh upper, and a durable rubber outsole for traction. Perfect for daily runs, it offers a smooth and stable ride.",
+      "Nike LunarCharge Triple Black is a futuristic lifestyle sneaker that fuses design elements from iconic Nike models like the Air Max 90 and Air Presto. Dressed in an all-black colorway, it delivers a sleek, minimalist look perfect for everyday wear or street-style outfits. Featuring a Lunarlon midsole, it offers lightweight cushioning and responsive comfort for all-day performance.",
     price: 150,
   },
   {

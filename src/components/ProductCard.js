@@ -1,4 +1,3 @@
-import React from "react";
 import { motion } from "framer-motion";
 import { Eye, ShoppingCart } from "lucide-react";
 
@@ -16,7 +15,7 @@ function ProductCard({ product, onAddToCart, onOpenModal }) {
           <p className="grid justify-content-center items-center text-xl md:text-sm lg:text-xl   font-semibold py-3">{product.name}</p>
           <p className="grid justify-content-center text-xl items-center">${product.price.toFixed(2)}</p>
           <div className="mt-auto flex items-end justify-content-center ">
-            <button onClick={() => onAddToCart(product)} className="flex justify-content-center w-20 py-2 border border-black-500 hover:bg-black hover:text-white transition rounded-l-full">
+            <button onClick={() => onOpenModal(product)} className="flex justify-content-center w-20 py-2 border border-black-500 hover:bg-black hover:text-white transition rounded-l-full">
               <ShoppingCart className=" stroke-current transition-colors" />
             </button>
             <button onClick={() => onOpenModal(product)} className="flex justify-content-center w-20 py-2 border border-black-200 hover:bg-black hover:text-white transition rounded-r-full">

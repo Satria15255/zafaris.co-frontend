@@ -1,6 +1,9 @@
 import React from "react";
+import { useNavigate } from "react-router-dom";
 
 const ShoppingCart = ({ cart, onRemoveFromCart, onQuantityChange, decreaseQuantity, onClose }) => {
+  const navigate = useNavigate();
+
   // Menghitung total harga
   const totalPrice = cart.reduce((acc, item) => {
     const quantity = item.quantity || 1;
@@ -17,7 +20,7 @@ const ShoppingCart = ({ cart, onRemoveFromCart, onQuantityChange, decreaseQuanti
       <h1 className="text-2xl font-semibold mb-6">Your cart</h1>
 
       {/* Tabel Cart */}
-      <div className="w-full  bg-white  p-6 overflow-x-hidden overflow-y-auto max-h-[70vh]">
+      <div className="w-full  bg-white  p-6 overflow-x-hidden overflow-y-auto max-h-[40vh]">
         {cart.length === 0 ? (
           <p className="text-gray-500 text-center">Your cart is empty</p>
         ) : (
@@ -34,12 +37,13 @@ const ShoppingCart = ({ cart, onRemoveFromCart, onQuantityChange, decreaseQuanti
               {cart.map((item) => {
                 const quantity = item.quantity || 0;
                 return (
-                  <tr key={item.id} className="border-b">
+                  <tr key={item.id + item.size} className="border-b">
                     {/* Produk */}
                     <td className="flex items-center py-4">
-                      <img src={item.image} alt={item.name} className="w-16 h-16 object-cover rounded mr-4" />
+                      <img src={item.image} alt={item.name} className="w-20 h-20 object-cover rounded mr-4" />
                       <div>
                         <h2 className="text-lg md:text-xl font-medium">{item.name}</h2>
+                        <p className="text-gray-600">Size: {item.size}</p>
                         <p className="text-gray-600">${item.price.toFixed(2)}</p>
                         <div className="flex items-center md:hidden">
                           <button className="px-2 py-1 border rounded" onClick={() => decreaseQuantity(item.id, quantity - 1)}>
@@ -70,7 +74,9 @@ const ShoppingCart = ({ cart, onRemoveFromCart, onQuantityChange, decreaseQuanti
                     </td>
 
                     {/* Total Harga per Item */}
-                    <td className="text-right text-yellow-500 font-semibold  hidden md:block">${(item.price * quantity).toFixed(2)}</td>
+                    <td>
+                      <div className="flex items-center justify-center text-right text-yellow-500 font-semibold  hidden md:block">${(item.price * quantity).toFixed(2)}</div>
+                    </td>
                   </tr>
                 );
               })}
@@ -93,7 +99,15 @@ const ShoppingCart = ({ cart, onRemoveFromCart, onQuantityChange, decreaseQuanti
             </div>
           </div>
           <h2 className="text-sm py-4">Taxes and shipping calculated at checkout</h2>
-          <button className="flex justify-content-center w-full py-2 border bg-gray-200 border-black  hover:text-white hover:bg-black hover:text-white transition ">Chek Out</button>
+          <button
+            onClick={() => {
+              navigate("/zafaris.co/chekout");
+              onClose();
+            }}
+            className="flex justify-content-center w-full py-2 border bg-gray-200 border-black  hover:text-white hover:bg-black hover:text-white transition "
+          >
+            Chek Out
+          </button>
         </div>
       </div>
     </div>
