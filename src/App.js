@@ -102,10 +102,10 @@ function App() {
             <>
               <Banner style={{ width: "100vh" }} onOpenModal={handleOpenModal} />
               <div className="flex flex-col md:flex-row md:gap-4">
-                <div className="flex-col-8">
+                <div className="flex-col-6 lg:flex-col-8">
                   <Onweek onOpenModal={handleOpenModal} />
                 </div>
-                <div className="flex-col-4">
+                <div className="flex-col-6 lg:flex-col-4">
                   <Bestseller onOpenModal={handleOpenModal} />
                 </div>
               </div>

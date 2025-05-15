@@ -23,11 +23,11 @@ function Category() {
         <div className="grid grid-cols-7 justify-content-center pb-5">
           <p className="grid justify-content-center text-5xl font-bold col-start-4 py-3 border-bottom"> Category </p>
         </div>
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 overflow-hidden">
+        <div className="grid grid-cols-1 md:grid-cols-4 overflow-hidden">
           {categories.map((category, index) => (
-            <div key={index} className="relative h-80 flex items-center justify-center bg-cover bg-center shadow-md" style={{ backgroundImage: `url(${category.image})` }}>
+            <div key={index} className="h-80 flex items-center justify-center bg-cover bg-center shadow-md" style={{ backgroundImage: `url(${category.image})` }}>
               {/* Kotak untuk teks */}
-              <Nav.Link as={NavLink} to={category.url} className="absolute bg-white w-64 lg:w-64 text-center px-6 py-4  hover:scale-105 transition-transform duration-300 shadow-md">
+              <Nav.Link as={NavLink} to={category.url} className="absolute bg-white w-64 md:w-40 lg:w-60 xl:w-64 text-center px-6 py-4  hover:scale-105 transition-transform duration-300 shadow-md">
                 <Link to={category.url}>{category.title}</Link>
                 <p className="text-sm text-gray-600">See Products</p>
               </Nav.Link>

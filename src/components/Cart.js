@@ -11,7 +11,7 @@ const ShoppingCart = ({ cart, onRemoveFromCart, onQuantityChange, decreaseQuanti
   }, 0);
 
   return (
-    <div className="fixed bg-black top-0 right-0 w-full md:w-50  z-50 h-full bg-white flex flex-col items-center p-6">
+    <div className="fixed bg-black top-0 right-0 w-full md:w-50  z-50 h-full bg-white flex flex-col items-center p-3">
       {/* Tombol Close */}
       <button onClick={onClose} className="absolute top-4 left-4 text-2xl font-bold text-gray-600 hover:text-gray-900">
         ×
@@ -42,18 +42,9 @@ const ShoppingCart = ({ cart, onRemoveFromCart, onQuantityChange, decreaseQuanti
                     <td className="flex items-center py-4">
                       <img src={item.image} alt={item.name} className="w-20 h-20 object-cover rounded mr-4" />
                       <div>
-                        <h2 className="text-lg md:text-xl font-medium">{item.name}</h2>
+                        <h2 className="text-lg text-sm md:text-xl font-medium">{item.name}</h2>
                         <p className="text-gray-600">Size: {item.size}</p>
                         <p className="text-gray-600">${item.price.toFixed(2)}</p>
-                        <div className="flex items-center md:hidden">
-                          <button className="px-2 py-1 border rounded" onClick={() => decreaseQuantity(item.id, quantity - 1)}>
-                            -
-                          </button>
-                          <span className="px-4">{quantity}</span>
-                          <button className="px-2 py-1 border rounded" onClick={() => onQuantityChange(item.id, quantity + 1)}>
-                            +
-                          </button>
-                        </div>
                       </div>
                     </td>
 

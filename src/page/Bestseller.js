@@ -10,7 +10,7 @@ const Bestseller = ({ onOpenModal }) => {
       <div className="px-4 py-5">
         <div>
           <div className="border-bottom">
-            <h2 className="text-left text-3xl px-4 py-4 font-bold text-underline">Best Seller</h2>
+            <h2 className="text-left text-2xl lg:text-3xl px-4 py-4 font-bold text-underline">Best Seller</h2>
           </div>
           <div className="border-bottom">
             {bestSeller.map((product) => (

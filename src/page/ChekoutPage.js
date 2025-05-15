@@ -55,22 +55,30 @@ const CheckoutPage = () => {
         <>
           {/* Rincian Cart */}
           <div className="mb-6">
-            <h3 className="text-xl font-semibold mb-2">Product:</h3>
             <ul className="space-y-2">
               {items.map((item) => (
-                <li key={item.id + item.size} className="flex justify-between">
-                  <span>
-                    {`${item.name} (${item.size})`} x {item.quantity}
-                  </span>
-                  <span>$ {(item.price * item.quantity).toFixed(2)}</span>
+                <li key={item.id + item.size} className="flex justify-between items-center border-b py-2">
+                  <div className="flex items-center gap-2">
+                    <img src={item.image} alt={item.name} className="w-10 md:w-1/5 rounded-lg" />
+                    <div className=" justify-between">
+                      <p className="font-bold text-xs md:text-lg">{item.name}</p>
+                      <p className="text-gray-500 text-xs md:text-sm">
+                        {item.size} x {item.quantity}
+                      </p>
+                    </div>
+                  </div>
+                  <span className="text-yellow-500 font-bold text-xs md:text-lg">$ {(item.price * item.quantity).toFixed(2)}</span>
                 </li>
               ))}
             </ul>
-            <div className="mt-4 text-right font-bold">Total: ${total.toFixed(2)}</div>
+            <div className="mt-4 flex justify-between text-right font-bold text-sm md:text-lg">
+              <p>Total:</p>
+              <span className="text-yellow-500"> ${total.toFixed(2)}</span>
+            </div>
           </div>
 
           {/* Form Pembeli */}
-          <form onSubmit={handleSubmit} className="space-y-4">
+          <form onSubmit={handleSubmit} className="space-y-4 text-xs">
             <div>
               <label className="block mb-1 font-medium">Fullname</label>
               <input type="text" name="name" required onChange={handleChange} className="w-full border placeholder:name px-3 py-2 rounded" />
