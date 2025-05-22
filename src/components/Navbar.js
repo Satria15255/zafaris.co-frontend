@@ -22,9 +22,6 @@ function NavbarSection({ cartCount, onCartClick }) {
             <Nav.Link as={NavLink} to="zafaris.co/products">
               Product
             </Nav.Link>
-            <Nav.Link as={NavLink} to="/">
-              Store
-            </Nav.Link>
           </Nav>
           <button onClick={onCartClick} className="relative btn hover:text-gray-900">
             <ShoppingCart />
@@ -46,11 +43,8 @@ function NavbarSection({ cartCount, onCartClick }) {
           <Nav.Link as={NavLink} to="/zafaris.co">
             Home
           </Nav.Link>
-          <Nav.Link as={NavLink} to="/">
+          <Nav.Link as={NavLink} to="zafaris.co/products">
             Product
-          </Nav.Link>
-          <Nav.Link as={NavLink} to="/">
-            Store
           </Nav.Link>
           <li onClick={onCartClick} className="border-b py-2 flex justify-between items-center">
             <>Cart</>
