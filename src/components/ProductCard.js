@@ -1,7 +1,7 @@
 import { motion } from "framer-motion";
 import { Eye, ShoppingCart } from "lucide-react";
 
-function ProductCard({ product, onAddToCart, onOpenModal }) {
+function ProductCard({ product, onOpenModal }) {
   return (
     <motion.div
       initial={{ opacity: 0, y: 50 }} // Awalnya transparan dan turun 50px

@@ -40,13 +40,19 @@ function NavbarSection({ cartCount, onCartClick }) {
           X
         </button>
         <ul className="mt-16 space-y-4 p-6 font-semibold text-lg text-gray-800">
-          <Nav.Link as={NavLink} to="/zafaris.co">
+          <Nav.Link onClick={() => setOpen(false)} as={NavLink} to="/zafaris.co">
             Home
           </Nav.Link>
-          <Nav.Link as={NavLink} to="zafaris.co/products">
+          <Nav.Link onClick={() => setOpen(false)} as={NavLink} to="zafaris.co/products">
             Product
           </Nav.Link>
-          <li onClick={onCartClick} className="border-b py-2 flex justify-between items-center">
+          <li
+            onClick={() => {
+              setOpen(false);
+              onCartClick();
+            }}
+            className="border-b py-2 flex justify-between items-center"
+          >
             <>Cart</>
           </li>
         </ul>
