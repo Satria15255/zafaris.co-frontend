@@ -1,5 +1,4 @@
 import { motion } from "framer-motion";
-import { Eye, ShoppingCart } from "lucide-react";
 
 function ProductCard({ product, onOpenModal }) {
   return (
@@ -9,19 +8,11 @@ function ProductCard({ product, onOpenModal }) {
       transition={{ duration: 1.0 }} // Animasi selama 1 detik
       viewport={{ once: true }}
     >
-      <div className="grid grid-rows-2 max-w-xs bg-white rounded-lg overflow-hidden">
-        <img src={product.image} alt={product.name} className=" w-full h-auto object-cover" />
-        <div className="grid justify-content-center">
-          <p className="grid justify-content-center items-center text-xl md:text-sm lg:text-xl   font-semibold py-3">{product.name}</p>
-          <p className="grid justify-content-center text-xl items-center">${product.price.toFixed(2)}</p>
-          <div className="mt-auto flex items-end justify-content-center ">
-            <button onClick={() => onOpenModal(product)} className="flex justify-content-center w-20 py-2 border border-black-500 hover:bg-black hover:text-white transition rounded-l-full">
-              <ShoppingCart className=" stroke-current transition-colors" />
-            </button>
-            <button onClick={() => onOpenModal(product)} className="flex justify-content-center w-20 py-2 border border-black-200 hover:bg-black hover:text-white transition rounded-r-full">
-              <Eye className="stroke-current transition-colors" />
-            </button>
-          </div>
+      <div onClick={() => onOpenModal(product)} className="grid max-w-xs h-50 backdrop-blur-md hover:shadow-lg transition duration-300 backdrop-blur-md rounded-xl overflow-hidden">
+        <img src={product.image} alt={product.name} className=" w-80 h-80 object-cover rounded-xl rounded-bottom-5 object-center" />
+        <div className="p-3">
+          <p className="text-xl md:text-sm lg:text-lg font-semibold py-1">{product.name}</p>
+          <p className="text-sm text-yellow-500 font-bold">${product.price}.00</p>
         </div>
       </div>
     </motion.div>

@@ -16,24 +16,21 @@ function ProductModal({ product, onClose, onAddToCart }) {
       onClose();
     }
 
-    const productWithSize = {
-      ...product,
+    const selectedItem = {
+      id: product._id,
+      name: product.name,
+      image: product.image,
+      price: product.price,
       size: selectedSize,
       quantity: 1,
     };
 
-    navigate("/zafaris.co/chekout", { state: { chekoutItems: [productWithSize] } });
+    navigate("/zafaris.co/chekout", { state: { chekoutItems: [selectedItem] } });
   };
 
-  // const closed = () => {
-  //   if (selectedSize) {
-  //     onClose();
-  //   }
-  // };
-
   return (
-    <div className="fixed inset-0 flex items-center justify-center z-50 bg-gray-800 bg-opacity-50">
-      <div className="bg-white p-6 rounded-lg w-full h-full md:w-4/5 md:h-auto flex-row md:flex-col overflow-y-auto">
+    <div className="fixed inset-0 backdrop-blur-sm flex items-center justify-center z-50 bg-gray-800 bg-opacity-20">
+      <div className="bg-white p-6 rounded-lg w-full h-full md:w-4/5 md:h-auto flex-row md:flex-col items-center overflow-y-auto">
         <Row>
           <div className="flex flex-row md:hidden justify-between">
             <h2 className="lg:text-3xl md:text-lg pb-4 lg:pb-4 font-bold w-full border-bottom ">{product.name}</h2>
@@ -41,8 +38,8 @@ function ProductModal({ product, onClose, onAddToCart }) {
               ×
             </button>
           </div>
-          <Col md={5} className="flex  items-center md:items-start">
-            <img src={product.image} alt={product.name} className=" md:w-full h-auto object-cover flex justify-center rounded-md mt-2" />
+          <Col md={5} className="flex justify-center items-center md:items-start">
+            <img src={product.image} alt={product.name} className=" md:w-full h-auto object-cover flex justify-center items-center rounded-md mt-2" />
           </Col>
           <Col md={7} className="flex justify-arround flex-col">
             <div className="flex flex-row justify-between hidden md:flex">
@@ -52,16 +49,18 @@ function ProductModal({ product, onClose, onAddToCart }) {
               </button>
             </div>
             <div className="mt-4">
-              <span className="lg:text-2xl md:text-sm pb-1 lg:py-4 font-semibold">${product.price.toFixed(2)}</span>
+              <span className="lg:text-2xl md:text-sm pb-1 lg:py-4 font-semibold">${product.price}.00</span>
             </div>
             <p className="py-3 text-sm lg:text-lg border-bottom w-full ">{product.description}</p>
             <select value={selectedSize} onChange={(e) => setSelectedSize(e.target.value)} className="border px-2 py-1 rounded" required>
               <option value="">Pilih Ukuran</option>
-              <option value="38">38</option>
-              <option value="39">39</option>
-              <option value="40">40</option>
-              <option value="41">41</option>
-              <option value="42">42</option>
+              {product.sizes.map((size) => {
+                return (
+                  <option key={size} value={size}>
+                    {size}
+                  </option>
+                );
+              })}
             </select>
             <div className="mt-auto flex flex-col justify-arround hidden xl:flex items-end ">
               <button onClick={() => onAddToCart(product, selectedSize)} className="mt-3 w-full px-2 py-3 bg-gray-200  hover:text-white rounded-md hover:bg-black transition">

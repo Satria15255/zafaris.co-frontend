@@ -1,21 +1,35 @@
 import { Nav } from "react-bootstrap";
-import { AlignJustify, ShoppingCart } from "lucide-react";
+import { AlignJustify, ShoppingCart, CircleUser } from "lucide-react";
 import { NavLink } from "react-router-dom";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Container from "react-bootstrap/Container";
 import Navbar from "react-bootstrap/Navbar";
 
-function NavbarSection({ cartCount, onCartClick }) {
+function NavbarSection({ cartCount, onCartClick, onToggleSidebar }) {
   const [open, setOpen] = useState(false);
+  const [scrolled, setScrolled] = useState(false);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      const isScrolled = window.scrollY > 50;
+      setScrolled(isScrolled);
+    };
+
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
 
   return (
-    <Navbar className="fixed top-0  z-50 bg-white shadow-sm flex justify-center items-center  left-0 w-full">
+    <Navbar
+      className={`fixed top-0 z-20 px-4 bg-white flex justify-center items-center w-full transition-all duration-500 ease-in-out
+  ${scrolled ? " shadow-md rounded-b-xl " : "bg-white"}`}
+    >
       <Container fluid>
         <Navbar.Brand as={NavLink} to="/zafaris.co" href="#" className="font-bold font-sans md:flex text-xl md:px-3">
           Zafaris<span style={{ color: "red" }}>.</span>
         </Navbar.Brand>
         <div className="flex items-center">
-          <Nav className="font-bold space-px-5 mx-auto hidden md:flex justify-center">
+          <Nav className="font-bold space-px-5  mx-auto hidden md:flex justify-center">
             <Nav.Link as={NavLink} to="/zafaris.co">
               Home
             </Nav.Link>
@@ -26,6 +40,9 @@ function NavbarSection({ cartCount, onCartClick }) {
           <button onClick={onCartClick} className="relative btn hover:text-gray-900">
             <ShoppingCart />
             {cartCount > 0 && <span className="absolute top-2 right-4 bg-red-500 text-white text-xs w-5 h-5 flex items-center justify-center rounded-full">{cartCount}</span>}
+          </button>
+          <button onClick={onToggleSidebar} className="relative btn hover:text-gray-900">
+            <CircleUser />
           </button>
           {/* Hamburger icon */}
           <button onClick={() => setOpen(!open)} className="md:hidden z-50">

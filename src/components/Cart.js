@@ -1,15 +1,69 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import axios from "axios";
 
-const ShoppingCart = ({ cart, onRemoveFromCart, onQuantityChange, decreaseQuantity, onClose }) => {
+const ShoppingCart = ({ onClose }) => {
   const navigate = useNavigate();
+  const [items, setItems] = useState([]);
 
-  // Menghitung total harga
-  const totalPrice = cart.reduce((acc, item) => {
-    const quantity = item.quantity || 1;
-    return acc + item.price * quantity;
+  const fetchCart = async () => {
+    const token = localStorage.getItem("token");
+    try {
+      const res = await axios.get("http://localhost:5000/api/cart", {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+      setItems(res.data.items);
+    } catch (err) {
+      console.error("Failed  to fetch cart", err);
+    }
+  };
+
+  useEffect(() => {
+    fetchCart();
+  }, []);
+
+  const token = localStorage.getItem("token");
+
+  const updateQuantity = async (productId, size, quantity) => {
+    try {
+      await axios.put(
+        "http://localhost:5000/api/cart/update",
+        { productId, size, quantity },
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+      fetchCart();
+    } catch (err) {
+      console.error("Failed to update cart", err);
+    }
+  };
+
+  // Function remove cart
+  const removeCartItem = async (productId, size) => {
+    try {
+      await axios.delete(`http://localhost:5000/api/cart/remove/${productId}/${size}`, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+      console.log("Remove complete");
+      fetchCart();
+    } catch (err) {
+      console.error("Failed remove item", err);
+    }
+  };
+
+  const totalPrice = items.reduce((total, item) => {
+    return total + item.productId.price * item.quantity;
   }, 0);
 
+  console.log(items);
+  // Menghitung total harga
   return (
     <div className="fixed bg-black top-0 right-0 w-full md:w-50  z-50 h-full bg-white flex flex-col items-center p-3">
       {/* Tombol Close */}
@@ -21,7 +75,7 @@ const ShoppingCart = ({ cart, onRemoveFromCart, onQuantityChange, decreaseQuanti
 
       {/* Tabel Cart */}
       <div className="w-full  bg-white  p-6 overflow-x-hidden overflow-y-auto max-h-[40vh]">
-        {cart.length === 0 ? (
+        {items.length === 0 ? (
           <p className="text-gray-500 text-center">Your cart is empty</p>
         ) : (
           <table className="w-full border-collapse">
@@ -34,39 +88,38 @@ const ShoppingCart = ({ cart, onRemoveFromCart, onQuantityChange, decreaseQuanti
             </thead>
 
             <tbody>
-              {cart.map((item) => {
-                const quantity = item.quantity || 0;
+              {items.map((item) => {
                 return (
-                  <tr key={item.id + item.size} className="border-b">
+                  <tr key={`${item.productId._id} - ${item.size}`} className="border-b">
                     {/* Produk */}
                     <td className="flex items-center py-4">
-                      <img src={item.image} alt={item.name} className="w-20 h-20 object-cover rounded mr-4" />
+                      <img src={item.productId.image} alt={item.productId.name} className="w-20 h-20 object-cover rounded mr-4" />
                       <div>
-                        <h2 className="text-lg text-sm md:text-xl font-medium">{item.name}</h2>
+                        <h2 className="text-lg text-sm md:text-xl font-medium">{item.productId.name}</h2>
                         <p className="text-gray-600">Size: {item.size}</p>
-                        <p className="text-gray-600">${item.price.toFixed(2)}</p>
+                        <p className="text-gray-600">${item.productId.price}</p>
                       </div>
                     </td>
 
                     {/* Quantity */}
                     <td className="text-center hidden md:table-cell">
                       <div className="flex items-center justify-center">
-                        <button className="px-2 py-1 border rounded" onClick={() => decreaseQuantity(item.id, quantity - 1)}>
+                        <button className="px-2 py-1 border rounded" onClick={() => updateQuantity(item.productId._id, item.size, item.quantity - 1)}>
                           -
                         </button>
-                        <span className="px-4">{quantity}</span>
-                        <button className="px-2 py-1 border rounded" onClick={() => onQuantityChange(item.id, quantity + 1)}>
+                        <span className="px-4">{item.quantity}</span>
+                        <button className="px-2 py-1 border rounded" onClick={() => updateQuantity(item.productId._id, item.size, item.quantity + 1)}>
                           +
                         </button>
                       </div>
-                      <button onClick={() => onRemoveFromCart(item.id)} className="text-sm text-gray-500 hover:text-red-500 mt-1">
+                      <button onClick={() => removeCartItem(item.productId._id, item.size)} className="text-sm text-gray-500 hover:text-red-500 mt-1">
                         Remove
                       </button>
                     </td>
 
                     {/* Total Harga per Item */}
                     <td>
-                      <div className="flex items-center justify-center text-right text-yellow-500 font-semibold  hidden md:block">${(item.price * quantity).toFixed(2)}</div>
+                      <div className="flex items-center justify-center text-right text-yellow-500 font-semibold  hidden md:block">${item.productId.price * item.quantity}</div>
                     </td>
                   </tr>
                 );
@@ -82,7 +135,7 @@ const ShoppingCart = ({ cart, onRemoveFromCart, onQuantityChange, decreaseQuanti
           <div className=" grid grid-cols-2 ">
             <h2 className="text-xl font-bold text-left">Sub Total</h2>
             <div className="text-right">
-              {cart.length > 0 && (
+              {items.length > 0 && (
                 <h2 className="text-xl font-semibold text-right">
                   <span className="text-yellow-500">${totalPrice.toFixed(2)}</span>
                 </h2>
@@ -92,7 +145,18 @@ const ShoppingCart = ({ cart, onRemoveFromCart, onQuantityChange, decreaseQuanti
           <h2 className="text-sm py-4">Taxes and shipping calculated at checkout</h2>
           <button
             onClick={() => {
-              navigate("/zafaris.co/chekout");
+              navigate("/zafaris.co/chekout", {
+                state: {
+                  chekoutItems: items.map((item) => ({
+                    id: item.productId._id,
+                    name: item.productId.name,
+                    price: item.productId.price,
+                    image: item.productId.image,
+                    size: item.size,
+                    quantity: item.quantity,
+                  })),
+                },
+              });
               onClose();
             }}
             className="flex justify-content-center w-full py-2 border bg-gray-200 border-black  hover:text-white hover:bg-black hover:text-white transition "

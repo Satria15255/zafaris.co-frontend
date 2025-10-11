@@ -1,23 +1,47 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import ProductCard from "./ProductCard";
-import products from "../data/product";
-import { NavLink } from "react-router-dom";
-import { Nav } from "react-bootstrap";
+import axios from "axios";
 
-function ProductList({ onAddToCart, onOpenModal }) {
-  const filteredProducts = products.filter((product) => product.id % 4 === 0);
+function ProductList({ onOpenModal }) {
+  const [products, setProducts] = useState([]);
+
+  const fetchProducts = async () => {
+    try {
+      const res = await axios.get("http://localhost:5000/api/products/latest");
+      setProducts(res.data);
+    } catch (err) {
+      console.err("Failed to fetch products:", err);
+    }
+  };
+
+  useEffect(() => {
+    fetchProducts();
+  }, []);
+
+  const addToCart = async (productId) => {
+    const token = localStorage.getItem("token");
+    try {
+      const res = await axios.post(
+        "http://localhost:5000/api/cart/add",
+        { productId, quantity: 1 },
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+      console.log("Product add to cart", res.data);
+    } catch (err) {
+      console.log("Failed add product", err);
+    }
+  };
 
   return (
     <div>
-      <div className="grid grid-cols-1 h-45 py-12 mt-4 mb-6 sm:grid-cols-4 gap-3 place-items-center">
-        {filteredProducts.map((product) => (
-          <ProductCard key={product.id} product={product} onAddToCart={onAddToCart} onOpenModal={onOpenModal} />
+      <div className="grid grid-cols-1 h-45 mt-12 px-8 sm:grid-cols-4 gap-3 place-items-center">
+        {products.map((products) => (
+          <ProductCard key={products.id} product={products} addToCart={() => addToCart(products._id)} onOpenModal={onOpenModal} />
         ))}
-      </div>
-      <div>
-        <Nav.Link as={NavLink} to="/zafaris.co/products" className="flex justify-center mb-4 hover:underline hover:text-gray-900 text-gray-500 font-semibold text-lg">
-          View More Products
-        </Nav.Link>
       </div>
     </div>
   );

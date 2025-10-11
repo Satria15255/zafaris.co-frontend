@@ -1,16 +1,29 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { motion } from "framer-motion";
-import { Link } from "react-router-dom";
 import { Nav } from "react-bootstrap"; // Import Nav from react-bootstrap
 import { NavLink } from "react-router-dom"; // Import NavLink from react-router-dom
+import axios from "axios";
+import ProductCard from "../components/ProductCard";
 
-function Category() {
-  const categories = [
-    { title: "BASKETBALL", products: 8, image: require("../assets/product/img/basketball.png"), url: "./products/basketball" },
-    { title: "SNEAKERS", products: 10, image: require("../assets/product/img/sneakers.png"), url: "./products/sneakers" },
-    { title: "RUNNING", products: 9, image: require("../assets/product/img/running.png"), url: "./products/running" },
-    { title: "CASUAL", products: 9, image: require("../assets/product/img/cat1.png"), url: "./products/casual" },
-  ];
+function Category({ onOpenModal }) {
+  const [products, setProducts] = useState([]);
+  const [activeCategory, setActiveCategory] = useState("Basketball");
+  const categories = ["Basketball", "Sneakers", "Running", "Casual"];
+
+  const fetchProducts = async () => {
+    try {
+      const res = await axios.get("http://localhost:5000/api/products");
+      setProducts(res.data);
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
+  useEffect(() => {
+    fetchProducts();
+  }, []);
+
+  const filteredProducts = products.filter((products) => products.category === activeCategory).slice(0, 4);
 
   return (
     <motion.div
@@ -20,19 +33,29 @@ function Category() {
       viewport={{ once: true }}
     >
       <div>
-        <div className="grid grid-cols-7 justify-content-center pb-5">
-          <p className="grid justify-content-center text-5xl font-bold col-start-4 py-3 border-bottom"> Category </p>
-        </div>
-        <div className="grid grid-cols-1 md:grid-cols-4 overflow-hidden">
-          {categories.map((category, index) => (
-            <div key={index} className="h-80 flex items-center justify-center bg-cover bg-center shadow-md" style={{ backgroundImage: `url(${category.image})` }}>
-              {/* Kotak untuk teks */}
-              <Nav.Link as={NavLink} to={category.url} className="absolute bg-white w-64 md:w-40 lg:w-60 xl:w-64 text-center px-6 py-4  hover:scale-105 transition-transform duration-300 shadow-md">
-                <Link to={category.url}>{category.title}</Link>
-                <p className="text-sm text-gray-600">See Products</p>
-              </Nav.Link>
-            </div>
-          ))}
+        <div className="p-8">
+          <div className="border-b px-4 py-2 ">
+            {categories.map((cat) => (
+              <button
+                key={cat}
+                onClick={() => setActiveCategory(cat)}
+                className={`pt-2 transition font-bold px-2
+        ${activeCategory === cat ? "text-yellow-500" : "hover:text-yellow-500"}`}
+              >
+                {cat}
+              </button>
+            ))}
+          </div>
+          <div className="grid px-4 py-2 grid-cols-1 h-45 px-8 sm:grid-cols-4 gap-3 place-items-center">
+            {filteredProducts.map((product) => (
+              <ProductCard product={product} onOpenModal={onOpenModal} />
+            ))}
+          </div>
+          <div>
+            <Nav.Link as={NavLink} to="/zafaris.co/products" className="flex py-4 justify-center mb-4 hover:underline hover:text-gray-900 text-gray-500 font-semibold text-lg">
+              View More Products
+            </Nav.Link>
+          </div>
         </div>
       </div>
     </motion.div>

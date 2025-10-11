@@ -1,21 +1,25 @@
 import React, { useState } from "react";
 import { useCart } from "../context/CartContext";
 import { useLocation } from "react-router-dom";
+import axios from "axios";
+import { useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
 
 const CheckoutPage = () => {
   const [cart, setCart] = useCart();
   const location = useLocation();
-
   const chekoutItems = location.state?.chekoutItems || cart;
-
-  const items = chekoutItems ?? cart;
+  const items = chekoutItems && chekoutItems.length > 0 ? chekoutItems : cart;
+  const navigate = useNavigate();
 
   // State untuk form data
   const [formData, setFormData] = useState({
     name: "",
     address: "",
     phone: "",
+    message: "",
     paymentMethod: "cod",
+    shippingMethod: "JNT",
   });
 
   // Total harga
@@ -27,27 +31,57 @@ const CheckoutPage = () => {
   };
 
   // Submit order
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
+    try {
+      const formatedProducts = [];
+      for (const item of items) {
+        for (let i = 0; i < item.quantity; i++) {
+          formatedProducts.push({
+            product: item.id,
+            size: item.size,
+          });
+        }
+      }
 
-    const order = {
-      customer: formData,
-      items: cart,
-      total,
-    };
+      const body = {
+        products: formatedProducts,
+        message: formData.message,
+        shippingMethod: formData.shippingMethod,
+        paymentMethod: formData.paymentMethod,
+        shippingAddress: formData.address,
+        voucherCode: "",
+        status: "pending_confirmation",
+      };
 
-    // Simulasi kirim order (bisa nanti diganti ke fetch/axios POST)
-    console.log("Order berhasil dibuat:", order);
+      const token = localStorage.getItem("token");
 
-    // Kosongkan cart
-    setCart([]);
+      console.log(items);
+      console.log(formatedProducts);
+      await axios.post("http://localhost:5000/api/transactions", body, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
 
-    alert("Order placed successfully!");
+      await axios.delete("http://localhost:5000/api/cart/clear", {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+
+      toast.success("Transaction success");
+      navigate("/zafaris.co/success-order");
+      setCart([]);
+    } catch (error) {
+      console.error("Failed to submit order:", error);
+      alert("Transaction failed");
+    }
   };
 
   return (
     <div className=" mx-auto p-6">
-      <h2 className="text-3xl font-bold mb-4">Checkout</h2>
+      <h2 className="text-3xl font-bold mb-4">Checkout Paes</h2>
 
       {items.length === 0 ? (
         <p>No Product</p>
@@ -90,11 +124,25 @@ const CheckoutPage = () => {
             </div>
 
             <div>
-              <label className="block mb-1 font-medium">Phone</label>
+              <label className="block mb-1 font-medium">message</label>
+              <input name="message" value={formData.message} required onChange={handleChange} className="w-full border px-3 py-2 rounded" />
+            </div>
+
+            <div>
+              <label className="block mb-1 font-medium">phone</label>
               <input type="tel" name="phone" required onChange={handleChange} className="w-full border px-3 py-2 rounded" />
             </div>
 
             {/* Metode Pembayaran */}
+            <div>
+              <label className="block mb-1 font-medium">Shipping Methode</label>
+              <select name="shippingMethod" value={formData.shippingMethod} onChange={handleChange} className="w-full border px-3 py-2 rounded">
+                <option value="JNT">JNT</option>
+                <option value="JNE">JNE </option>
+                <option value="TIKI">TIKI</option>
+              </select>
+            </div>
+
             <div>
               <label className="block mb-1 font-medium">Payment Methode</label>
               <select name="paymentMethod" value={formData.paymentMethod} onChange={handleChange} className="w-full border px-3 py-2 rounded">

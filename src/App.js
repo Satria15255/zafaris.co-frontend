@@ -1,27 +1,78 @@
 import React, { useState, useEffect, useRef } from "react";
+import { Route, Routes } from "react-router-dom";
+import { useCart } from "./context/CartContext";
 import { motion } from "framer-motion";
+import { jwtDecode } from "jwt-decode";
+import { toast } from "react-toastify";
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+
+import axios from "axios";
+
+import MainLayout from "./Layouts/MainLayout";
+import AdminLayout from "./Layouts/AdminLayout";
+import AdminRoute from "./components/AdminRoute";
+import AdminLoginPage from "./page/AdminLoginPage";
+import Transaction from "./Admin/pages/Transaction";
+import AdminUserList from "./Admin/pages/AdminUserList";
+import Login from "./page/Login";
+import Register from "./page/Register";
+import Sidebar from "./components/Sidebar";
+import OrderPages from "./page/OrderPages";
+import AdminDashboard from "./Admin/pages/Dashboard";
+import Product from "./Admin/pages/Product";
 import ProductList from "./components/ProductList";
-import Sidebar from "./components/Cart";
+import ShoppingCart from "./components/Cart";
 import ProductModal from "./components/ProductModal";
-import NavbarSection from "./components/Navbar";
 import Banner from "./components/Banner";
 import Onweek from "./page/Onweek";
 import Bestseller from "./page/Bestseller";
 import Category from "./page/Category";
-import Footer from "./components/Footer";
-import { Route, Routes } from "react-router-dom";
-import { useCart } from "./context/CartContext";
 import CategoryPages from "./page/CategoryPage";
 import ProductPages from "./components/ProductPages";
 import ScrollToTop from "./components/ScrollToTop";
 import ChekoutPage from "./page/ChekoutPage";
+import OnSale from "./page/OnSale";
+import SuccesPage from "./page/SuccesTransaction";
 
 function App() {
   const [cart, setCart] = useCart();
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [currentProduct, setCurrentProduct] = useState(null);
   const [isCartOpen, setIsCartOpen] = useState(false);
+  const [isSidebarOpen, setIsSidebarOpen] = useState(false);
+  const [user, setUser] = useState(null);
   const cartRef = useRef(null);
+
+  const clearExpiredSession = () => {
+    const token = localStorage.getItem("token");
+
+    if (!token) return;
+
+    try {
+      const decoded = jwtDecode(token);
+      const now = Date.now() / 1000;
+
+      if (decoded.exp < now) {
+        localStorage.removeItem("token");
+        localStorage.removeItem("user");
+        console.log("Session expired, user logged out.");
+      }
+    } catch (err) {
+      localStorage.removeItem("token");
+      localStorage.removeItem("user");
+      console.log("Invalid token, user logged out");
+    }
+  };
+
+  useEffect(() => {
+    clearExpiredSession();
+  });
+
+  useEffect(() => {
+    const storedUser = localStorage.getItem("user");
+    if (storedUser) setUser(JSON.parse(storedUser));
+  }, []);
 
   // tutup otomatis
   useEffect(() => {
@@ -43,23 +94,35 @@ function App() {
   }, [isCartOpen]);
 
   // Fungsi untuk menambahkan produk ke dalam cart
-  const handleAddToCart = (product, selectedSize) => {
-    if (!selectedSize) {
-      alert("Please select a size before adding to cart.");
+  const handleAddToCart = async (product, selectedSize) => {
+    const token = localStorage.getItem("token");
+    if (!token) {
+      toast.warning("please login before this");
       return;
     }
-    setCart((prevCart) => {
-      const existingItem = prevCart.find((item) => item.id === product.id && item.size === selectedSize);
 
-      if (existingItem) {
-        // Jika produk sudah ada, tambah quantity
-        return prevCart.map((item) => (item.id === product.id && item.size === selectedSize ? { ...item, quantity: (item.quantity || 1) + 1 } : item));
-      } else {
-        // Jika produk belum ada, tambahkan ke cart dengan quantity awal = 1
-        return [...prevCart, { ...product, size: selectedSize, quantity: 1 }];
-      }
-    });
+    if (!selectedSize) {
+      toast.info("Please select a size before adding to cart.");
+      return;
+    }
+    try {
+      const res = await axios.post(
+        "http://localhost:5000/api/cart/add",
+        { productId: product._id, quantity: 1, size: selectedSize },
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+      console.log("Product add to cart", res.data);
+      toast.success("Product add to cart");
+    } catch (err) {
+      console.log("Failed add product", err);
+    }
   };
+
+  // Function update cart
 
   // Fungsi untuk membuka modal produk
   const handleOpenModal = (product) => {
@@ -89,74 +152,110 @@ function App() {
   };
 
   return (
-    <>
-      <ScrollToTop />
-      <NavbarSection cartCount={cart.length} onCartClick={() => setIsCartOpen(true)} onClose={handleCloseModal} />
-      <Routes>
-        <Route path="zafaris.co/products/:category" element={<CategoryPages onAddToCart={handleAddToCart} onOpenModal={handleOpenModal} />} />
-        <Route path="/zafaris.co/products" element={<ProductPages onAddToCart={handleAddToCart} onOpenModal={handleOpenModal} />} />
-        <Route path="/zafaris.co/chekout" element={<ChekoutPage cart={cart} onRemoveFromCart={removeFromCart} onQuantityChange={handleQuantityChange} decreaseQuantity={decreaseQuantity} onClose={() => setIsCartOpen(false)} />} />
-        <Route
-          path="/zafaris.co"
-          element={
-            <>
-              <Banner style={{ width: "100vh" }} onOpenModal={handleOpenModal} />
-              <div className="flex flex-col md:flex-row md:gap-4">
-                <div className="flex-col-6 lg:flex-col-8">
-                  <Onweek onOpenModal={handleOpenModal} />
-                </div>
-                <div className="flex-col-6 lg:flex-col-4">
-                  <Bestseller onOpenModal={handleOpenModal} />
-                </div>
-              </div>
-              <Category />
+    <div>
+      <div className="relative min-h-screen overflow-hidden">
+        <div className="relative  z-20">
+          <ScrollToTop />
 
-              {/* List Product */}
-              <motion.div
-                initial={{ opacity: 0, y: 50 }} // Awalnya transparan dan turun 50px
-                whileInView={{ opacity: 1, y: 0 }} // Saat muncul, fade-in & naik ke atas
-                transition={{ duration: 1.0 }} // Animasi selama 0.6 detik
-                viewport={{ once: true }}
-              >
-                <div class="flex flex-col justify-center items-center h-40   ">
-                  <p class="text-lg  md:text-5xl font-bold text-dark">Feature Products</p>
+          <Routes>
+            <Route element={<MainLayout onToggleSidebar={() => setIsSidebarOpen(!isSidebarOpen)} cartCount={cart.length} onCartClick={() => setIsCartOpen(true)} onClose={handleCloseModal} />}>
+              <Route
+                path="/zafaris.co"
+                element={
+                  <div>
+                    <Banner style={{ width: "100vh" }} onOpenModal={handleOpenModal} />
+                    <div className="">
+                      <motion.div
+                        initial={{ opacity: 0, y: 50 }} // Awalnya transparan dan turun 50px
+                        whileInView={{ opacity: 1, y: 0 }} // Saat muncul, fade-in & naik ke atas
+                        transition={{ duration: 1.0 }} // Animasi selama 0.6 detik
+                        viewport={{ once: true }}
+                      >
+                        <p class="text-lg  md:text-2xl font-bold text-center mt-4">
+                          Latest <span className="text-yellow-500">Arrival</span>
+                        </p>
+                      </motion.div>
+                      <div className=" flex justify-content-center gap-4 " style={{ width: "100%" }}>
+                        <main className="flex-1 px-6">
+                          <ProductList onAddToCart={handleAddToCart} onOpenModal={handleOpenModal} />
+                        </main>
+                      </div>
+                    </div>
+                    <Bestseller onOpenModal={handleOpenModal} />
+                    <Onweek onOpenModal={handleOpenModal} />
+                    <Category onOpenModal={handleOpenModal} />
+                  </div>
+                }
+              />
+              <Route path="zafaris.co/login" element={<Login setUser={setUser} />} />
+              <Route path="zafaris.co/register" element={<Register />} />
+              <Route path="zafaris.co/products/category/:categoryName" element={<CategoryPages onAddToCart={handleAddToCart} onOpenModal={handleOpenModal} />} />
+              <Route path="/zafaris.co/products" element={<ProductPages onAddToCart={handleAddToCart} onOpenModal={handleOpenModal} />} />
+              <Route path="/zafaris.co/chekout" element={<ChekoutPage cart={cart} onRemoveFromCart={removeFromCart} onQuantityChange={handleQuantityChange} decreaseQuantity={decreaseQuantity} onClose={() => setIsCartOpen(false)} />} />
+              <Route path="/zafaris.co/orders" element={<OrderPages />} />
+              <Route path="/zafaris.co/success-order" element={<SuccesPage />} />
+            </Route>
+
+            <Route path="/zafaris.co/admin-login" element={<AdminLoginPage />} />
+
+            <Route
+              path="/zafaris.co/admin"
+              element={
+                <AdminRoute>
+                  <AdminLayout />
+                </AdminRoute>
+              }
+            >
+              <Route index element={<AdminDashboard />} />
+              <Route path="/zafaris.co/admin/product" element={<Product />} />
+              <Route path="/zafaris.co/admin/transaction" element={<Transaction />} />
+              <Route path="/zafaris.co/admin/user" element={<AdminUserList />} />
+            </Route>
+          </Routes>
+
+          {isSidebarOpen && (
+            <>
+              <div className="fixed inset-0 z-40" onClick={() => setIsSidebarOpen(false)} />
+
+              <motion.div initial={{ x: "0%" }} animate={{ x: 0 }} exit={{ x: "100%" }} transition={{ type: "spring", stiffness: 500, damping: 40 }}>
+                <Sidebar
+                  user={user}
+                  closeSidebar={() => setIsSidebarOpen(false)}
+                  onLogout={() => {
+                    localStorage.clear();
+                    setUser(null);
+                    setIsSidebarOpen(false);
+                  }}
+                />
+              </motion.div>
+            </>
+          )}
+
+          {isCartOpen && (
+            <>
+              {/* Overlay dengan efek fade-in */}
+              <motion.div initial={{ opacity: 0 }} animate={{ opacity: 0.5 }} exit={{ opacity: 0 }} transition={{ duration: 0.3 }} className="fixed inset-0 bg-black z-40" onClick={() => setIsCartOpen(false)} />
+              {/* Shopping Cart dengan animasi slide-in */}
+              <motion.div initial={{ x: "100%" }} animate={{ x: 0 }} exit={{ x: "100%" }} transition={{ type: "spring", stiffness: 1200, damping: 100 }} className="fixed right-0 top-0 h-full w-full bg-white z-50 shadow-lg">
+                {/* bg gelap */}
+                <div ref={cartRef}>
+                  <ShoppingCart
+                    cart={cart}
+                    onRemoveFromCart={removeFromCart}
+                    onQuantityChange={handleQuantityChange}
+                    decreaseQuantity={decreaseQuantity}
+                    onClose={() => setIsCartOpen(false)} // Menutup sidebar
+                  />
                 </div>
               </motion.div>
-              <div className="min-h-screen flex justify-content-center gap-4 " style={{ width: "100%" }}>
-                <div className="flex flex-col">
-                  <main className="flex-1 p-6">
-                    <ProductList onAddToCart={handleAddToCart} onOpenModal={handleOpenModal} />
-                  </main>
-                </div>
-              </div>
-              {/* List Product */}
             </>
-          }
-        />
-      </Routes>
-      {isCartOpen && (
-        <>
-          {/* Overlay dengan efek fade-in */}
-          <motion.div initial={{ opacity: 0 }} animate={{ opacity: 0.5 }} exit={{ opacity: 0 }} transition={{ duration: 0.3 }} className="fixed inset-0 bg-black z-40" onClick={() => setIsCartOpen(false)}></motion.div>
-          {/* Shopping Cart dengan animasi slide-in */}
-          <motion.div initial={{ x: "100%" }} animate={{ x: 0 }} exit={{ x: "100%" }} transition={{ type: "spring", stiffness: 1200, damping: 50 }} className="fixed right-0 top-0 h-full w-50 bg-white z-50 shadow-lg"></motion.div>
-          {/* bg gelap */}
-          <div className="fixed inset-0 bg-black bg-opacity-50 z-40" onClick={() => setIsCartOpen(false)}></div>
-          <div ref={cartRef}>
-            <Sidebar
-              cart={cart}
-              onRemoveFromCart={removeFromCart}
-              onQuantityChange={handleQuantityChange}
-              decreaseQuantity={decreaseQuantity}
-              onClose={() => setIsCartOpen(false)} // Menutup sidebar
-            />
-          </div>
-        </>
-      )}
+          )}
 
-      {isModalOpen && <ProductModal product={currentProduct} onAddToCart={handleAddToCart} onClose={handleCloseModal} />}
-      <Footer style={{ width: "100vh" }} />
-    </>
+          {isModalOpen && <ProductModal product={currentProduct} onAddToCart={handleAddToCart} onClose={handleCloseModal} />}
+        </div>
+      </div>
+      <ToastContainer position="top-center" autoClose={3000} />
+    </div>
   );
 }
 
