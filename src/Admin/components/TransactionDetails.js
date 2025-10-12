@@ -17,7 +17,7 @@ const TransactionDetails = ({ order, onClose, onStatusChange }) => {
             items.map((item, index) => (
               <div key={index} className="w-full flex items-center  justify-between">
                 <div className="flex py-1 items-center ">
-                  <img src={item.product?.image} alt={"Product Image"} className="inline-block w-20 h-20 mr-2" />
+                  <img src={item.product?.image} alt={"Product"} className="inline-block w-20 h-20 mr-2" />
                   <div className="flex flex-col ">
                     <p className="font-bold text-md">{item.product?.name}</p>
                     <div className="text-xs flex gap-2">

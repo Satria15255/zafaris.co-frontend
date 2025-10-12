@@ -32,7 +32,6 @@ import CategoryPages from "./page/CategoryPage";
 import ProductPages from "./components/ProductPages";
 import ScrollToTop from "./components/ScrollToTop";
 import ChekoutPage from "./page/ChekoutPage";
-import OnSale from "./page/OnSale";
 import SuccesPage from "./page/SuccesTransaction";
 
 function App() {

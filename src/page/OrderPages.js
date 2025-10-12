@@ -24,7 +24,7 @@ const OrderPages = () => {
   const handleConfirmReceived = async (orderId) => {
     try {
       const token = localStorage.getItem("token");
-      const res = await axios.patch(
+      await axios.patch(
         `http://localhost:5000/api/transactions/${orderId}/confirm`,
         {},
         {
@@ -44,7 +44,7 @@ const OrderPages = () => {
   const handleCancel = async (id) => {
     try {
       const token = localStorage.getItem("token");
-      const res = await axios.put(
+      await axios.put(
         `http://localhost:5000/api/transactions/cancel/${id}`,
         {},
         {
