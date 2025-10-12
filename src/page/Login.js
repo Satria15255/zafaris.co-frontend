@@ -17,7 +17,7 @@ const Login = ({ setUser }) => {
       localStorage.setItem("user", JSON.stringify(res.data.user));
       setUser(res.data.user);
       toast.success("Login success");
-      navigate("/zafaris.co");
+      navigate("/");
     } catch (err) {
       alert(err.response?.data?.message || "Login Failed");
     }

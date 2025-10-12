@@ -159,7 +159,7 @@ function App() {
           <Routes>
             <Route element={<MainLayout onToggleSidebar={() => setIsSidebarOpen(!isSidebarOpen)} cartCount={cart.length} onCartClick={() => setIsCartOpen(true)} onClose={handleCloseModal} />}>
               <Route
-                path="/zafaris.co"
+                path="/"
                 element={
                   <div>
                     <Banner style={{ width: "100vh" }} onOpenModal={handleOpenModal} />
@@ -186,19 +186,19 @@ function App() {
                   </div>
                 }
               />
-              <Route path="zafaris.co/login" element={<Login setUser={setUser} />} />
-              <Route path="zafaris.co/register" element={<Register />} />
-              <Route path="zafaris.co/products/category/:categoryName" element={<CategoryPages onAddToCart={handleAddToCart} onOpenModal={handleOpenModal} />} />
-              <Route path="/zafaris.co/products" element={<ProductPages onAddToCart={handleAddToCart} onOpenModal={handleOpenModal} />} />
-              <Route path="/zafaris.co/chekout" element={<ChekoutPage cart={cart} onRemoveFromCart={removeFromCart} onQuantityChange={handleQuantityChange} decreaseQuantity={decreaseQuantity} onClose={() => setIsCartOpen(false)} />} />
-              <Route path="/zafaris.co/orders" element={<OrderPages />} />
-              <Route path="/zafaris.co/success-order" element={<SuccesPage />} />
+              <Route path="/login" element={<Login setUser={setUser} />} />
+              <Route path="/register" element={<Register />} />
+              <Route path="/products/category/:categoryName" element={<CategoryPages onAddToCart={handleAddToCart} onOpenModal={handleOpenModal} />} />
+              <Route path="/products" element={<ProductPages onAddToCart={handleAddToCart} onOpenModal={handleOpenModal} />} />
+              <Route path="/chekout" element={<ChekoutPage cart={cart} onRemoveFromCart={removeFromCart} onQuantityChange={handleQuantityChange} decreaseQuantity={decreaseQuantity} onClose={() => setIsCartOpen(false)} />} />
+              <Route path="/orders" element={<OrderPages />} />
+              <Route path="/success-order" element={<SuccesPage />} />
             </Route>
 
-            <Route path="/zafaris.co/admin-login" element={<AdminLoginPage />} />
+            <Route path="/admin-login" element={<AdminLoginPage />} />
 
             <Route
-              path="/zafaris.co/admin"
+              path="/admin"
               element={
                 <AdminRoute>
                   <AdminLayout />
@@ -206,9 +206,9 @@ function App() {
               }
             >
               <Route index element={<AdminDashboard />} />
-              <Route path="/zafaris.co/admin/product" element={<Product />} />
-              <Route path="/zafaris.co/admin/transaction" element={<Transaction />} />
-              <Route path="/zafaris.co/admin/user" element={<AdminUserList />} />
+              <Route path="/admin/product" element={<Product />} />
+              <Route path="/admin/transaction" element={<Transaction />} />
+              <Route path="/admin/user" element={<AdminUserList />} />
             </Route>
           </Routes>
 

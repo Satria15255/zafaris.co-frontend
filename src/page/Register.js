@@ -15,7 +15,7 @@ const Register = () => {
       await axios.post("http://localhost:5000/api/auth/register", { name, email, password });
 
       toast.success("Register success, please Login");
-      navigate("zafaris.co/login");
+      navigate("/login");
     } catch (err) {
       alert(err.response?.data?.message || "Register Failed");
     }

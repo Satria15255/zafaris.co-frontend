@@ -14,15 +14,15 @@ const Sidebar = () => {
           <FaTachometerAlt />
           Dashboard
         </h1>
-        <NavLink as={NavLink} to="/zafaris.co/admin/product" label="Produk" className="pb-2 flex items-center gap-2 border-b border-gray-700">
+        <NavLink as={NavLink} to="/admin/product" label="Produk" className="pb-2 flex items-center gap-2 border-b border-gray-700">
           <FaBoxes />
           Produk
         </NavLink>
-        <NavLink as={NavLink} to="/zafaris.co/admin/transaction" label="transaksi" className="pb-2 flex items-center gap-2 border-b border-gray-700">
+        <NavLink as={NavLink} to="/admin/transaction" label="transaksi" className="pb-2 flex items-center gap-2 border-b border-gray-700">
           <FaClipboardList />
           Transaksi
         </NavLink>
-        <NavLink as={NavLink} to="/zafaris.co/admin/user" label="Pelanggan" className="pb-2 flex items-center gap-2 border-b border-gray-700">
+        <NavLink as={NavLink} to="/admin/user" label="Pelanggan" className="pb-2 flex items-center gap-2 border-b border-gray-700">
           <FaCreditCard />
           Users
         </NavLink>
@@ -30,7 +30,7 @@ const Sidebar = () => {
 
       {/* Logout (tetap di bawah) */}
       <div className="p-4 border-t border-gray-700">
-        <NavLink as={NavLink} to="/zafaris.co" label="Logout" className="font-bold flex items-center gap-2">
+        <NavLink as={NavLink} to="/" label="Logout" className="font-bold flex items-center gap-2">
           <FaSignOutAlt />
           Log Out
         </NavLink>

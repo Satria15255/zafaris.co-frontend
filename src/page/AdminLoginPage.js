@@ -22,7 +22,7 @@ const AdminLoginPage = () => {
         localStorage.setItem("token", token);
         localStorage.setItem("user", JSON.stringify({ email: user.email || email, role: user.role, token }));
         toast.success("Login successful");
-        navigate("/zafaris.co/admin");
+        navigate("/admin");
       } else {
         setWarning("Acces denied: You are not an admin");
       }

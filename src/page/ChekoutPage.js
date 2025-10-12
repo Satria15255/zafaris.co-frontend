@@ -71,7 +71,7 @@ const CheckoutPage = () => {
       });
 
       toast.success("Transaction success");
-      navigate("/zafaris.co/success-order");
+      navigate("/success-order");
       setCart([]);
     } catch (error) {
       console.error("Failed to submit order:", error);
