@@ -1,22 +1,19 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import axios from "axios";
+import { getCart, updateCartQuantity, removeCartItem } from "../api";
 
 const ShoppingCart = ({ onClose }) => {
   const navigate = useNavigate();
   const [items, setItems] = useState([]);
 
+  // Fetch cart items from API
   const fetchCart = async () => {
-    const token = localStorage.getItem("token");
     try {
-      const res = await axios.get("http://localhost:5000/api/cart", {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      });
-      setItems(res.data.items);
+      const res = await getCart();
+      setItems(Array.isArray(res.data.items) ? res.data.items : []);
     } catch (err) {
       console.error("Failed  to fetch cart", err);
+      setItems([]);
     }
   };
 
@@ -24,19 +21,10 @@ const ShoppingCart = ({ onClose }) => {
     fetchCart();
   }, []);
 
-  const token = localStorage.getItem("token");
-
+  // Function update quantity
   const updateQuantity = async (productId, size, quantity) => {
     try {
-      await axios.put(
-        "http://localhost:5000/api/cart/update",
-        { productId, size, quantity },
-        {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        }
-      );
+      await updateCartQuantity(productId, size, quantity);
       fetchCart();
     } catch (err) {
       console.error("Failed to update cart", err);
@@ -44,13 +32,9 @@ const ShoppingCart = ({ onClose }) => {
   };
 
   // Function remove cart
-  const removeCartItem = async (productId, size) => {
+  const removeItemCart = async (productId, size) => {
     try {
-      await axios.delete(`http://localhost:5000/api/cart/remove/${productId}/${size}`, {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      });
+      await removeCartItem(productId, size);
       console.log("Remove complete");
       fetchCart();
     } catch (err) {
@@ -58,9 +42,11 @@ const ShoppingCart = ({ onClose }) => {
     }
   };
 
-  const totalPrice = items.reduce((total, item) => {
-    return total + item.productId.price * item.quantity;
-  }, 0);
+  const totalPrice = (items || [])
+    .filter((item) => item && item.productId && item.price)
+    .reduce((total, item) => {
+      return total + item.productId.price * item.quantity;
+    }, 0);
 
   console.log(items);
   // Menghitung total harga
@@ -112,7 +98,7 @@ const ShoppingCart = ({ onClose }) => {
                           +
                         </button>
                       </div>
-                      <button onClick={() => removeCartItem(item.productId._id, item.size)} className="text-sm text-gray-500 hover:text-red-500 mt-1">
+                      <button onClick={() => removeItemCart(item.productId._id, item.size)} className="text-sm text-gray-500 hover:text-red-500 mt-1">
                         Remove
                       </button>
                     </td>
@@ -145,7 +131,7 @@ const ShoppingCart = ({ onClose }) => {
           <h2 className="text-sm py-4">Taxes and shipping calculated at checkout</h2>
           <button
             onClick={() => {
-              navigate("/zafaris.co/chekout", {
+              navigate("/chekout", {
                 state: {
                   chekoutItems: items.map((item) => ({
                     id: item.productId._id,

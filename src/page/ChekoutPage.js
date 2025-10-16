@@ -1,8 +1,9 @@
 import React, { useState } from "react";
+import axios from "axios";
 import { useCart } from "../context/CartContext";
 import { useLocation } from "react-router-dom";
-import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import { createTransaction, clearCart } from "../api";
 import { toast } from "react-toastify";
 
 const CheckoutPage = () => {
@@ -54,22 +55,8 @@ const CheckoutPage = () => {
         status: "pending_confirmation",
       };
 
-      const token = localStorage.getItem("token");
-
-      console.log(items);
-      console.log(formatedProducts);
-      await axios.post("http://localhost:5000/api/transactions", body, {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      });
-
-      await axios.delete("http://localhost:5000/api/cart/clear", {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      });
-
+      await createTransaction(body);
+      await clearCart();
       toast.success("Transaction success");
       navigate("/success-order");
       setCart([]);
@@ -84,7 +71,9 @@ const CheckoutPage = () => {
       <h2 className="text-3xl font-bold mb-4">Checkout Paes</h2>
 
       {items.length === 0 ? (
-        <p>No Product</p>
+        <div className="h-4/5 border-t">
+          <p>No Product</p>
+        </div>
       ) : (
         <>
           {/* Rincian Cart */}

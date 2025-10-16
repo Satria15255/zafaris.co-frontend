@@ -2,6 +2,7 @@ import axios from "axios";
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
+import { login } from "../api";
 
 const AdminLoginPage = () => {
   const navigate = useNavigate();
@@ -14,7 +15,7 @@ const AdminLoginPage = () => {
     setWarning("");
 
     try {
-      const res = await axios.post("http://localhost:5000/api/auth/login", { email, password });
+      const res = await login({ email, password });
 
       const { token, user } = res.data;
 

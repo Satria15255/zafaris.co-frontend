@@ -1,8 +1,8 @@
 // AdminUserList.jsx
 import React, { useEffect, useState } from "react";
-import axios from "axios";
 import UserList from "../components/UserList";
 import UserDetail from "../components/UserDetail";
+import { getAllUsers, getUserTransactions } from "../../api";
 
 const AdminUserList = () => {
   const [users, setUsers] = useState([]);
@@ -11,17 +11,14 @@ const AdminUserList = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
 
   useEffect(() => {
-    const token = localStorage.getItem("token");
-    axios
-      .get("http://localhost:5000/api/admin/users", { headers: { Authorization: `Bearer ${token}` } })
+    getAllUsers()
       .then((res) => setUsers(res.data))
       .catch((err) => console.error(err));
   }, []);
 
   const handleDetail = async (userId) => {
-    const token = localStorage.getItem("token");
     try {
-      const res = await axios.get(`http://localhost:5000/api/admin/users/${userId}/transactions`, { headers: { Authorization: `Bearer ${token}` } });
+      const res = await getUserTransactions(userId);
       setSelectedUser(userId);
       setTransactions(res.data);
       setIsModalOpen(true);

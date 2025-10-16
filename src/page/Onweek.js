@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { motion } from "framer-motion";
 import { Container, Image } from "react-bootstrap";
 import axios from "axios";
+import { getAllProducts } from "../api";
 
 function seededRandom(seed) {
   var x = Math.sin(seed) * 10000;
@@ -22,7 +23,7 @@ function Onweek({ onOpenModal }) {
 
   const fetchProducts = async () => {
     try {
-      const res = await axios.get("http://localhost:5000/api/products");
+      const res = await getAllProducts();
       setProducts(res.data);
     } catch (err) {
       console.err("Failed to fetch products:", err);
@@ -44,20 +45,20 @@ function Onweek({ onOpenModal }) {
         {randomProduct.map((product) => (
           <div key={product.id}>
             <Container className="flex justify-center lg:flex px-0 py-2">
-              <div className="flex flex-col justify-center text-right">
-                <p className="text-6xl text-white font-bold">ON</p>
-                <p className="text-6xl font-bold text-yellow-500">SALE!!</p>
+              <div className="flex flex-col justify-center text-right pl-2">
+                <p className="text-[9px] md:text-6xl text-white font-bold">ON</p>
+                <p className="text-[9px] md:text-6xl font-bold text-yellow-500">SALE!!</p>
               </div>
-              <Image src={product.image} onClick={() => onOpenModal(product)} className="flex-col-8 w-1/5 md:w-full lg:w-1/5 h-auto max-w-[100%] aspect-[1/1] object-cover rounded-4 px-1" />
-              <div className="px-4 flex flex-col justify-center">
-                <h2 onClick={() => onOpenModal(product)} className="font-bold text-white text-2xl lg:text-2xl py-3">
+              <Image src={product.image} onClick={() => onOpenModal(product)} className="flex-col-8 w-20 h-20 md:w-1/5 md:w-full lg:w-1/5 md:h-auto max-w-[100%] aspect-[1/1] object-cover rounded-4 px-1" />
+              <div className="px-2 md:px-4 flex flex-col justify-center">
+                <h2 onClick={() => onOpenModal(product)} className="font-bold text-white text-[9px] md:text-2xl lg:text-2xl md:py-3">
                   {" "}
                   {product.name}
                 </h2>
-                <p className="font-bold text-yellow-500">${product.price}</p>
-                <p className="py-2 text-xs text-white ">{product.description}</p>
+                <p className="font-bold text-[7px] text-yellow-500">${product.price}</p>
+                <p className="mt-1 md:py-2 text-[5px] md:text-xs text-white ">{product.description}</p>
                 <div>
-                  <button onClick={() => onOpenModal(product)} className=" font-bold font-sans py-2 text-white hover:text-color-red hover:underline transition duration-300">
+                  <button onClick={() => onOpenModal(product)} className="text-[7px] font-bold font-sans md:py-2 text-white hover:text-color-red hover:underline transition duration-300">
                     SHOOP NOW
                   </button>
                 </div>

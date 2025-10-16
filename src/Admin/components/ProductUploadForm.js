@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { toast } from "react-toastify";
-import axios from "axios";
+import { createProduct } from "../../api";
 
 const ProductUploadForm = ({ onClose, onSucces }) => {
   const [form, setForm] = useState({
@@ -33,13 +33,7 @@ const ProductUploadForm = ({ onClose, onSucces }) => {
     formData.append("image", image);
 
     try {
-      const token = localStorage.getItem("token");
-      await axios.post("http://localhost:5000/api/products", formData, {
-        headers: {
-          "Content-Type": "multipart/form-data",
-          Authorization: `Bearer ${token}`,
-        },
-      });
+      await createProduct(formData);
       toast.success("Product uploaded!");
       onSucces();
     } catch (err) {

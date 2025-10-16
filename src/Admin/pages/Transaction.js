@@ -3,18 +3,14 @@ import TransactionTable from "../components/TransactionTable";
 import axios from "axios";
 import TransactionDetails from "../components/TransactionDetails";
 import { toast } from "react-toastify";
+import { getAllTransactions, updateTransactionStatus } from "../../api";
 
 const Transaction = () => {
   const [order, setOrder] = useState([]);
   const [selectedOrder, setSelectedOrder] = useState(null);
 
   const fetchOrders = async () => {
-    const token = localStorage.getItem("token");
-    const res = await axios.get("http://localhost:5000/api/transactions", {
-      headers: {
-        Authorization: `Bearer ${token}`,
-      },
-    });
+    const res = await getAllTransactions();
     setOrder(res.data);
   };
 
@@ -32,16 +28,7 @@ const Transaction = () => {
 
   const handleStatusChange = async (orderId, newStatus) => {
     try {
-      const token = localStorage.getItem("token");
-      await axios.put(
-        `http://localhost:5000/api/transactions/${orderId}/status`,
-        { status: newStatus },
-        {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        }
-      );
+      await updateTransactionStatus(orderId, newStatus);
       setOrder((prev) => prev.map((order) => (order._id === orderId ? { ...order, status: newStatus } : order)));
 
       if (selectedOrder && selectedOrder._id === orderId) {
@@ -49,6 +36,7 @@ const Transaction = () => {
       }
       toast.success("Order status updated!");
     } catch (error) {
+      toast.error("Failed to update order status");
       console.error(error);
     }
   };

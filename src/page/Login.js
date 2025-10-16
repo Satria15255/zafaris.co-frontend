@@ -1,7 +1,7 @@
 import React, { useState } from "react";
-import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
+import { login } from "../api";
 
 const Login = ({ setUser }) => {
   const [email, setEmail] = useState("");
@@ -11,7 +11,7 @@ const Login = ({ setUser }) => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const res = await axios.post("http://localhost:5000/api/auth/login", { email, password });
+      const res = await login({ email, password });
 
       localStorage.setItem("token", res.data.token);
       localStorage.setItem("user", JSON.stringify(res.data.user));
@@ -19,7 +19,8 @@ const Login = ({ setUser }) => {
       toast.success("Login success");
       navigate("/");
     } catch (err) {
-      alert(err.response?.data?.message || "Login Failed");
+      toast.error("Login Failed");
+      console.log(err.response?.data?.message || "Login Failed");
     }
   };
   return (
@@ -27,7 +28,7 @@ const Login = ({ setUser }) => {
       <div className="w-2/5 h-auto border bg-white rounded-xl p-4 mx-auto mt-10">
         <button
           onClick={() => {
-            navigate("/zafaris.co");
+            navigate("/");
           }}
           className="text-gray-500 -mt-6 text-lg hover:text-gray-700 text-xl font-bold top-0"
         >
@@ -45,7 +46,7 @@ const Login = ({ setUser }) => {
           <p className="text-center">Don't have an account?</p>
           <button
             onClick={() => {
-              navigate("/zafaris.co/register");
+              navigate("/register");
             }}
             className="text-gray-900 text-center hover:underline"
           >

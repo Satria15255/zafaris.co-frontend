@@ -2,6 +2,7 @@ import React from "react";
 import { useState } from "react";
 import { Col, Row } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
 
 function ProductModal({ product, onClose, onAddToCart }) {
   const [selectedSize, setSelectedSize] = useState("");
@@ -9,8 +10,13 @@ function ProductModal({ product, onClose, onAddToCart }) {
 
   // Fungsi Checkout product
   const handleChekoutNow = () => {
+    const token = localStorage.getItem("token");
+    if (!token) {
+      toast.warning("Please login before checkout");
+      return;
+    }
     if (!selectedSize) {
-      alert("Please select a size before adding to cart.");
+      toast.warning("Please select a size before adding to cart.");
       return;
     } else {
       onClose();
@@ -25,7 +31,7 @@ function ProductModal({ product, onClose, onAddToCart }) {
       quantity: 1,
     };
 
-    navigate("/zafaris.co/chekout", { state: { chekoutItems: [selectedItem] } });
+    navigate("/chekout", { state: { chekoutItems: [selectedItem] } });
   };
 
   return (

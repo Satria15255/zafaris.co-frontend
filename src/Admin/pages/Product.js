@@ -3,6 +3,7 @@ import { toast } from "react-toastify";
 import ProductTable from "../components/ProductTable";
 import ProductUploadForm from "../components/ProductUploadForm";
 import ProductEditForm from "../components/ProductEditForm";
+import { getAllProducts, createProduct, deleteProduct } from "../../api";
 import axios from "axios";
 
 const Product = () => {
@@ -11,7 +12,7 @@ const Product = () => {
   const [isUploadOpen, setIsUploadOpen] = useState(false);
 
   const fetchProducts = async () => {
-    const res = await axios.get("http://localhost:5000/api/products");
+    const res = await getAllProducts();
     setProducts(res.data);
   };
 
@@ -20,14 +21,14 @@ const Product = () => {
   }, []);
 
   const handleDelete = async (id) => {
-    const token = JSON.parse(localStorage.getItem("user"))?.token;
-    await axios.delete(`/api/products/${id}`, {
-      headers: {
-        Authorization: `Bearer ${token}`,
-      },
-    });
-    toast.success("Product deleted!");
-    fetchProducts();
+    try {
+      if (!window.confirm("Are you sure want to delete this product?")) return;
+      await deleteProduct(id);
+      toast.success("Product deleted!");
+      fetchProducts();
+    } catch (err) {
+      toast.error("Failed delete product");
+    }
   };
 
   const handleUploadSuccess = () => {

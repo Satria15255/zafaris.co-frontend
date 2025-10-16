@@ -5,9 +5,8 @@ import { motion } from "framer-motion";
 import { jwtDecode } from "jwt-decode";
 import { toast } from "react-toastify";
 import { ToastContainer } from "react-toastify";
+import { addToCart } from "./api";
 import "react-toastify/dist/ReactToastify.css";
-
-import axios from "axios";
 
 import MainLayout from "./Layouts/MainLayout";
 import AdminLayout from "./Layouts/AdminLayout";
@@ -21,15 +20,15 @@ import Sidebar from "./components/Sidebar";
 import OrderPages from "./page/OrderPages";
 import AdminDashboard from "./Admin/pages/Dashboard";
 import Product from "./Admin/pages/Product";
-import ProductList from "./components/ProductList";
+import LatestProduct from "./page/LatestProduct";
 import ShoppingCart from "./components/Cart";
 import ProductModal from "./components/ProductModal";
-import Banner from "./components/Banner";
+import Banner from "./page/Banner";
 import Onweek from "./page/Onweek";
 import Bestseller from "./page/Bestseller";
-import Category from "./page/Category";
+import HomeCategory from "./page/HomeCategory";
 import CategoryPages from "./page/CategoryPage";
-import ProductPages from "./components/ProductPages";
+import ProductPages from "./page/ProductPages";
 import ScrollToTop from "./components/ScrollToTop";
 import ChekoutPage from "./page/ChekoutPage";
 import SuccesPage from "./page/SuccesTransaction";
@@ -105,15 +104,7 @@ function App() {
       return;
     }
     try {
-      const res = await axios.post(
-        "http://localhost:5000/api/cart/add",
-        { productId: product._id, quantity: 1, size: selectedSize },
-        {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        }
-      );
+      const res = await addToCart(product._id, 1, selectedSize);
       console.log("Product add to cart", res.data);
       toast.success("Product add to cart");
     } catch (err) {
@@ -170,19 +161,19 @@ function App() {
                         transition={{ duration: 1.0 }} // Animasi selama 0.6 detik
                         viewport={{ once: true }}
                       >
-                        <p class="text-lg  md:text-2xl font-bold text-center mt-4">
+                        <p class="text-[9px] md:text-2xl font-bold text-center mt-2">
                           Latest <span className="text-yellow-500">Arrival</span>
                         </p>
                       </motion.div>
                       <div className=" flex justify-content-center gap-4 " style={{ width: "100%" }}>
-                        <main className="flex-1 px-6">
-                          <ProductList onAddToCart={handleAddToCart} onOpenModal={handleOpenModal} />
+                        <main className="p-2">
+                          <LatestProduct onAddToCart={handleAddToCart} onOpenModal={handleOpenModal} />
                         </main>
                       </div>
                     </div>
                     <Bestseller onOpenModal={handleOpenModal} />
                     <Onweek onOpenModal={handleOpenModal} />
-                    <Category onOpenModal={handleOpenModal} />
+                    <HomeCategory onOpenModal={handleOpenModal} />
                   </div>
                 }
               />
@@ -192,7 +183,7 @@ function App() {
               <Route path="/products" element={<ProductPages onAddToCart={handleAddToCart} onOpenModal={handleOpenModal} />} />
               <Route path="/chekout" element={<ChekoutPage cart={cart} onRemoveFromCart={removeFromCart} onQuantityChange={handleQuantityChange} decreaseQuantity={decreaseQuantity} onClose={() => setIsCartOpen(false)} />} />
               <Route path="/orders" element={<OrderPages />} />
-              <Route path="/success-order" element={<SuccesPage />} />
+              <Route path="/success-order" element={<SuccesPage onOpenModal={handleOpenModal} />} />
             </Route>
 
             <Route path="/admin-login" element={<AdminLoginPage />} />

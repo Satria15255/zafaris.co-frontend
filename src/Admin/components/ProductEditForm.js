@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { toast } from "react-toastify";
-import axios from "axios";
+import { updateProduct } from "../../api";
 
 const ProductEditForm = ({ product, onClose, onSucces }) => {
   const [form, setForm] = useState({
@@ -39,17 +39,11 @@ const ProductEditForm = ({ product, onClose, onSucces }) => {
     }
 
     try {
-      const token = localStorage.getItem("token");
-
-      await axios.put(`http://localhost:5000/api/products/${product._id}`, formData, {
-        headers: {
-          "Content-Type": "multipart/form-data",
-          Authorization: `Bearer ${token}`,
-        },
-      });
+      await updateProduct(product._id, formData);
       toast.success("Product updated!");
       onSucces();
     } catch (err) {
+      toast.error("Update failed!");
       console.error("Update failed", err);
     }
   };

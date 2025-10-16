@@ -1,7 +1,7 @@
 {
   "name": "onstore",
   "version": "0.1.0",
-  "proxy": "http://localhost:5000",
+  "proxy": "https://zafaris-co-backend.onrender.com",
   "private": true,
   "homepage": ".",
   "dependencies": {

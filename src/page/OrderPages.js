@@ -1,18 +1,14 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
 import OrderDetails from "../components/OrderDetails";
+import { getMyOrders, confirmOrderReceived, cancelOrder } from "../api";
 import { toast } from "react-toastify";
 
 const OrderPages = () => {
   const [orders, setOrders] = useState([]);
 
   const fetchMyOrders = async () => {
-    const token = localStorage.getItem("token");
-    const res = await axios.get("http://localhost:5000/api/transactions/mytransactions", {
-      headers: {
-        Authorization: `Bearer ${token}`,
-      },
-    });
+    const res = await getMyOrders();
     setOrders(res.data);
     console.log(res.data);
   };
@@ -24,15 +20,7 @@ const OrderPages = () => {
   const handleConfirmReceived = async (orderId) => {
     try {
       const token = localStorage.getItem("token");
-      await axios.patch(
-        `http://localhost:5000/api/transactions/${orderId}/confirm`,
-        {},
-        {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        }
-      );
+      await confirmOrderReceived(orderId, token);
       toast.success("Order confirmed successfully");
       fetchMyOrders();
     } catch (err) {
@@ -43,16 +31,7 @@ const OrderPages = () => {
 
   const handleCancel = async (id) => {
     try {
-      const token = localStorage.getItem("token");
-      await axios.put(
-        `http://localhost:5000/api/transactions/cancel/${id}`,
-        {},
-        {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        }
-      );
+      await cancelOrder(id);
       toast.success("Order cancel successfully");
       fetchMyOrders();
     } catch (err) {

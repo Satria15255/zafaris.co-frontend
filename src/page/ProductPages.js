@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
-import ProductCard from "./ProductCard";
-import axios from "axios";
+import ProductCard from "../components/ProductCard";
+import { getAllProducts } from "../api";
 
 function ProductPages({ onAddToCart, onOpenModal }) {
   const [products, setProducts] = useState([]);
@@ -9,7 +9,7 @@ function ProductPages({ onAddToCart, onOpenModal }) {
 
   const fetchProducts = async () => {
     try {
-      const res = await axios.get("http://localhost:5000/api/products");
+      const res = await getAllProducts();
       setProducts(res.data);
     } catch (err) {
       console.log(err);
@@ -23,20 +23,20 @@ function ProductPages({ onAddToCart, onOpenModal }) {
   const filteredProducts = activeCategory === "All" ? products : products.filter((product) => product.category === activeCategory);
 
   return (
-    <div className="mt-12 p-8">
-      <div className="border-b px-4 py-2 ">
+    <div className="mt-12 p-3">
+      <div className="border-b py-2 ">
         {categories.map((cat) => (
           <button
             key={cat}
             onClick={() => setActiveCategory(cat)}
-            className={`pt-2 transition font-bold px-2
+            className={`pt-2 transition text-[9px] font-bold px-2
         ${activeCategory === cat ? "text-yellow-500" : "hover:text-yellow-500"}`}
           >
             {cat}
           </button>
         ))}
       </div>
-      <div className="grid grid-cols-1 place-items-center mt-4 px-8  sm:grid-cols-4 gap-4">
+      <div className="grid grid-cols-2 place-items-center mt-4 md:grid-cols-4 gap-3">
         {filteredProducts.map((products) => (
           <ProductCard key={products.id} product={products} onAddToCart={onAddToCart} onOpenModal={onOpenModal} />
         ))}

@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
+import { register } from "../api";
 
 const Register = () => {
   const [name, setName] = useState("");
@@ -12,7 +13,7 @@ const Register = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      await axios.post("http://localhost:5000/api/auth/register", { name, email, password });
+      await register({ name, email, password });
 
       toast.success("Register success, please Login");
       navigate("/login");
@@ -26,7 +27,7 @@ const Register = () => {
       <div className="w-2/5 h-auto border bg-white rounded-xl p-4 mx-auto mt-10">
         <button
           onClick={() => {
-            navigate("/zafaris.co");
+            navigate("/");
           }}
           className="text-gray-500 -mt-6 text-lg hover:text-gray-700 text-xl font-bold top-0"
         >
@@ -45,7 +46,7 @@ const Register = () => {
           <p className="text-center">Already have an account?</p>
           <button
             onClick={() => {
-              navigate("/zafaris.co/login");
+              navigate("/login");
             }}
             className="text-gray-900 text-center hover:underline"
           >

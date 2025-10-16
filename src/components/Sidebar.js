@@ -14,8 +14,8 @@ const Sidebar = ({ user, onLogout, closeSidebar }) => {
   const handleLogout = () => {
     localStorage.removeItem("token");
     onLogout();
-    navigate("zafaris.co");
-    toast.success("Logout");
+    navigate("/");
+    toast.success("Logout Successfully");
   };
   return (
     <div className="fixed top-0 right-0 w-1/5 h-full bg-gray-900 text-white z-50 p-6 shadow-l">
@@ -24,12 +24,12 @@ const Sidebar = ({ user, onLogout, closeSidebar }) => {
           <>
             <h2 className="text-2xl font-bold mb-6">Zafaris.co</h2>
             <li>
-              <button onClick={() => handleNavigate("zafaris.co/login")} className="hover:text-gray-300">
+              <button onClick={() => handleNavigate("/login")} className="hover:text-gray-300">
                 Login
               </button>
             </li>
             <li>
-              <button onClick={() => handleNavigate("zafaris.co/register")} className="hover:text-gray-300">
+              <button onClick={() => handleNavigate("/register")} className="hover:text-gray-300">
                 register
               </button>
             </li>
@@ -39,13 +39,7 @@ const Sidebar = ({ user, onLogout, closeSidebar }) => {
             <h2 className="text-2xl font-bold mb-6"> Hello {user.name}!</h2>
             <div className="space-y-2 font-bold">
               <li className="border-b pb-2">
-                <Link to="/cart" className="flex items-center gap-2 hover:text-gray-300 ">
-                  <FaShoppingCart />
-                  <span>Shopping Cart</span>
-                </Link>
-              </li>
-              <li className="border-b pb-2">
-                <Link to="/zafaris.co/orders" className="flex items-center gap-2 hover:text-gray-300">
+                <Link to="/orders" className="flex items-center gap-2 hover:text-gray-300">
                   <FaCreditCard />
                   <span>My Orders</span>
                 </Link>

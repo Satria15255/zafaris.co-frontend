@@ -1,14 +1,14 @@
 import React, { useEffect, useState } from "react";
 import { motion } from "framer-motion";
 import { Image } from "react-bootstrap";
-import axios from "axios";
+import { getBestSellingProducts } from "../api";
 
 const Bestseller = ({ onOpenModal }) => {
   const [products, setProducts] = useState([]);
 
   const fetchProducts = async () => {
     try {
-      const res = await axios.get("http://localhost:5000/api/products/best-seller");
+      const res = await getBestSellingProducts();
       setProducts(res.data);
     } catch (err) {
       console.err("Failed to fetch products:", err);
@@ -21,17 +21,17 @@ const Bestseller = ({ onOpenModal }) => {
 
   return (
     <motion.div initial={{ x: 100, opacity: 0 }} whileInView={{ x: 0, opacity: 1 }} transition={{ duration: 1.0 }} viewport={{ once: true }}>
-      <div className="px-6 py-5">
-        <h2 className="text-center text-2xl px-4 py-4 font-bold text-underline">
+      <div className="p-2 md:px-6 py-3 mt-2 md:py-5">
+        <h2 className="text-center text-[9px] md:text-2xl px-4 md:py-4 font-bold text-underline">
           Best Selling <span className="text-yellow-500">Products</span>
         </h2>
-        <div className=" w-full gap-4 px-8  flex justify-center">
+        <div className=" w-full gap-3 md:gap-4 md:px-8 flex justify-around">
           {products.map((product) => (
-            <div key={product.id} onClick={() => onOpenModal(product)} className="flex w-2/5 gap-4 hover:shadow-lg rounded-5 transition duration-300 flex-col py-4 ">
-              <Image src={product.image} className="w-full h-auto rounded-4 object-cover " />
-              <div className="px-4 ">
-                <p className="font-bold text-sm"> {product.name}</p>
-                <p className="py-2 text-yellow-500 font-bold">${product.price}</p>
+            <div key={product.id} onClick={() => onOpenModal(product)} className="flex md:w-2/5 md:gap-4 hover:shadow-lg md:rounded-5 transition duration-300 flex-col py-4 ">
+              <Image src={product.image} className="w-30 h-30 md:w-full md:h-auto rounded-2 md:rounded-4 object-cover " />
+              <div className="mt-2">
+                <p className="font-bold text-[7px] md:text-sm"> {product.name}</p>
+                <p className="py-2 text-yellow-500 text-[6px] font-bold">${product.price}</p>
               </div>
             </div>
           ))}
