@@ -164,11 +164,6 @@ function App() {
                           Latest <span className="text-yellow-500">Arrival</span>
                         </p>
                       </motion.div>
-                      <div className=" flex justify-content-center gap-4 " style={{ width: "100%" }}>
-                        <main className="p-2">
-                          <LatestProduct onAddToCart={handleAddToCart} onOpenModal={handleOpenModal} />
-                        </main>
-                      </div>
                     </div>
                     <OnSale onOpenModal={handleOpenModal} />
                     <HomeCategory onOpenModal={handleOpenModal} />

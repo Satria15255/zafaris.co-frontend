@@ -9,6 +9,7 @@ function ProductList({ onOpenModal }) {
   const fetchProducts = async () => {
     try {
       const res = await getLatestProducts();
+      console.log(res.data);
       setProducts(res.data);
     } catch (err) {
       console.err("Failed to fetch products:", err);
