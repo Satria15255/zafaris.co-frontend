@@ -25,7 +25,6 @@ import ShoppingCart from "./page/Cart";
 import ProductModal from "./components/ProductModal";
 import Banner from "./page/Banner";
 import OnSale from "./page/OnSale";
-import Bestseller from "./page/Bestseller";
 import HomeCategory from "./page/HomeCategory";
 import CategoryPages from "./page/CategoryPage";
 import ProductPages from "./page/ProductPages";
@@ -171,7 +170,6 @@ function App() {
                         </main>
                       </div>
                     </div>
-                    <Bestseller onOpenModal={handleOpenModal} />
                     <OnSale onOpenModal={handleOpenModal} />
                     <HomeCategory onOpenModal={handleOpenModal} />
                   </div>
