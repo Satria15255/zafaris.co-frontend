@@ -40,7 +40,7 @@ const OrderPages = () => {
   };
 
   return (
-    <div>
+    <div className="mt-10">
       <OrderDetails order={orders} handleCancel={handleCancel} handleConfirm={handleConfirmReceived} />
     </div>
   );

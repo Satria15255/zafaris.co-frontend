@@ -24,7 +24,7 @@ const Register = () => {
 
   return (
     <div className="fixed inset-0 flex items-center justify-center z-50 bg-gray-800">
-      <div className="w-2/5 h-auto border bg-white rounded-xl p-4 mx-auto mt-10">
+      <div className="w-4/5 md:w-2/5 h-auto border bg-white rounded-xl p-2 md:p-4 mx-auto mt-10">
         <button
           onClick={() => {
             navigate("/");
@@ -33,22 +33,22 @@ const Register = () => {
         >
           ×
         </button>
-        <h2 className="text-2xl text-center font-bold mb-4">Register</h2>
-        <form onSubmit={handleSubmit} className="space-y-4 flex flex-col justify-center">
-          <input type="text" placeholder="Name" value={name} className="w-full rounded-lg p-2 border" onChange={(e) => setName(e.target.value)} />
-          <input type="email" placeholder="Email" value={email} className="w-full rounded-lg p-2 border" onChange={(e) => setEmail(e.target.value)} />
-          <input type="password" placeholder="Password" value={password} className="w-full rounded-lg p-2 border" onChange={(e) => setPassword(e.target.value)} />
-          <button type="submit" className="border border-black hover:bg-gray-900 hover:text-white transition duration-100 px-4 py-2 rounded">
+        <h2 className="text-[12px] md:text-2xl text-center font-bold mb-2 md:mb-4">Register</h2>
+        <form onSubmit={handleSubmit} className="space-y-2 md:space-y-4 flex flex-col justify-center">
+          <input type="text" placeholder="Name" value={name} className="w-full text-[8px] rounded-lg p-2 border" onChange={(e) => setName(e.target.value)} />
+          <input type="email" placeholder="Email" value={email} className="w-full text-[8px] rounded-lg p-2 border" onChange={(e) => setEmail(e.target.value)} />
+          <input type="password" placeholder="Password" value={password} className="w-full text-[8px] rounded-lg p-2 border" onChange={(e) => setPassword(e.target.value)} />
+          <button type="submit" className="text-[8px] border border-black hover:bg-gray-900 hover:text-white transition duration-100 px-4 py-2 rounded">
             Register
           </button>
         </form>
-        <div className="flex flex-col items-center mt-4 space-y-3">
-          <p className="text-center">Already have an account?</p>
+        <div className="flex flex-col items-center mt-2 md:mt-4 ">
+          <p className="text-center text-[8px]">Already have an account?</p>
           <button
             onClick={() => {
               navigate("/login");
             }}
-            className="text-gray-900 text-center hover:underline"
+            className="text-gray-900 text-center hover:underline mb-3 text-[8px]"
           >
             Login
           </button>

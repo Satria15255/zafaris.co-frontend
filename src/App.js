@@ -21,10 +21,10 @@ import OrderPages from "./page/OrderPages";
 import AdminDashboard from "./Admin/pages/Dashboard";
 import Product from "./Admin/pages/Product";
 import LatestProduct from "./page/LatestProduct";
-import ShoppingCart from "./components/Cart";
+import ShoppingCart from "./page/Cart";
 import ProductModal from "./components/ProductModal";
 import Banner from "./page/Banner";
-import Onweek from "./page/Onweek";
+import OnSale from "./page/OnSale";
 import Bestseller from "./page/Bestseller";
 import HomeCategory from "./page/HomeCategory";
 import CategoryPages from "./page/CategoryPage";
@@ -172,7 +172,7 @@ function App() {
                       </div>
                     </div>
                     <Bestseller onOpenModal={handleOpenModal} />
-                    <Onweek onOpenModal={handleOpenModal} />
+                    <OnSale onOpenModal={handleOpenModal} />
                     <HomeCategory onOpenModal={handleOpenModal} />
                   </div>
                 }
