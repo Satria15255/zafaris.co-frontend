@@ -56,10 +56,18 @@ const OrderDetails = ({ order, handleCancel, handleConfirm }) => {
           </div>
 
           <div className="flex justify-end gap-1">
-            <button onClick={() => handleCancel(ord._id)} disabled={ord.status === "completed"} className="text-[10px] md:text-lg border w-1/5 md:w-1/12 py-1 rounded-md font-bold hover:bg-gray-900 hover:text-white transition duration-300">
+            <button
+              onClick={() => handleCancel(ord._id)}
+              disabled={ord.status === "completed"}
+              className="text-[10px] md:text-md lg:text-md border w-1/5 md:w-1/12 py-1 rounded-md font-bold hover:bg-gray-900 hover:text-white transition duration-300"
+            >
               Cancel
             </button>
-            <button onClick={() => handleConfirm(ord._id)} disabled={ord.status !== "delivered"} className="text-[10px] md:text-lg border w-1/5 md:w-1/12 py-1 rounded-md font-bold hover:bg-gray-900 hover:text-white transition duration-300">
+            <button
+              onClick={() => handleConfirm(ord._id)}
+              disabled={ord.status !== "delivered"}
+              className="text-[10px] md:text-md lg:text-md border w-1/5 md:w-1/12 py-1 rounded-md font-bold hover:bg-gray-900 hover:text-white transition duration-300"
+            >
               Submitted
             </button>
           </div>

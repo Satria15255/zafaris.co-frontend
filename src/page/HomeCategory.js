@@ -34,7 +34,7 @@ function Category({ onOpenModal }) {
     >
       <div>
         <div className="p-2 md:p-8">
-          <div className="border-b text-[9px] md:px-4 py-2 ">
+          <div className="border-b text-[9px] lg:text-sm md:px-4 py-2 ">
             {categories.map((cat) => (
               <button
                 key={cat}
@@ -46,13 +46,13 @@ function Category({ onOpenModal }) {
               </button>
             ))}
           </div>
-          <div className="grid py-2 h-45 grid-cols-2 md:grid-cols-4 gap-3 place-items-center">
+          <div className="grid py-2 md:p-4 h-45 grid-cols-2 md:grid-cols-4 gap-3 place-items-center">
             {filteredProducts.map((product) => (
               <ProductCard product={product} onOpenModal={onOpenModal} />
             ))}
           </div>
           <div>
-            <Nav.Link as={NavLink} to="/products" className="text-[9px] flex py-2 md:py-4 justify-center mb-4 hover:underline hover:text-gray-900 text-gray-500 font-semibold md:text-lg">
+            <Nav.Link as={NavLink} to="/products" className="text-[9px] md:text-md flex py-2 md:py-4 justify-center mb-4 hover:underline hover:text-gray-900 text-gray-500 font-semibold ">
               View More Products
             </Nav.Link>
           </div>

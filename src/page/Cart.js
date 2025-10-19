@@ -43,7 +43,7 @@ const ShoppingCart = ({ onClose }) => {
   };
 
   const totalPrice = (items || [])
-    .filter((item) => item && item.productId && item.price)
+    .filter((item) => item && item.productId && item.productId.price)
     .reduce((total, item) => {
       return total + item.productId.price * item.quantity;
     }, 0);
@@ -51,17 +51,17 @@ const ShoppingCart = ({ onClose }) => {
   console.log(items);
   // Menghitung total harga
   return (
-    <div className="fixed bg-black top-0 right-0 w-full md:w-50  z-50 h-full bg-white flex flex-col items-center md:p-3">
+    <div className="fixed bg-black top-0 right-0 w-full z-50 h-full bg-white flex flex-col items-center md:p-3">
       {/* Tombol Close */}
       <button onClick={onClose} className="absolute top-4 left-4 text-2xl font-bold text-gray-600 hover:text-gray-900">
         ×
       </button>
 
-      <h1 className="text-2xl font-semibold mb-4 md:mb-6">Your cart</h1>
+      <h1 className="text-md mt-3 lg:text-2xl font-semibold mb-4 md:mb-6">Your cart</h1>
 
       {/* Tabel Cart */}
-      <div className="h-screen">
-        <div className="w-full  bg-white px-1 md:p-6 overflow-x-hidden overflow-y-auto max-h-[60vh] md:max-h-[40vh]">
+      <div className="w-full h-screen">
+        <div className="w-full p-1  bg-white lg:p-6 overflow-x-hidden overflow-y-auto max-h-[60vh] md:max-h-[40vh] lg:max-h-[62vh]">
           {items.length === 0 ? (
             <p className="text-gray-500 text-center">Your cart is empty</p>
           ) : (
@@ -80,22 +80,22 @@ const ShoppingCart = ({ onClose }) => {
                     <tr key={`${item.productId._id} - ${item.size}`} className="border-b">
                       {/* Produk */}
                       <td className="flex items-center py-4">
-                        <img src={item.productId.image} alt={item.productId.name} className="w-14 h-14 md:w-20 md:h-20 object-cover rounded mr-1 md:mr-4" />
+                        <img src={item.productId.image} alt={item.productId.name} className="w-14 h-14 md:w-20 md:h-20 lg:w-30 lg:h-30 object-cover rounded mr-1 md:mr-4" />
                         <div>
                           <h2 className="text-[10px] md:text-lg text-sm md:text-xl font-medium">{item.productId.name}</h2>
-                          <p className="text-[8px] text-gray-600 font-bold">Size: {item.size}</p>
-                          <p className="text-[8px] text-gray-600 font-bold">${item.productId.price}</p>
+                          <p className="text-[8px] lg:text-sm text-gray-600 font-semibold">Size: {item.size}</p>
+                          <p className="text-[8px] lg:text-sm text-gray-600 font-semibold">${item.productId.price}</p>
                         </div>
                       </td>
 
                       {/* Quantity */}
                       <td className="flex-col items-center text-center md:table-cell">
                         <div className="flex items-center justify-center">
-                          <button className="text-[10px] px-2 py-1 border rounded" onClick={() => updateQuantity(item.productId._id, item.size, item.quantity - 1)}>
+                          <button className="text-[10px] lg:text-sm px-2 py-1 border rounded" onClick={() => updateQuantity(item.productId._id, item.size, item.quantity - 1)}>
                             -
                           </button>
-                          <span className="text-[10px] px-2 md:px-4">{item.quantity}</span>
-                          <button className="text-[10px] px-2 py-1 border rounded" onClick={() => updateQuantity(item.productId._id, item.size, item.quantity + 1)}>
+                          <span className="text-[10px] lg:text-sm px-2 md:px-4">{item.quantity}</span>
+                          <button className="text-[10px] lg:text-sm px-2 py-1 border rounded" onClick={() => updateQuantity(item.productId._id, item.size, item.quantity + 1)}>
                             +
                           </button>
                         </div>

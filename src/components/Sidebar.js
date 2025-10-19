@@ -37,7 +37,7 @@ const Sidebar = ({ user, onLogout, closeSidebar }) => {
           </>
         ) : (
           <>
-            <h2 className="text-[15px] text-center md:text-2xl font-bold py-3 border-b border-gray-500"> Hello {user.name}!</h2>
+            <h2 className="text-[15px] text-center md:text-lg lg:text-2xl font-bold py-3 border-b border-gray-500"> Hello {user.name}!</h2>
             <Link to="/orders" className="flex font-bold items-center text-[10px] gap-2 hover:text-gray-300 py-2 px-1 mt-1">
               <FaCreditCard />
               <span>My Orders</span>

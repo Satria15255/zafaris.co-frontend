@@ -82,7 +82,9 @@ const CheckoutPage = () => {
               {items.map((item) => (
                 <li key={item.id + item.size} className="flex justify-between items-center border-b py-2">
                   <div className="flex items-center gap-2">
-                    <img src={item.image} alt={item.name} className="w-10 md:w-1/5 rounded-lg" />
+                    <div className="w-10 h-10 md:w-20 md:h-20">
+                      <img src={item.image} alt={item.name} className="w-full rounded-lg" />
+                    </div>
                     <div className=" justify-between">
                       <p className="font-bold text-xs md:text-lg">{item.name}</p>
                       <p className="text-gray-500 text-xs md:text-sm">

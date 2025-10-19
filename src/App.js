@@ -161,15 +161,12 @@ function App() {
                         transition={{ duration: 1.0 }} // Animasi selama 0.6 detik
                         viewport={{ once: true }}
                       >
-                        <p class="text-[9px] md:text-2xl font-bold text-center mt-2">
+                        <p class="text-[12px] md:text-xl font-bold text-center mt-4">
                           Latest <span className="text-yellow-500">Arrival</span>
                         </p>
                       </motion.div>
-                      <div className=" flex justify-content-center gap-4 " style={{ width: "100%" }}>
-                        <main className="p-2">
-                          <LatestProduct onAddToCart={handleAddToCart} onOpenModal={handleOpenModal} />
-                        </main>
-                      </div>
+
+                      <LatestProduct onAddToCart={handleAddToCart} onOpenModal={handleOpenModal} />
                     </div>
                     <Bestseller onOpenModal={handleOpenModal} />
                     <OnSale onOpenModal={handleOpenModal} />

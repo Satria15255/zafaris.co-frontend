@@ -37,16 +37,16 @@ function NavbarSection({ cartCount, onCartClick, onToggleSidebar }) {
               Product
             </Nav.Link>
           </Nav>
-          <button onClick={onCartClick} className="relative hover:text-gray-900">
-            <ShoppingCart className="w-[20px]" />
+          <button onClick={onCartClick} className="relative px-2 hover:text-gray-900">
+            <ShoppingCart />
             {cartCount > 0 && <span className="absolute top-2 right-4 bg-red-500 text-white text-xs w-5 h-5 flex items-center justify-center rounded-full">{cartCount}</span>}
           </button>
           <button onClick={onToggleSidebar} className="relative px-2 hover:text-gray-900">
-            <CircleUser className="w-[20px]" />
+            <CircleUser />
           </button>
           {/* Hamburger icon */}
-          <button onClick={() => setOpen(!open)} className="md:hidden z-50 ">
-            {open ? <x size={24} /> : <AlignJustify className="w-[20px]" />}
+          <button onClick={() => setOpen(!open)} className="md:hidden px-2 z-50 ">
+            {open ? <x size={24} /> : <AlignJustify />}
           </button>
         </div>
       </Container>

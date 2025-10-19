@@ -23,7 +23,7 @@ function ProductPages({ onAddToCart, onOpenModal }) {
   const filteredProducts = activeCategory === "All" ? products : products.filter((product) => product.category === activeCategory);
 
   return (
-    <div className="mt-12 p-3">
+    <div className="mt-12 p-2">
       <div className="border-b py-2 ">
         {categories.map((cat) => (
           <button
