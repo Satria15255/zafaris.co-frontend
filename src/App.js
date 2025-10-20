@@ -6,6 +6,7 @@ import { jwtDecode } from "jwt-decode";
 import { toast } from "react-toastify";
 import { ToastContainer } from "react-toastify";
 import { addToCart } from "./api";
+import { useNavigate } from "react-router-dom";
 import "react-toastify/dist/ReactToastify.css";
 
 import MainLayout from "./Layouts/MainLayout";
@@ -40,6 +41,7 @@ function App() {
   const [isCartOpen, setIsCartOpen] = useState(false);
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
   const [user, setUser] = useState(null);
+  const navigate = useNavigate();
   const cartRef = useRef(null);
 
   const clearExpiredSession = () => {
@@ -95,7 +97,8 @@ function App() {
   const handleAddToCart = async (product, selectedSize) => {
     const token = localStorage.getItem("token");
     if (!token) {
-      toast.warning("please login before this");
+      setIsModalOpen(false);
+      navigate("/login");
       return;
     }
 
@@ -154,6 +157,8 @@ function App() {
                 element={
                   <div>
                     <Banner style={{ width: "100vh" }} onOpenModal={handleOpenModal} />
+                    <Bestseller onOpenModal={handleOpenModal} />
+
                     <div className="">
                       <motion.div
                         initial={{ opacity: 0, y: 50 }} // Awalnya transparan dan turun 50px
@@ -161,14 +166,14 @@ function App() {
                         transition={{ duration: 1.0 }} // Animasi selama 0.6 detik
                         viewport={{ once: true }}
                       >
-                        <p class="text-[12px] md:text-xl font-bold text-center mt-4">
+                        <p class="text-[12px] md:text-sm lg:text-2xl font-bold text-center mt-6">
                           Latest <span className="text-yellow-500">Arrival</span>
                         </p>
                       </motion.div>
 
                       <LatestProduct onAddToCart={handleAddToCart} onOpenModal={handleOpenModal} />
                     </div>
-                    <Bestseller onOpenModal={handleOpenModal} />
+
                     <OnSale onOpenModal={handleOpenModal} />
                     <HomeCategory onOpenModal={handleOpenModal} />
                   </div>

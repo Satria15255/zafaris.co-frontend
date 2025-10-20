@@ -25,8 +25,8 @@ function NavbarSection({ cartCount, onCartClick, onToggleSidebar }) {
   ${scrolled ? " shadow-md rounded-b-xl " : "bg-white"}`}
     >
       <Container fluid>
-        <Navbar.Brand as={NavLink} to="/" href="#" className="font-bold font-sans md:flex text-[10px] md:text-xl md:px-3">
-          Zafaris<span style={{ color: "red" }}>.</span>
+        <Navbar.Brand as={NavLink} to="/" href="#" className="font-bold font-sans md:flex text-[10px] md:text-xl lg:text-2xl md:px-3">
+          Zafaris<span className="text-yellow-500">.Co</span>
         </Navbar.Brand>
         <div className="flex items-center">
           <Nav className="font-bold space-px-5  mx-auto hidden md:flex justify-center">

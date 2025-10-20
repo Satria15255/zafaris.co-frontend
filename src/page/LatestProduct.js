@@ -32,7 +32,7 @@ function ProductList({ onOpenModal }) {
   };
 
   return (
-    <div className="grid py-2 h-45 grid-cols-2 md:grid-cols-4 gap-3 p-2 place-items-center">
+    <div className="grid py-2 h-45 grid-cols-2 md:grid-cols-4 gap-2 md:mt-2 lg:mt-4 place-items-center">
       {products.map((products) => (
         <ProductCard key={products.id} product={products} addToCart={() => addToCartItems(products._id)} onOpenModal={onOpenModal} />
       ))}

@@ -12,7 +12,8 @@ function ProductModal({ product, onClose, onAddToCart }) {
   const handleChekoutNow = () => {
     const token = localStorage.getItem("token");
     if (!token) {
-      toast.warning("Please login before checkout");
+      onClose();
+      navigate("/login");      
       return;
     }
     if (!selectedSize) {

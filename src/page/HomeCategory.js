@@ -33,26 +33,26 @@ function Category({ onOpenModal }) {
       viewport={{ once: true }}
     >
       <div>
-        <div className="p-2 md:p-8">
-          <div className="border-b text-[9px] lg:text-sm md:px-4 py-2 ">
+        <div className="p-2 md:p-8 mt-6">
+          <div className="border-b text-[9px] lg:text-lg md:px-4 l py-2 ">
             {categories.map((cat) => (
               <button
                 key={cat}
                 onClick={() => setActiveCategory(cat)}
-                className={`pt-2 transition font-bold px-1 md:px-2
+                className={`pt-2 transition font-bold px-1 md:px-6
         ${activeCategory === cat ? "text-yellow-500" : "hover:text-yellow-500"}`}
               >
                 {cat}
               </button>
             ))}
           </div>
-          <div className="grid py-2 md:p-4 h-45 grid-cols-2 md:grid-cols-4 gap-3 place-items-center">
+          <div className="grid py-2 md:p-4 mt-4 h-45 grid-cols-2 md:grid-cols-4 gap-3 place-items-center">
             {filteredProducts.map((product) => (
               <ProductCard product={product} onOpenModal={onOpenModal} />
             ))}
           </div>
           <div>
-            <Nav.Link as={NavLink} to="/products" className="text-[9px] md:text-md flex py-2 md:py-4 justify-center mb-4 hover:underline hover:text-gray-900 text-gray-500 font-semibold ">
+            <Nav.Link as={NavLink} to="/products" className="text-[9px] md:text-lg flex py-2 md:py-4 justify-center mb-4 hover:underline hover:text-gray-900 text-gray-500 font-semibold ">
               View More Products
             </Nav.Link>
           </div>

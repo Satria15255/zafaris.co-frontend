@@ -41,7 +41,7 @@ function Onweek({ onOpenModal }) {
 
   return (
     <motion.div initial={{ x: -100, opacity: 0 }} whileInView={{ x: 0, opacity: 1 }} transition={{ duration: 1.0 }} viewport={{ once: true }}>
-      <div className=" bg-gray-900  flex justify-around w-full">
+      <div className=" bg-gray-900 mt-6 flex justify-around w-full">
         {randomProduct.map((product) => (
           <div key={product.id}>
             <Container className="flex items-center px-0 py-2">
@@ -61,7 +61,7 @@ function Onweek({ onOpenModal }) {
                 <p className="mt-1 md:py-2 text-[5px] md:text-[7px] lg:text-xs text-white max-w-lg ">{product.description}</p>
                 <div>
                   <button onClick={() => onOpenModal(product)} className="text-[7px] md:text-sm lg:text-lg font-bold font-sans md:py-2 text-white hover:text-color-red hover:underline transition duration-300">
-                    SHOOP NOW
+                    BUY NOW
                   </button>
                 </div>
               </div>

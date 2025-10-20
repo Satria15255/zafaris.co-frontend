@@ -12,11 +12,11 @@ const Footer = () => {
           </p>
         </div>
         <div className="flex space-x-1 md:space-x-4">
-          <p className="font-bold text-white text-[5px] md:text-md lg:text-2xl">Best Seller</p>
-          <p className="font-bold text-white text-[5px] md:text-md lg:text-2xl">Latest Arrival</p>
-          <p className="font-bold text-white text-[5px] md:text-md lg:text-2xl">On Promo</p>
-          <p className="font-bold text-white text-[5px] md:text-md lg:text-2xl">Product</p>
-          <p className="font-bold text-white text-[5px] md:text-md lg:text-2xl">Product Category</p>
+          <p className="font-bold text-white text-[5px] md:text-md lg:text-lg">Best Seller</p>
+          <p className="font-bold text-white text-[5px] md:text-md lg:text-lg">Latest Arrival</p>
+          <p className="font-bold text-white text-[5px] md:text-md lg:text-lg">On Promo</p>
+          <p className="font-bold text-white text-[5px] md:text-md lg:text-lg">Product</p>
+          <p className="font-bold text-white text-[5px] md:text-md lg:text-lg">Product Category</p>
         </div>
         <div className="flex space-x-2">
           <div className="text-[6px] md:text-xl text-white">
