@@ -25,7 +25,7 @@ function NavbarSection({ cartCount, onCartClick, onToggleSidebar }) {
   ${scrolled ? " shadow-md rounded-b-xl " : "bg-white"}`}
     >
       <Container fluid>
-        <Navbar.Brand as={NavLink} to="/" href="#" className="font-bold font-sans md:flex text-[10px] md:text-xl lg:text-2xl md:px-3">
+        <Navbar.Brand as={NavLink} to="/" href="#" className="font-bold font-sans md:flex text-[14px] md:text-xl lg:text-2xl md:px-3">
           Zafaris<span className="text-yellow-500">.Co</span>
         </Navbar.Brand>
         <div className="flex items-center">
@@ -41,12 +41,12 @@ function NavbarSection({ cartCount, onCartClick, onToggleSidebar }) {
             <ShoppingCart />
             {cartCount > 0 && <span className="absolute top-2 right-4 bg-red-500 text-white text-xs w-5 h-5 flex items-center justify-center rounded-full">{cartCount}</span>}
           </button>
-          <button onClick={onToggleSidebar} className="relative px-2 hover:text-gray-900">
+          <button onClick={onToggleSidebar} className="relative hidden md:flex px-2 hover:text-gray-900">
             <CircleUser />
           </button>
           {/* Hamburger icon */}
-          <button onClick={() => setOpen(!open)} className="md:hidden px-2 z-50 ">
-            {open ? <x size={24} /> : <AlignJustify />}
+          <button onClick={onToggleSidebar} className="relative md:hidden   px-2 hover:text-gray-900">
+            <AlignJustify />
           </button>
         </div>
       </Container>

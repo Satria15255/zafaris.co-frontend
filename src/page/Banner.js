@@ -9,7 +9,7 @@ function Banner() {
       <div className="flex justify-center items-center p-1 md:p-4 lg:p-2 mt-10 md:mt-12">
         <div className=" flex  h-[40vh] md:h-[65vh] lg:h-[85vh] z-0 rounded-3xl md:rounded-5 lg:rounded-3xl bg-center bg-cover" style={{ backgroundImage: `url(${Slide2})` }}>
           <div className="grid grid-cols-1 md:grid-cols-2 items-center w-100 h-full rounded-3xl bg-black/30 ">
-            <div className="p-3 flex flex-col gap-1 md:gap-6">
+            <div className="p-3 flex flex-col gap-1 lg:space-y-7">
               <h2 className="!text-center md:!text-left text-[19px] md:text-4xl lg:text-7xl drop-shadow-2xl text-white font-bold">Walk in Comfort Step in Style.</h2>
               <p className="!text-center md:!text-left text-[7px] md:text-xs lg:text-lg text-white drop-shadow-2xl md:mt-2 lg:mt-2">
                 Zafaris.co is where style meets comfort in every step. We offer a curated selection of high-quality shoes with modern designs that reflect your unique character. From casual looks to streetwear, every pair is crafted to

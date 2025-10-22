@@ -1,6 +1,8 @@
 import React from "react";
-import { Link, useNavigate } from "react-router-dom";
-import { FaUserPlus, FaCreditCard, FaSignOutAlt, FaSignInAlt } from "react-icons/fa";
+import { useNavigate } from "react-router-dom";
+import { FaUserPlus, FaCreditCard, FaSignOutAlt, FaSignInAlt, FaHome, FaBoxes } from "react-icons/fa";
+import { CircleUser } from "lucide-react";
+
 import { toast } from "react-toastify";
 
 const Sidebar = ({ user, onLogout, closeSidebar }) => {
@@ -25,24 +27,34 @@ const Sidebar = ({ user, onLogout, closeSidebar }) => {
             <h2 className="text-[15px] text-center md:text-2xl font-bold py-3 border-b border-gray-500">
               Zafaris<span className="text-yellow-500">.co</span>
             </h2>
-            <button onClick={() => handleNavigate("/login")} className="flex items-center space-x-1 text-[10px] hover:text-gray-300 py-2 px-1 mt-1 ">
+            <button onClick={() => handleNavigate("/login")} className="flex items-center space-x-1 text-[10px] md:text-lg hover:text-gray-300 py-2 px-1 mt-1 ">
               <FaSignInAlt />
               <span>Login</span>
             </button>
 
-            <button onClick={() => handleNavigate("/register")} className="flex items-center space-x-1 text-[10px] hover:text-gray-300 py-2 px-1 ">
+            <button onClick={() => handleNavigate("/register")} className="flex items-center space-x-1 text-[10px] md:text-lg hover:text-gray-300 py-2 px-1 ">
               <FaUserPlus />
               <span>Register</span>
             </button>
           </>
         ) : (
           <>
-            <h2 className="text-[15px] text-center md:text-lg lg:text-2xl font-bold py-3 border-b border-gray-500"> Hello {user.name}!</h2>
-            <Link to="/orders" className="flex font-bold items-center text-[10px] gap-2 hover:text-gray-300 py-2 px-1 mt-1">
+            <div className="flex justify-center items=center py-2">
+              <CircleUser />
+            </div>
+            <h2 className="text-[15px] text-center md:text-lg lg:text-2xl font-bold pb-3 border-b border-gray-500"> Hello {user.name}!</h2>
+            <button onClick={() => handleNavigate("/")} className="flex font-bold items-center text-[10px] gap-2 hover:text-gray-300 py-2 px-1 mt-1">
+              <FaHome />
+              <span>Home</span>
+            </button>
+            <button onClick={() => handleNavigate("/products")} className="flex font-bold items-center text-[10px] gap-2 hover:text-gray-300 py-2 px-1 mt-1">
+              <FaBoxes />
+              <span>Product</span>
+            </button>
+            <button onClick={() => handleNavigate("/orders")} className="flex font-bold items-center text-[10px] gap-2 hover:text-gray-300 py-2 px-1 mt-1">
               <FaCreditCard />
               <span>My Orders</span>
-            </Link>
-
+            </button>
             <button onClick={handleLogout} className="flex font-bold text-[10px] items-center gap-2 hover:text-red-400 py-2 px-1">
               <FaSignOutAlt />
               <span>Logout</span>

@@ -3,8 +3,7 @@ import { toast } from "react-toastify";
 import ProductTable from "../components/ProductTable";
 import ProductUploadForm from "../components/ProductUploadForm";
 import ProductEditForm from "../components/ProductEditForm";
-import { getAllProducts, createProduct, deleteProduct } from "../../api";
-import axios from "axios";
+import { getAllProducts, deleteProduct } from "../../api";
 
 const Product = () => {
   const [products, setProducts] = useState([]);

@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from "react";
 import TransactionTable from "../components/TransactionTable";
-import axios from "axios";
 import TransactionDetails from "../components/TransactionDetails";
 import { toast } from "react-toastify";
 import { getAllTransactions, updateTransactionStatus } from "../../api";

@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { motion } from "framer-motion";
 import { Container, Image } from "react-bootstrap";
-import axios from "axios";
 import { getAllProducts } from "../api";
 
 function seededRandom(seed) {
