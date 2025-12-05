@@ -21,22 +21,25 @@ function NavbarSection({ cartCount, onCartClick, onToggleSidebar }) {
 
   return (
     <Navbar
-      className={`fixed top-0 z-20 md:px-4 bg-white flex justify-between items-center w-full transition-all duration-500 ease-in-out
+      className={`fixed top-0 z-20 md:px-4 bg-white flex justify-around items-center w-full transition-all duration-500 ease-in-out
   ${scrolled ? " shadow-md rounded-b-xl " : "bg-white"}`}
     >
       <Container fluid>
         <Navbar.Brand as={NavLink} to="/" href="#" className="font-bold font-sans md:flex text-[14px] md:text-xl lg:text-2xl md:px-3">
           Zafaris<span className="text-yellow-500">.Co</span>
         </Navbar.Brand>
+        <Nav className="font-bold space-px-5  mx-auto hidden md:flex justify-center">
+          <Nav.Link as={NavLink} to="/">
+            Home
+          </Nav.Link>
+          <Nav.Link as={NavLink} to="/products">
+            Product
+          </Nav.Link>
+          <Nav.Link as={NavLink} to="/products">
+            Blog
+          </Nav.Link>
+        </Nav>
         <div className="flex items-center">
-          <Nav className="font-bold space-px-5  mx-auto hidden md:flex justify-center">
-            <Nav.Link as={NavLink} to="/">
-              Home
-            </Nav.Link>
-            <Nav.Link as={NavLink} to="/products">
-              Product
-            </Nav.Link>
-          </Nav>
           <button onClick={onCartClick} className="relative px-2 hover:text-gray-900">
             <ShoppingCart />
             {cartCount > 0 && <span className="absolute top-2 right-4 bg-red-500 text-white text-xs w-5 h-5 flex items-center justify-center rounded-full">{cartCount}</span>}

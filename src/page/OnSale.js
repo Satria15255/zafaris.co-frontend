@@ -38,6 +38,8 @@ function Onweek({ onOpenModal }) {
 
   const randomProduct = shuffleWithSeed(products, seed).slice(0, 1);
 
+  const discountProduct = randomProduct.price * 1.2;
+
   return (
     <motion.div initial={{ x: -100, opacity: 0 }} whileInView={{ x: 0, opacity: 1 }} transition={{ duration: 1.0 }} viewport={{ once: true }}>
       <div className=" bg-gray-900 mt-6 flex justify-around w-full">
@@ -56,7 +58,10 @@ function Onweek({ onOpenModal }) {
                   {" "}
                   {product.name}
                 </h2>
-                <p className="font-bold text-[7px] md:text-[12px] lg:text-lg text-yellow-500">${product.price}</p>
+                <div className="flex gap-2">
+                  <p className="font-bold text-[7px] md:text-[12px] lg:text-lg text-yellow-500 line-through">${product.price}</p>
+                  <p className="font-bold text-[7px] md:text-[12px] lg:text-lg text-yellow-500">${product.price * 0.7}</p>
+                </div>
                 <p className="mt-1 md:py-2 text-[5px] md:text-[7px] lg:text-xs text-white max-w-lg ">{product.description}</p>
                 <div>
                   <button onClick={() => onOpenModal(product)} className="text-[7px] md:text-sm lg:text-lg font-bold font-sans md:py-2 text-white hover:text-color-red hover:underline transition duration-300">

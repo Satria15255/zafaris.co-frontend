@@ -159,7 +159,7 @@ function App() {
                     <Banner style={{ width: "100vh" }} onOpenModal={handleOpenModal} />
                     <Bestseller onOpenModal={handleOpenModal} />
 
-                    <div className="">
+                    <div className="mt-12">
                       <motion.div
                         initial={{ opacity: 0, y: 50 }} // Awalnya transparan dan turun 50px
                         whileInView={{ opacity: 1, y: 0 }} // Saat muncul, fade-in & naik ke atas
@@ -167,7 +167,7 @@ function App() {
                         viewport={{ once: true }}
                       >
                         <p class="text-[12px] md:text-sm lg:text-2xl font-bold text-center mt-6">
-                          Latest <span className="text-yellow-500">Arrival</span>
+                          ———— Latest <span className="text-yellow-500">Arrival</span> ————
                         </p>
                       </motion.div>
 
