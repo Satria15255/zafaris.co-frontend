@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { motion } from "framer-motion";
 import { Container, Image } from "react-bootstrap";
-import { getAllProducts } from "../api";
+import { getDiscountProducts } from "../api";
 
 function seededRandom(seed) {
   var x = Math.sin(seed) * 10000;
@@ -20,10 +20,22 @@ function shuffleWithSeed(array, seed) {
 function Onweek({ onOpenModal }) {
   const [products, setProducts] = useState([]);
 
+  const normalizeDiscount = (discount) => {
+    return {
+      ...discount.productId,
+      isDiscount: true,
+      discountPercent: discount.discountPercent,
+      discountPrice: discount.discountPrice,
+      expiresAt: discount.expiresAt,
+    };
+  };
+
   const fetchProducts = async () => {
     try {
-      const res = await getAllProducts();
-      setProducts(res.data);
+      const res = await getDiscountProducts();
+      const normalized = res.data.map(normalizeDiscount);
+      setProducts(normalized);
+      console.log(normalized);
     } catch (err) {
       console.err("Failed to fetch products:", err);
     }
@@ -37,8 +49,6 @@ function Onweek({ onOpenModal }) {
   const seed = parseInt(today.toISOString().slice(0, 10).replace(/-/g, ""));
 
   const randomProduct = shuffleWithSeed(products, seed).slice(0, 1);
-
-  const discountProduct = randomProduct.price * 1.2;
 
   return (
     <motion.div initial={{ x: -100, opacity: 0 }} whileInView={{ x: 0, opacity: 1 }} transition={{ duration: 1.0 }} viewport={{ once: true }}>
@@ -60,7 +70,7 @@ function Onweek({ onOpenModal }) {
                 </h2>
                 <div className="flex gap-2">
                   <p className="font-bold text-[7px] md:text-[12px] lg:text-lg text-yellow-500 line-through">${product.price}</p>
-                  <p className="font-bold text-[7px] md:text-[12px] lg:text-lg text-yellow-500">${product.price * 0.7}</p>
+                  <p className="font-bold text-[7px] md:text-[12px] lg:text-lg text-yellow-500">${product.discountPrice}</p>
                 </div>
                 <p className="mt-1 md:py-2 text-[5px] md:text-[7px] lg:text-xs text-white max-w-lg ">{product.description}</p>
                 <div>

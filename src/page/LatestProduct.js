@@ -10,7 +10,7 @@ function ProductList({ onOpenModal }) {
     try {
       const res = await getLatestProducts();
       console.log(res.data);
-      setProducts(res.data);
+      setProducts(res.data.slice(0, 4));
     } catch (err) {
       console.err("Failed to fetch products:", err);
     }

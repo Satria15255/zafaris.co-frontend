@@ -5,15 +5,18 @@ import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 
 function ProductModal({ product, onClose, onAddToCart }) {
+  const { discountPercent, discountPrice } = product;
   const [selectedSize, setSelectedSize] = useState("");
   const navigate = useNavigate();
+
+  const isDiscount = discountPercent && discountPrice;
 
   // Fungsi Checkout product
   const handleChekoutNow = () => {
     const token = localStorage.getItem("token");
     if (!token) {
       onClose();
-      navigate("/login");      
+      navigate("/login");
       return;
     }
     if (!selectedSize) {
@@ -27,8 +30,8 @@ function ProductModal({ product, onClose, onAddToCart }) {
       id: product._id,
       name: product.name,
       image: product.image,
-      price: product.price,
       size: selectedSize,
+      price: discountPrice,
       quantity: 1,
     };
 
@@ -56,7 +59,19 @@ function ProductModal({ product, onClose, onAddToCart }) {
               </button>
             </div>
             <div className="mt-4">
-              <span className="lg:text-2xl md:text-sm pb-1 lg:py-4 font-semibold">${product.price}.00</span>
+              {isDiscount && <p>{discountPercent}%OFF</p>}
+              <div className="flex justify-between items-center">
+                <p className="text-[9px] md:text-sm text-gray-500">4.9(1k Review)</p>
+                {isDiscount ? (
+                  <>
+                    <p>${discountPrice}</p>
+                  </>
+                ) : (
+                  <>
+                    <p className="text-[9px] md:text-[9px] lg:text-sm text-yellow-500 font-bold">${product.price.toFixed(2)}.00</p>
+                  </>
+                )}
+              </div>
             </div>
             <p className="py-3 text-sm lg:text-lg border-bottom w-full ">{product.description}</p>
             <select value={selectedSize} onChange={(e) => setSelectedSize(e.target.value)} className="border px-2 py-1 rounded" required>
@@ -70,7 +85,7 @@ function ProductModal({ product, onClose, onAddToCart }) {
               })}
             </select>
             <div className="mt-auto flex flex-col justify-arround hidden xl:flex items-end ">
-              <button onClick={() => onAddToCart(product, selectedSize)} className="mt-3 w-full px-2 py-3 bg-gray-200  hover:text-white rounded-md hover:bg-black transition">
+              <button onClick={() => onAddToCart(product, selectedSize, discountPrice)} className="mt-3 w-full px-2 py-3 bg-gray-200  hover:text-white rounded-md hover:bg-black transition">
                 Add to Cart
               </button>
               <button

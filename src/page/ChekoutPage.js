@@ -23,7 +23,7 @@ const CheckoutPage = () => {
   });
 
   // Total harga
-  const total = items.reduce((sum, item) => sum + item.price * item.quantity, 0);
+  const total = items.reduce((sum, item) => sum + item.finalPrice * item.quantity, 0);
 
   // Handle perubahan input form
   const handleChange = (e) => {
@@ -40,6 +40,8 @@ const CheckoutPage = () => {
           formatedProducts.push({
             product: item.id,
             size: item.size,
+            price: item.finalPrice,
+            discountPercent: item.discountPercent,
           });
         }
       }
@@ -91,7 +93,7 @@ const CheckoutPage = () => {
                       </p>
                     </div>
                   </div>
-                  <span className="text-yellow-500 font-bold text-xs md:text-lg">$ {(item.price * item.quantity).toFixed(2)}</span>
+                  <span className="text-yellow-500 font-bold text-xs md:text-lg">$ {(item.finalPrice * item.quantity).toFixed(2)}</span>
                 </li>
               ))}
             </ul>

@@ -45,7 +45,7 @@ const ShoppingCart = ({ onClose }) => {
   const totalPrice = (items || [])
     .filter((item) => item && item.productId && item.productId.price)
     .reduce((total, item) => {
-      return total + item.productId.price * item.quantity;
+      return total + item.finalPrice * item.quantity;
     }, 0);
 
   console.log(items);
@@ -56,9 +56,7 @@ const ShoppingCart = ({ onClose }) => {
       <button onClick={onClose} className="absolute top-4 left-4 text-2xl font-bold text-gray-600 hover:text-gray-900">
         ×
       </button>
-
       <h1 className="text-md mt-3 lg:text-2xl font-semibold mb-4 md:mb-6">Your cart</h1>
-
       {/* Tabel Cart */}
       <div className="w-full h-screen">
         <div className="w-full p-1  bg-white lg:p-6 overflow-x-hidden overflow-y-auto max-h-[60vh] md:max-h-[40vh] lg:max-h-[62vh]">
@@ -84,7 +82,10 @@ const ShoppingCart = ({ onClose }) => {
                         <div>
                           <h2 className="text-[10px] md:text-lg text-sm md:text-xl font-medium">{item.productId.name}</h2>
                           <p className="text-[8px] lg:text-sm text-gray-600 font-semibold">Size: {item.size}</p>
-                          <p className="text-[8px] lg:text-sm text-gray-600 font-semibold">${item.productId.price}</p>
+                          <div>
+                            {item.discountPercent > 0 && <p>${item.discountPercent}%OFF</p>}
+                            <h2 className="text-[10px] md:text-lg text-sm md:text-xl font-medium">{item.finalPrice}</h2>
+                          </div>
                         </div>
                       </td>
 
@@ -106,7 +107,7 @@ const ShoppingCart = ({ onClose }) => {
 
                       {/* Total Harga per Item */}
                       <td>
-                        <div className="flex items-center justify-center text-right text-yellow-500 font-semibold  hidden md:block">${item.productId.price * item.quantity}</div>
+                        <div className="flex items-center justify-center text-right text-yellow-500 font-semibold  hidden md:block">${item.finalPrice * item.quantity}</div>
                       </td>
                     </tr>
                   );
@@ -116,8 +117,7 @@ const ShoppingCart = ({ onClose }) => {
           )}
         </div>
       </div>
-
-      {/* Total Harga Keseluruhan & chekout */}
+      ;{/* Total Harga Keseluruhan & chekout */}
       <div className="w-full bg-gray-100 p-4 mt-4  ">
         <div>
           <div className=" grid grid-cols-2 ">
@@ -138,10 +138,11 @@ const ShoppingCart = ({ onClose }) => {
                   chekoutItems: items.map((item) => ({
                     id: item.productId._id,
                     name: item.productId.name,
-                    price: item.productId.price,
                     image: item.productId.image,
                     size: item.size,
                     quantity: item.quantity,
+                    finalPrice: item.finalPrice,
+                    discountPercent: item.discountPercent,
                   })),
                 },
               });
@@ -153,6 +154,7 @@ const ShoppingCart = ({ onClose }) => {
           </button>
         </div>
       </div>
+      ;
     </div>
   );
 };
