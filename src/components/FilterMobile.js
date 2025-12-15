@@ -4,18 +4,19 @@ const FilterMobile = ({ open, onClose, categories, sizes, currentFilter, onApply
   const [tempFilter, setTempFilter] = useState(currentFilter);
 
   return (
+    <div className="fixed z-50 inset-0 bg-black/40">
     <div
-      className={`fixed inset-0 z-50 bg-white transform transition-transform duration-300 max-h-screen overflow-y-auto
+      className={` bg-white transform transition-transform duration-300  mt-12 pb-2 rounded-t-xl max-h-screen overflow-y-auto
       ${open ? "translate-x-0" : "translate-x-full"}`}
     >
       {/* Header */}
       <div className="flex justify-between p-4 border-b">
-        <h2 className="font-bold">Filter</h2>
+        <h2 className="font-bold">Filter Product</h2>
         <button onClick={onClose}>✕</button>
       </div>
 
       {/* Body */}
-      <div className="p-4 space-y-6 overflow-y-auto">
+      <div className="p-4 space-y-3 overflow-y-auto">
         {/* Category */}
         {categories.map((cat) => (
           <button
@@ -62,10 +63,12 @@ const FilterMobile = ({ open, onClose, categories, sizes, currentFilter, onApply
           }}
           className="w-full bg-black text-white py-3 rounded"
         >
-          Terapkan Filter
+          Apply Filter
         </button>
       </div>
     </div>
+    </div>
+
   );
 };
 

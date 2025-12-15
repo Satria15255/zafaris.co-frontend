@@ -4,7 +4,7 @@ import { MdAutoAwesome, MdOutlineExpandMore, MdSell, MdSearch } from "react-icon
 const FilterSidebar = ({ categories, size, filter, setFilter }) => {
   return (
     <div>
-      <div className="md:flex hidden flex-col md:w-1/5 space-y-2 pr-3">
+      <div className="md:flex hidden flex-col md:w-full space-y-2 pr-3">
         <div className="">
           <button className="flex items-center justify-between rounded-xl w-full text-left py-2 text-lg rounded-md text-left font-semibold">
             Category
@@ -49,7 +49,8 @@ const FilterSidebar = ({ categories, size, filter, setFilter }) => {
         </div>
         <div className="w-full">
           <button
-            className={`flex items-center gap-1 text-lg font-semibold rounded-xl w-full text-left py-2  hover:shadow-lg hover:pl-1 transition-all duration-300 ease-in-out` + " border shadow-md pl-1"}
+            className={`flex items-center gap-1 text-lg font-semibold rounded-xl w-full text-left py-2  hover:shadow-lg hover:pl-1 transition-all duration-300 ease-in-out
+              ${filter.latest ? " border shadow-md pl-1" : "hover:text-yellow-500"}`}
             onClick={() => setFilter((prev) => ({ ...prev, latest: !prev.latest }))}
           >
             <span>
@@ -60,7 +61,8 @@ const FilterSidebar = ({ categories, size, filter, setFilter }) => {
         </div>
         <div className="w-full">
           <button
-            className={`flex items-center gap-1 text-lg font-semibold rounded-xl w-full text-left py-2  hover:shadow-lg hover:pl-1 transition-all duration-300 ease-in-out` + " border shadow-md pl-1"}
+            className={`flex items-center gap-1 text-lg font-semibold rounded-xl w-full text-left py-2  hover:shadow-lg hover:pl-1 transition-all duration-300 ease-in-out
+              ${filter.discount ? "border shadow-md pl-1" : "hover:text-yellow-500"}`}
             onClick={() => setFilter((prev) => ({ ...prev, discount: !prev.discount }))}
           >
             <span>

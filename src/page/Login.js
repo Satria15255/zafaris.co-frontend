@@ -36,19 +36,19 @@ const Login = ({ setUser }) => {
         </button>
         <h2 className="text-[12px] md:text-2xl text-center font-bold mb-2 md:mb-4">Login</h2>
         <form onSubmit={handleSubmit} className="space-y-2 md:space-y-4 flex px-3 flex-col justify-center">
-          <input type="email" placeholder="Email" value={email} className="w-full text-[8px] rounded-lg p-2 border" onChange={(e) => setEmail(e.target.value)} />
-          <input type="password" placeholder="Password" value={password} className="w-full text-[8px] rounded-lg p-2 border" onChange={(e) => setPassword(e.target.value)} />
-          <button type="submit" className="text-[8px] border border-black hover:text-white hover:bg-gray-900 transition duration-100 font-bold px-4 py-2 rounded">
+          <input type="email" placeholder="Email" value={email} className="w-full text-[8px] md:text-lg rounded-lg p-2 border" onChange={(e) => setEmail(e.target.value)} />
+          <input type="password" placeholder="Password" value={password} className="w-full text-[8px] md:text-lg rounded-lg p-2 border" onChange={(e) => setPassword(e.target.value)} />
+          <button type="submit" className="text-[8px] md:text-lg border border-black hover:text-white hover:bg-gray-900 transition duration-100 font-bold px-4 py-2 rounded">
             Login
           </button>
         </form>
         <div className="flex flex-col items-center mt-2 md:mt-4">
-          <p className="text-center text-[8px]">Don't have an account?</p>
+          <p className="text-center text-[8px] md:text-sm">Don't have an account?</p>
           <button
             onClick={() => {
               navigate("/register");
             }}
-            className="text-gray-900 text-center text-[8px] mb-3 hover:underline"
+            className="text-gray-900 text-center text-[8px] md:text-sm mb-3 hover:underline"
           >
             Create Account
           </button>

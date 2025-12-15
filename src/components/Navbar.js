@@ -35,9 +35,6 @@ function NavbarSection({ cartCount, onCartClick, onToggleSidebar }) {
           <Nav.Link as={NavLink} to="/products">
             Product
           </Nav.Link>
-          <Nav.Link as={NavLink} to="/products">
-            Blog
-          </Nav.Link>
         </Nav>
         <div className="flex items-center">
           <button onClick={onCartClick} className="relative px-2 hover:text-gray-900">

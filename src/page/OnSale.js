@@ -70,7 +70,7 @@ function Onweek({ onOpenModal }) {
                 </h2>
                 <div className="flex gap-2">
                   <p className="font-bold text-[7px] md:text-[12px] lg:text-lg text-yellow-500 line-through">${product.price}</p>
-                  <p className="font-bold text-[7px] md:text-[12px] lg:text-lg text-yellow-500">${product.discountPrice}</p>
+                  <p className="font-bold text-[7px] md:text-[12px] lg:text-lg text-yellow-500">${product.discountPrice.toFixed(2)}</p>
                 </div>
                 <p className="mt-1 md:py-2 text-[5px] md:text-[7px] lg:text-xs text-white max-w-lg ">{product.description}</p>
                 <div>

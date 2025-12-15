@@ -16,18 +16,18 @@ const Footer = () => {
           </p>
         </div>
         <div className="flex flex-col space-y-1">
-          <p className="text-white text-[7px] md:text-sm lg:text-sm">Best Seller</p>
-          <p className="text-white text-[7px] md:text-sm lg:text-sm">Latest Arrival</p>
-          <p className="text-white text-[7px] md:text-sm lg:text-sm">On Promo</p>
-          <p className="text-white text-[7px] md:text-sm lg:text-sm">Product</p>
-          <p className="text-white text-[7px] md:text-sm lg:text-sm">Product Category</p>
+          <p className="text-white text-[7px] md:text-[10px] lg:text-sm">Best Seller</p>
+          <p className="text-white text-[7px] md:text-[10px] lg:text-sm">Latest Arrival</p>
+          <p className="text-white text-[7px] md:text-[10px] lg:text-sm">On Promo</p>
+          <p className="text-white text-[7px] md:text-[10px] lg:text-sm">Product</p>
+          <p className="text-white text-[7px] md:text-[10px] lg:text-sm">Product Category</p>
         </div>
         <div className="flex flex-col space-y-1">
-          <p className="text-white text-[7px] md:text-sm lg:text-sm">How to Shop</p>
-          <p className="text-white text-[7px] md:text-sm lg:text-sm">FAQ</p>
-          <p className="text-white text-[7px] md:text-sm lg:text-sm">Return Policy</p>
-          <p className="text-white text-[7px] md:text-sm lg:text-sm">Terms of Service</p>
-          <p className="text-white text-[7px] md:text-sm lg:text-sm">Privacy & Security</p>
+          <p className="text-white text-[7px] md:text-[10px] lg:text-sm">How to Shop</p>
+          <p className="text-white text-[7px] md:text-[10px] lg:text-sm">FAQ</p>
+          <p className="text-white text-[7px] md:text-[10px] lg:text-sm">Return Policy</p>
+          <p className="text-white text-[7px] md:text-[10px] lg:text-sm">Terms of Service</p>
+          <p className="text-white text-[7px] md:text-[10px] lg:text-sm">Privacy & Security</p>
         </div>
         <div className="flex justify-center space-x-2">
           <div className="text-[8px] md:text-xl text-white">

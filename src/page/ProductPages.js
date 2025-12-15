@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import ProductCard from "../components/ProductCard";
 import { getAllProducts, getLatestProducts, getDiscountProducts } from "../api";
 import bgProductPages from "../assets/elemen/img/hero3.png";
-import { MdAutoAwesome, MdOutlineExpandMore, MdSell, MdSearch } from "react-icons/md";
+import { MdAutoAwesome, MdOutlineExpandMore, MdSell, MdSearch, MdFilterList } from "react-icons/md";
 import FilterMobile from "../components/FilterMobile";
 import FilterSidebar from "../components/FilterSidebar";
 
@@ -114,13 +114,10 @@ function ProductPages({ onAddToCart, onOpenModal }) {
       <div style={{ backgroundImage: `url(${bgProductPages})` }} className="z-0 flex flex-col justify-between items-center h-[30vh] md:h-[60vh] bg-center bg-cover rounded-lg md:rounded-3xl mb-2 md:mb-4">
         <div className="bg-transparant font-light ml-5">.</div>
         <p className="text-2xl md:text-8xl font-bold text-white">Product</p>
-        <div className="w-4/5 md:w-[180vh] rounded-t-2xl bg-white flex justify-between items-center h-[6vh] md:h-[9vh] px-3">
-          <p className="font-bold text-xs md:text-lg">Give All You Want</p>
-          <div className="flex w-1/5">
-            <input type="text" placeholder="🔍 Search Products..." value={filter.search} onChange={(e) => setFilter((prev) => ({ ...prev, search: e.target.value }))} className="w-full h-[5vh] text-sm rounded-full" />
-            <p className="flex items-center text-xl">
-              <MdSearch />
-            </p>
+        <div className="w-[50vh] md:w-[180vh] rounded-t-2xl bg-white flex justify-between items-center h-[6vh] md:h-[9vh] px-3">
+          <p className="hidden md:flex font-bold text-xs md:text-lg">Give All You Want</p>
+          <div className="flex w-full md:w-1/5">
+            <input type="text" placeholder="Search Products..." value={filter.search} onChange={(e) => setFilter((prev) => ({ ...prev, search: e.target.value }))} className="w-full px-2 h-[5vh] text-sm border rounded-xl" />
           </div>
         </div>
       </div>
@@ -130,7 +127,16 @@ function ProductPages({ onAddToCart, onOpenModal }) {
           <FilterSidebar categories={categories} size={size} filter={filter} setFilter={setFilter} />
 
           {/* Filter Mobile Version */}
-          <button onClick={() => setFilterOpen(true)}>Filter</button>
+          <div className="md:hidden w-30 flex justify-end mb-2 mr-2">
+            <button onClick={() => setFilterOpen(true)} className="flex px-3 items-center text-sm  border rounded-lg ">
+              Filter
+              <span className="flex items-center">
+                <MdFilterList />
+              </span>
+            </button>
+            {filterOpen && <FilterMobile open={filterOpen} onClose={() => setFilterOpen(false)} categories={categories} sizes={size} currentFilter={filter} onApply={(newFilter) => setFilter(newFilter)} />}
+          </div>
+
           {/* Products Section */}
           <div className="flex flex-col">
             <div className="grid grid-cols-2 items-center md:grid-cols-3 gap-3">
@@ -138,7 +144,7 @@ function ProductPages({ onAddToCart, onOpenModal }) {
               {currentProducts.length > 0 && currentProducts.map((products) => <ProductCard key={products._id} product={products} onAddToCart={onAddToCart} onOpenModal={onOpenModal} />)}
             </div>
             <div className="flex justify-between w-full py-4">
-              <button className="font-semibold text-lg w-25 rounded h-[5vh] hover:shadow-md transition duration-200" onClick={() => setCurrentPages((prev) => Math.max(prev - 1, 1))} disabled={currentPages === 1}>
+              <button className="font-semibold text-xs md:text-lg w-25 rounded h-[5vh] hover:shadow-md transition duration-200" onClick={() => setCurrentPages((prev) => Math.max(prev - 1, 1))} disabled={currentPages === 1}>
                 ← Previous
               </button>
               <div>
@@ -146,19 +152,21 @@ function ProductPages({ onAddToCart, onOpenModal }) {
                   <button
                     key={idx}
                     onClick={() => setCurrentPages(idx + 1)}
-                    className={`px-3 py-1 rounded hover:bg-gray-100 hover: font-bold transition-all duration-300 ease-in-out ${currentPages === idx + 1 ? "font-bold bg-gray-100" : ""}`}
+                    className={`px-2 md:px-3 py-1 text-xs md:text-lg rounded hover:bg-gray-100 hover:font-bold transition-all duration-300 ease-in-out ${currentPages === idx + 1 ? "font-bold bg-gray-100" : ""}`}
                   >
                     {idx + 1}
                   </button>
                 ))}
               </div>
-              <button className="font-semibold text-lg w-25 rounded h-[5vh] hover:shadow-md transition duration-200" onClick={() => setCurrentPages((prev) => Math.min(prev + 1, totalPages))} disabled={currentPages === totalPages}>
+              <button
+                className="font-semibold text-xs md:text-lg w-25 rounded h-[5vh] hover:shadow-md transition duration-200"
+                onClick={() => setCurrentPages((prev) => Math.min(prev + 1, totalPages))}
+                disabled={currentPages === totalPages}
+              >
                 Next →
               </button>
             </div>
           </div>
-
-          {filterOpen && <FilterMobile open={filterOpen} onClose={() => setFilterOpen(false)} categories={categories} sizes={size} currentFilter={filter} onApply={(newFilter) => setFilter(newFilter)} />}
         </div>
       </div>
     </div>
