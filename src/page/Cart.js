@@ -117,7 +117,7 @@ const ShoppingCart = ({ onClose }) => {
           )}
         </div>
       </div>
-      ;{/* Total Harga Keseluruhan & chekout */}
+      {/* Total Harga Keseluruhan & chekout */}
       <div className="w-full bg-gray-100 p-4 mt-4  ">
         <div>
           <div className=" grid grid-cols-2 ">
@@ -154,7 +154,6 @@ const ShoppingCart = ({ onClose }) => {
           </button>
         </div>
       </div>
-      ;
     </div>
   );
 };

@@ -83,11 +83,7 @@ function ProductPages({ onAddToCart, onOpenModal }) {
   }, []);
 
   // Function Filter Products
-  useEffect(() => {
-    if (filter.discount && filter.latest) {
-      setFilter((prev) => ({ ...prev, latest: false }));
-    }
-  });
+  
 
   const filterProducts = () => {
     const source = filter.discount ? discountProducts : filter.latest ? latestProducts : products || [];
@@ -114,15 +110,15 @@ function ProductPages({ onAddToCart, onOpenModal }) {
       <div style={{ backgroundImage: `url(${bgProductPages})` }} className="z-0 flex flex-col justify-between items-center h-[30vh] md:h-[60vh] bg-center bg-cover rounded-lg md:rounded-3xl mb-2 md:mb-4">
         <div className="bg-transparant font-light ml-5">.</div>
         <p className="text-2xl md:text-8xl font-bold text-white">Product</p>
-        <div className="w-[50vh] md:w-[180vh] rounded-t-2xl bg-white flex justify-between items-center h-[6vh] md:h-[9vh] px-3">
-          <p className="hidden md:flex font-bold text-xs md:text-lg">Give All You Want</p>
+        <div className="w-[50vh] md:w-[120vh] lg:w-[180vh] rounded-t-2xl bg-white flex justify-between items-center h-[6vh] md:h-[9vh] px-3">
+          <p className="hidden md:flex font-bold text-xs md:text-sm lg:text-lg">Give All You Want</p>
           <div className="flex w-full md:w-1/5">
             <input type="text" placeholder="Search Products..." value={filter.search} onChange={(e) => setFilter((prev) => ({ ...prev, search: e.target.value }))} className="w-full px-2 h-[5vh] text-sm border rounded-xl" />
           </div>
         </div>
       </div>
       <div className="flex justify-center">
-        <div className="flex flex-col md:flex-row w-[100vh] md:w-[180vh] px-2">
+        <div className="flex flex-col justify-center md:flex-row w-[100vh] md:w-[180vh] px-2">
           {/* Sidebar Filter */}
           <FilterSidebar categories={categories} size={size} filter={filter} setFilter={setFilter} />
 

@@ -4,9 +4,9 @@ const FilterMobile = ({ open, onClose, categories, sizes, currentFilter, onApply
   const [tempFilter, setTempFilter] = useState(currentFilter);
 
   return (
-    <div className="fixed z-50 inset-0 bg-black/40">
+    <div className="fixed z-50 inset-0 bg-black/40 h-screen">
     <div
-      className={` bg-white transform transition-transform duration-300  mt-12 pb-2 rounded-t-xl max-h-screen overflow-y-auto
+      className={` bg-white transform transition-transform duration-300  mt-12 rounded-t-xl max-h-screen overflow-y-auto
       ${open ? "translate-x-0" : "translate-x-full"}`}
     >
       {/* Header */}
