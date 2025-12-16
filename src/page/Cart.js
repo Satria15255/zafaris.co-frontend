@@ -51,7 +51,7 @@ const ShoppingCart = ({ onClose }) => {
   console.log(items);
   // Menghitung total harga
   return (
-    <div className="fixed bg-black top-0 right-0 w-full z-50 h-full bg-white flex flex-col items-center md:p-3">
+    <div className="fixed bg-black top-0 right-0 w-full z-50 h-screen bg-white flex flex-col items-center md:p-3">
       {/* Tombol Close */}
       <button onClick={onClose} className="absolute top-4 left-4 text-2xl font-bold text-gray-600 hover:text-gray-900">
         ×
