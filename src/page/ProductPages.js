@@ -107,7 +107,7 @@ function ProductPages({ onAddToCart, onOpenModal }) {
 
   return (
     <div className="mt-12 p-1 md:p-2">
-      <div style={{ backgroundImage: `url(${bgProductPages})` }} className="z-0 flex flex-col justify-between items-center h-[30vh] md:h-[60vh] bg-center bg-cover rounded-lg md:rounded-3xl mb-2 md:mb-4">
+      <div style={{ backgroundImage: `url(${bgProductPages})` }} className="z-0 flex flex-col justify-between items-center h-[30vh] h-[35vh] md:h-[60vh] bg-center bg-cover rounded-lg md:rounded-3xl mb-2 md:mb-4">
         <div className="bg-transparant font-light ml-5">.</div>
         <p className="text-4xl md:text-8xl font-bold text-white">Product</p>
         <div className="w-[50vh] md:w-[120vh] lg:w-[180vh] rounded-t-2xl bg-white flex justify-between items-center h-[6vh] md:h-[9vh] px-3">
