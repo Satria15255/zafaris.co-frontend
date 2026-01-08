@@ -34,7 +34,7 @@ function Category({ onOpenModal }) {
     >
       <div>
         <div className="p-2 md:p-8 mt-6">
-          <div className="border-b text-[9px] lg:text-lg md:px-4 space-x-2 l py-2 ">
+          <div className="border-b text-[11px] lg:text-lg md:px-4 space-x-2 l py-2 ">
             {categories.map((cat) => (
               <button
                 key={cat}

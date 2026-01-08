@@ -28,7 +28,6 @@ import Banner from "./page/Banner";
 import OnSale from "./page/OnSale";
 import Bestseller from "./page/Bestseller";
 import HomeCategory from "./page/HomeCategory";
-import CategoryPages from "./page/CategoryPage";
 import ProductPages from "./page/ProductPages";
 import ScrollToTop from "./components/ScrollToTop";
 import ChekoutPage from "./page/ChekoutPage";
@@ -166,8 +165,8 @@ function App() {
                         transition={{ duration: 1.0 }} // Animasi selama 0.6 detik
                         viewport={{ once: true }}
                       >
-                        <p class="text-[12px] md:text-sm lg:text-2xl font-bold text-center mt-6">
-                          ———— Latest <span className="text-yellow-500">Arrival</span> ————
+                        <p className="text-lg md:text-sm lg:text-2xl font-bold text-center mt-6">
+                          Latest <span className="text-yellow-500">Arrival</span>
                         </p>
                       </motion.div>
 
@@ -181,7 +180,6 @@ function App() {
               />
               <Route path="/login" element={<Login setUser={setUser} />} />
               <Route path="/register" element={<Register />} />
-              <Route path="/products/category/:categoryName" element={<CategoryPages onAddToCart={handleAddToCart} onOpenModal={handleOpenModal} />} />
               <Route path="/products" element={<ProductPages onAddToCart={handleAddToCart} onOpenModal={handleOpenModal} />} />
               <Route path="/chekout" element={<ChekoutPage cart={cart} onRemoveFromCart={removeFromCart} onQuantityChange={handleQuantityChange} decreaseQuantity={decreaseQuantity} onClose={() => setIsCartOpen(false)} />} />
               <Route path="/orders" element={<OrderPages />} />

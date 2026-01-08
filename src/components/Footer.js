@@ -6,37 +6,37 @@ const Footer = () => {
     <div className="flex flex-col bg-gray-900 justify-center h-auto ">
       <div className="grid grid-cols-1 md:place-items-center justify-center md:grid-cols-4 gap-4 px-2 md:px-7 py-6 md:py-12 ">
         <div className="flex flex-col  gap-2">
-          <p className="text-white font-bold text-[12px] md:text-lg lg:text-2xl ">
+          <p className="text-white font-bold text-lg md:text-lg lg:text-2xl ">
             ZAFARIS
             <span className="font-bold text-yellow-500">.CO</span>
           </p>
-          <p className="text-[7px] lg:text-xs text-white">
+          <p className="text-[10px] lg:text-xs text-white">
             Zafaris.co is where style meets comfort in every step. We offer a curated selection of high-quality shoes with modern designs that reflect your unique character. From casual looks to streetwear, every pair is crafted to support
             your active and confident lifestyle.
           </p>
         </div>
         <div className="flex flex-col space-y-1">
-          <p className="text-white text-[7px] md:text-[10px] lg:text-sm">Best Seller</p>
-          <p className="text-white text-[7px] md:text-[10px] lg:text-sm">Latest Arrival</p>
-          <p className="text-white text-[7px] md:text-[10px] lg:text-sm">On Promo</p>
-          <p className="text-white text-[7px] md:text-[10px] lg:text-sm">Product</p>
-          <p className="text-white text-[7px] md:text-[10px] lg:text-sm">Product Category</p>
+          <p className="text-white text-xs  md:text-[10px] lg:text-sm">Best Seller</p>
+          <p className="text-white text-xs  md:text-[10px] lg:text-sm">Latest Arrival</p>
+          <p className="text-white text-xs  md:text-[10px] lg:text-sm">On Promo</p>
+          <p className="text-white text-xs  md:text-[10px] lg:text-sm">Product</p>
+          <p className="text-white text-xs  md:text-[10px] lg:text-sm">Product Category</p>
         </div>
         <div className="flex flex-col space-y-1">
-          <p className="text-white text-[7px] md:text-[10px] lg:text-sm">How to Shop</p>
-          <p className="text-white text-[7px] md:text-[10px] lg:text-sm">FAQ</p>
-          <p className="text-white text-[7px] md:text-[10px] lg:text-sm">Return Policy</p>
-          <p className="text-white text-[7px] md:text-[10px] lg:text-sm">Terms of Service</p>
-          <p className="text-white text-[7px] md:text-[10px] lg:text-sm">Privacy & Security</p>
+          <p className="text-white text-xs  md:text-[10px] lg:text-sm">How to Shop</p>
+          <p className="text-white text-xs  md:text-[10px] lg:text-sm">FAQ</p>
+          <p className="text-white text-xs  md:text-[10px] lg:text-sm">Return Policy</p>
+          <p className="text-white text-xs  md:text-[10px] lg:text-sm">Terms of Service</p>
+          <p className="text-white text-xs  md:text-[10px] lg:text-sm">Privacy & Security</p>
         </div>
         <div className="flex justify-center space-x-2">
-          <div className="text-[8px] md:text-xl text-white">
+          <div className="text-xs md:text-xl text-white">
             <FaFacebookSquare />
           </div>
-          <div className="text-[8px] md:text-xl text-white">
+          <div className="text-xs md:text-xl text-white">
             <FaInstagramSquare />
           </div>
-          <div className="text-[8px] md:text-xl text-white">
+          <div className="text-xs md:text-xl text-white">
             <FaTwitterSquare />
           </div>
         </div>

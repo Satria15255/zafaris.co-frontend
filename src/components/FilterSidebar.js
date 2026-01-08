@@ -15,6 +15,7 @@ const FilterSidebar = ({ categories, size, filter, setFilter }) => {
           <div className="py-2 flex md:flex-col pl-4 text-left space-y-2 ">
             {categories.map((cat) => (
               <p
+                key={cat}
                 value={cat}
                 onClick={() => setFilter((prev) => ({ ...prev, category: cat }))}
                 className={`flex items-center justify-start py-2 text-[9px] md:text-sm lg:text-lg text-left text-gray-500 font-semibold px-2 cursor-pointer rounded-xl transition-all transition-discrete duration-300 ease-in-out
