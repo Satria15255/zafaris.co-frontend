@@ -22,7 +22,7 @@ function Banner() {
                   to="/products"
                   className="flex items-center justify-center text-sm md:text-sm lg:text-lg w-1/2 md:w-2/5 py-1 md:py-6 md:h-[8vh] lg:h-[8vh] border border-black rounded-full  hover:bg-black hover:text-white text-center font-semibold text-gray-900 transition duration-100"
                 >
-                  DISCOVER
+                  DISCOVER ⇾
                 </Nav.Link>
               </div>
             </div>
