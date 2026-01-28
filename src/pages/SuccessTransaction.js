@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import ProductCard from "../components/ProductCard";
-import { getNewTransactions, getAllProducts } from "../api";
+import { getNewTransactions, getAllProducts } from "../services/api";
 
 const SuccesTransaction = ({ onOpenModal }) => {
   const [latestOrder, setlatestOrder] = useState([]);

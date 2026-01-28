@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { toast } from "react-toastify";
-import { createProduct } from "../../api";
+import { createProduct } from "../../services/api";
 
 const ProductUploadForm = ({ onClose, onSucces }) => {
   const [form, setForm] = useState({

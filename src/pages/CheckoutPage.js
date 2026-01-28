@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { useCart } from "../context/CartContext";
 import { useLocation } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
-import { createTransaction, clearCart } from "../api";
+import { createTransaction, clearCart } from "../services/api";
 import { toast } from "react-toastify";
 
 const CheckoutPage = () => {

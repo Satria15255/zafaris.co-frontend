@@ -2,7 +2,7 @@
 import React, { useEffect, useState } from "react";
 import UserList from "../components/UserList";
 import UserDetail from "../components/UserDetail";
-import { getAllUsers, getUserTransactions } from "../../api";
+import { getAllUsers, getUserTransactions } from "../../services/api";
 
 const AdminUserList = () => {
   const [users, setUsers] = useState([]);

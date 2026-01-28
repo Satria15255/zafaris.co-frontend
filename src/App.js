@@ -5,33 +5,32 @@ import { motion } from "framer-motion";
 import { jwtDecode } from "jwt-decode";
 import { toast } from "react-toastify";
 import { ToastContainer } from "react-toastify";
-import { addToCart } from "./api";
+import { addToCart } from "./services/api";
 import { useNavigate } from "react-router-dom";
-import "react-toastify/dist/ReactToastify.css";
-
 import MainLayout from "./Layouts/MainLayout";
 import AdminLayout from "./Layouts/AdminLayout";
 import AdminRoute from "./components/AdminRoute";
-import AdminLoginPage from "./page/AdminLoginPage";
+import AdminLoginPage from "./pages/AdminLoginPage";
 import Transaction from "./Admin/pages/Transaction";
 import AdminUserList from "./Admin/pages/AdminUserList";
-import Login from "./page/Login";
-import Register from "./page/Register";
+import Login from "./pages/Login";
+import Register from "./pages/Register";
 import Sidebar from "./components/Sidebar";
-import OrderPages from "./page/OrderPages";
+import OrderPages from "./pages/OrderPages";
 import AdminDashboard from "./Admin/pages/Dashboard";
 import Product from "./Admin/pages/Product";
-import LatestProduct from "./page/LatestProduct";
-import ShoppingCart from "./page/Cart";
+import LatestProduct from "./pages/LatestProduct";
+import ShoppingCart from "./pages/Cart";
 import ProductModal from "./components/ProductModal";
-import Banner from "./page/Banner";
-import OnSale from "./page/OnSale";
-import Bestseller from "./page/Bestseller";
-import HomeCategory from "./page/HomeCategory";
-import ProductPages from "./page/ProductPages";
+import Banner from "./pages/Banner";
+import OnSale from "./pages/OnSale";
+import Bestseller from "./pages/Bestseller";
+import HomeCategory from "./pages/HomeCategory";
+import ProductPages from "./pages/ProductPages";
 import ScrollToTop from "./components/ScrollToTop";
-import ChekoutPage from "./page/ChekoutPage";
-import SuccesPage from "./page/SuccesTransaction";
+import ChekoutPage from "./pages/CheckoutPage";
+import SuccesPage from "./pages/SuccessTransaction";
+import "react-toastify/dist/ReactToastify.css";
 
 function App() {
   const [cart, setCart] = useCart();
@@ -113,8 +112,6 @@ function App() {
       console.log("Failed add product", err);
     }
   };
-
-  // Function update cart
 
   // Fungsi untuk membuka modal produk
   const handleOpenModal = (product) => {

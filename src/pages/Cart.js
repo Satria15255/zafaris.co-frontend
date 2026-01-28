@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { getCart, updateCartQuantity, removeCartItem } from "../api";
+import { getCart, updateCartQuantity, removeCartItem } from "../services/api";
 
 const ShoppingCart = ({ onClose }) => {
   const navigate = useNavigate();

@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import TransactionTable from "../components/TransactionTable";
 import TransactionDetails from "../components/TransactionDetails";
 import { toast } from "react-toastify";
-import { getAllTransactions, updateTransactionStatus } from "../../api";
+import { getAllTransactions, updateTransactionStatus } from "../../services/api";
 
 const Transaction = () => {
   const [order, setOrder] = useState([]);

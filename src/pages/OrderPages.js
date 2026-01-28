@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import OrderDetails from "../components/OrderDetails";
-import { getMyOrders, confirmOrderReceived, cancelOrder } from "../api";
+import { getMyOrders, confirmOrderReceived, cancelOrder } from "../services/api";
 import { toast } from "react-toastify";
 
 const OrderPages = () => {

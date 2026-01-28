@@ -1,5 +1,5 @@
 import React from "react";
-import { MdAutoAwesome, MdOutlineExpandMore, MdSell, MdSearch } from "react-icons/md";
+import { MdAutoAwesome, MdOutlineExpandMore, MdSell } from "react-icons/md";
 
 const FilterSidebar = ({ categories, size, filter, setFilter }) => {
   return (

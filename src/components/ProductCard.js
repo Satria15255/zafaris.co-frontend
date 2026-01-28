@@ -1,7 +1,7 @@
 import { motion } from "framer-motion";
 
 function ProductCard({ product, onOpenModal }) {
-  const { _id, name, image, price, discountPercent, discountPrice } = product;
+  const { discountPercent, discountPrice } = product;
 
   const isDiscount = discountPercent && discountPrice;
 

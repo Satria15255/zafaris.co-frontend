@@ -3,7 +3,7 @@ import { motion } from "framer-motion";
 import { Nav } from "react-bootstrap"; // Import Nav from react-bootstrap
 import { NavLink } from "react-router-dom"; // Import NavLink from react-router-dom
 import ProductCard from "../components/ProductCard";
-import { getAllProducts } from "../api";
+import { getAllProducts } from "../services/api";
 
 function Category({ onOpenModal }) {
   const [products, setProducts] = useState([]);

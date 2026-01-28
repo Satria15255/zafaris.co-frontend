@@ -1,7 +1,7 @@
-import React, { useEffect, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import { motion } from "framer-motion";
 import { Container, Image } from "react-bootstrap";
-import { getDiscountProducts } from "../api";
+import { getDiscountProducts } from "../services/api";
 
 function seededRandom(seed) {
   var x = Math.sin(seed) * 10000;
@@ -17,7 +17,7 @@ function shuffleWithSeed(array, seed) {
   return arr;
 }
 
-function Onweek({ onOpenModal }) {
+function OnSale({ onOpenModal }) {
   const [products, setProducts] = useState([]);
 
   const normalizeDiscount = (discount) => {
@@ -30,7 +30,7 @@ function Onweek({ onOpenModal }) {
     };
   };
 
-  const fetchProducts = async () => {
+  const fetchProducts = useCallback(async () => {
     try {
       const res = await getDiscountProducts();
       const normalized = res.data.map(normalizeDiscount);
@@ -39,11 +39,11 @@ function Onweek({ onOpenModal }) {
     } catch (err) {
       console.err("Failed to fetch products:", err);
     }
-  };
+  }, []);
 
   useEffect(() => {
     fetchProducts();
-  }, []);
+  }, [fetchProducts]);
 
   const today = new Date();
   const seed = parseInt(today.toISOString().slice(0, 10).replace(/-/g, ""));
@@ -87,4 +87,4 @@ function Onweek({ onOpenModal }) {
   );
 }
 
-export default Onweek;
+export default OnSale;

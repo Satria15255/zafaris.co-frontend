@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import ProductCard from "../components/ProductCard";
-import { getLatestProducts, addToCart } from "../api";
+import { getLatestProducts, addToCart } from "../services/api";
 import { toast } from "react-toastify";
 
 function ProductList({ onOpenModal }) {

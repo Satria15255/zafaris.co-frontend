@@ -1,8 +1,8 @@
-import React, { useEffect, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import ProductCard from "../components/ProductCard";
-import { getAllProducts, getLatestProducts, getDiscountProducts } from "../api";
+import { getAllProducts, getLatestProducts, getDiscountProducts } from "../services/api";
 import bgProductPages from "../assets/elemen/img/hero3.png";
-import { MdAutoAwesome, MdOutlineExpandMore, MdSell, MdSearch, MdFilterList } from "react-icons/md";
+import { MdFilterList } from "react-icons/md";
 import FilterMobile from "../components/FilterMobile";
 import FilterSidebar from "../components/FilterSidebar";
 
@@ -24,20 +24,20 @@ function ProductPages({ onAddToCart, onOpenModal }) {
   const size = ["All", 38, 39, 40, 41, 42, 43, 44];
 
   // Function Fetch All Products
-  const fetchProducts = async () => {
+  const fetchProducts = useCallback(async () => {
     try {
       const res = await getAllProducts();
       setProducts(res.data);
     } catch (err) {
       console.log(err);
     }
-  };
+  }, []);
   useEffect(() => {
     fetchProducts();
-  }, []);
+  }, [fetchProducts]);
 
   // Function Fetch New Arrival Products
-  const fetchLatestProducts = async () => {
+  const fetchLatestProducts = useCallback(async () => {
     try {
       const res = await getLatestProducts();
       console.log(res.data);
@@ -45,10 +45,10 @@ function ProductPages({ onAddToCart, onOpenModal }) {
     } catch (err) {
       console.log(err);
     }
-  };
+  }, []);
   useEffect(() => {
     fetchLatestProducts();
-  }, []);
+  }, [fetchLatestProducts]);
 
   // Function Fetch Discount Products
   const normalizeDiscount = (discount) => {
@@ -61,7 +61,7 @@ function ProductPages({ onAddToCart, onOpenModal }) {
     };
   };
 
-  const fetchDiscountProducts = async () => {
+  const fetchDiscountProducts = useCallback(async () => {
     try {
       const res = await getDiscountProducts();
       const normalized = res.data.map(normalizeDiscount);
@@ -72,18 +72,17 @@ function ProductPages({ onAddToCart, onOpenModal }) {
         prev.map((p) => {
           const found = normalized.find((d) => d._id === p._id);
           return found ? found : p;
-        })
+        }),
       );
     } catch (err) {
       console.log(err);
     }
-  };
+  }, []);
   useEffect(() => {
     fetchDiscountProducts();
-  }, []);
+  }, [fetchDiscountProducts]);
 
   // Function Filter Products
-  
 
   const filterProducts = () => {
     const source = filter.discount ? discountProducts : filter.latest ? latestProducts : products || [];
