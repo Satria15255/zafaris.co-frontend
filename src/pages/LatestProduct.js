@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import ProductCard from "../components/ProductCard";
 import { getLatestProducts, addToCart } from "../services/api";
 import { toast } from "react-toastify";
+import { motion } from "framer-motion";
 
 function ProductList({ onOpenModal }) {
   const [products, setProducts] = useState([]);
@@ -32,10 +33,25 @@ function ProductList({ onOpenModal }) {
   };
 
   return (
-    <div className="grid py-2 h-45 grid-cols-2 md:grid-cols-4 gap-2 md:mt-2 lg:mt-4 place-items-center">
-      {products.map((products) => (
-        <ProductCard key={products.id} product={products} addToCart={() => addToCartItems(products._id)} onOpenModal={onOpenModal} />
-      ))}
+    <div className="mb-8">
+      <motion.div
+        initial={{ opacity: 0, y: 50 }} // Awalnya transparan dan turun 50px
+        whileInView={{ opacity: 1, y: 0 }} // Saat muncul, fade-in & naik ke atas
+        transition={{ duration: 1.0 }} // Animasi selama 0.6 detik
+        viewport={{ once: true }}
+      >
+        <header className="text-center py-4">
+          <p className="text-lg md:text-sm lg:text-3xl font-bold text-center mt-6">
+            Latest <span className="text-yellow-500">Arrival</span>
+          </p>
+          <p className="text-sm font-semibold">Our Newest Product</p>
+        </header>
+      </motion.div>
+      <main className="grid py-2 h-45 grid-cols-2 md:grid-cols-4 gap-2 md:mt-2 lg:mt-4 place-items-center">
+        {products.map((products) => (
+          <ProductCard key={products.id} product={products} addToCart={() => addToCartItems(products._id)} onOpenModal={onOpenModal} />
+        ))}
+      </main>
     </div>
   );
 }

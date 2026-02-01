@@ -12,9 +12,9 @@ function ProductCard({ product, onOpenModal }) {
       transition={{ duration: 1.0 }} // Animasi selama 1 detik
       viewport={{ once: true }}
     >
-      <div onClick={() => onOpenModal(product)} className="flex flex-col justify-between max-w-lg h-90 backdrop-blur-md hover:shadow-lg transition duration-300 backdrop-blur-md lg:rounded-xl overflow-hidden">
+      <div onClick={() => onOpenModal(product)} className="flex flex-col justify-around max-w-lg lg:h-[80vh]  backdrop-blur-md hover:shadow-lg transition duration-300 backdrop-blur-md lg:rounded-3xl overflow-hidden">
         <img src={product.image} alt={product.name} className="w-full h-auto md:w-40 md:h-55 lg:w-80 lg:h-80 object-cover rounded-md md:rounded-xl md:rounded-bottom-5 object-center" />
-        <div className="flex flex-col justify-between mt-4 p-2">
+        <div className="flex flex-col justify-around mt-4 p-2">
           <p className="text-[12px] md:text-[10px] lg:text-lg h-[40px] max-w-md font-semibold ">{product.name}</p>
           <div className="flex flex-col md:flex-row text-left justify-between md:items-center">
             <p className="text-[9px] md:text-[10px] lg:text-sm text-gray-500">4.9(1k Review)</p>

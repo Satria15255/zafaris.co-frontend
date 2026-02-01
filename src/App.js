@@ -152,24 +152,9 @@ function App() {
                 path="/"
                 element={
                   <div>
-                    <Banner style={{ width: "100vh" }} onOpenModal={handleOpenModal} />
+                    <Banner onOpenModal={handleOpenModal} />
                     <Bestseller onOpenModal={handleOpenModal} />
-
-                    <div className="mt-12">
-                      <motion.div
-                        initial={{ opacity: 0, y: 50 }} // Awalnya transparan dan turun 50px
-                        whileInView={{ opacity: 1, y: 0 }} // Saat muncul, fade-in & naik ke atas
-                        transition={{ duration: 1.0 }} // Animasi selama 0.6 detik
-                        viewport={{ once: true }}
-                      >
-                        <p className="text-lg md:text-sm lg:text-2xl font-bold text-center mt-6">
-                          Latest <span className="text-yellow-500">Arrival</span>
-                        </p>
-                      </motion.div>
-
-                      <LatestProduct onAddToCart={handleAddToCart} onOpenModal={handleOpenModal} />
-                    </div>
-
+                    <LatestProduct onAddToCart={handleAddToCart} onOpenModal={handleOpenModal} />
                     <OnSale onOpenModal={handleOpenModal} />
                     <HomeCategory onOpenModal={handleOpenModal} />
                   </div>
