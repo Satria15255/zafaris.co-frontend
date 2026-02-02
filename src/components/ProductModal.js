@@ -26,12 +26,16 @@ function ProductModal({ product, onClose, onAddToCart }) {
       onClose();
     }
 
+    const finalPrice = product.discountPercent > 0 ? product.price - (product.price * product.discountPercent) / 100 : product.price;
+
     const selectedItem = {
       id: product._id,
       name: product.name,
       image: product.image,
       size: selectedSize,
-      price: discountPrice,
+      finalPrice,
+      originalPrice: product.price,
+      discountPercent: product.discountPercent,
       quantity: 1,
     };
 

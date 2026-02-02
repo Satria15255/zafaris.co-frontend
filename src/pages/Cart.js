@@ -10,7 +10,7 @@ const ShoppingCart = ({ onClose }) => {
   const fetchCart = async () => {
     try {
       const res = await getCart();
-      setItems(Array.isArray(res.data.items) ? res.data.items : []);
+      setItems(res.data.items);
     } catch (err) {
       console.error("Failed  to fetch cart", err);
       setItems([]);
@@ -43,7 +43,7 @@ const ShoppingCart = ({ onClose }) => {
   };
 
   const totalPrice = (items || [])
-    .filter((item) => item && item.productId && item.productId.price)
+    .filter((item) => item && item.productId && item.finalPrice)
     .reduce((total, item) => {
       return total + item.finalPrice * item.quantity;
     }, 0);
@@ -82,9 +82,9 @@ const ShoppingCart = ({ onClose }) => {
                         <div>
                           <h2 className="text-[10px] md:text-lg text-sm md:text-xl font-medium">{item.productId.name}</h2>
                           <p className="text-[8px] lg:text-sm text-gray-600 font-semibold">Size: {item.size}</p>
-                          <div>
-                            {item.discountPercent > 0 && <p>${item.discountPercent}%OFF</p>}
-                            <h2 className="text-[10px] md:text-lg text-sm md:text-xl font-medium">{item.finalPrice}</h2>
+                          <div className="flex gap-2 items-center">
+                            {item.discountPercent > 0 && <p className="text-sm">${item.discountPercent} OFF</p>}
+                            <h2 className="text-[10px] text-yellow-500 text-sm  font-medium">${item.finalPrice}</h2>
                           </div>
                         </div>
                       </td>

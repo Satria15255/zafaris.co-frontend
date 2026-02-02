@@ -54,9 +54,10 @@ function ProductPages({ onAddToCart, onOpenModal }) {
   const normalizeDiscount = (discount) => {
     return {
       ...discount.productId,
+      price: Number(discount.productId.price),
       isDiscount: true,
-      discountPercent: discount.discountPercent,
-      discountPrice: discount.discountPrice,
+      discountPercent: Number(discount.discountPercent),
+      discountPrice: Number(discount.discountPrice),
       expiresAt: discount.expiresAt,
     };
   };
