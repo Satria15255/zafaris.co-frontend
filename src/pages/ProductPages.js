@@ -134,7 +134,7 @@ function ProductPages({ onAddToCart, onOpenModal }) {
           </div>
 
           {/* Products Section */}
-          <div className="flex flex-col">
+          <div className="flex flex-col justify-between w-4/5 min-h-[100vh]">
             <div className="grid grid-cols-2 items-center md:grid-cols-3 gap-3">
               {currentProducts.length === 0 && <p className="text-center col-span-3">No products found.</p>}
               {currentProducts.length > 0 && currentProducts.map((products) => <ProductCard key={products._id} product={products} onAddToCart={onAddToCart} onOpenModal={onOpenModal} />)}

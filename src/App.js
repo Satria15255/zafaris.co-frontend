@@ -5,7 +5,7 @@ import { motion } from "framer-motion";
 import { jwtDecode } from "jwt-decode";
 import { toast } from "react-toastify";
 import { ToastContainer } from "react-toastify";
-import { addToCart } from "./services/api";
+import { addToCart, getCart, removeCartItem } from "./services/api";
 import { useNavigate } from "react-router-dom";
 import MainLayout from "./Layouts/MainLayout";
 import AdminLayout from "./Layouts/AdminLayout";
@@ -33,7 +33,8 @@ import SuccesPage from "./pages/SuccessTransaction";
 import "react-toastify/dist/ReactToastify.css";
 
 function App() {
-  const [cart, setCart] = useCart();
+  const [cart, setCart] = useCart([]);
+  const [items, setItems] = useState([])
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [currentProduct, setCurrentProduct] = useState(null);
   const [isCartOpen, setIsCartOpen] = useState(false);
@@ -91,6 +92,25 @@ function App() {
     };
   }, [isCartOpen]);
 
+// Fetch Cart Items
+const fetchCartItems = async () => {
+  try{
+    const res = await getCart()
+    setItems(res.data.items)
+    console.log("cart items:",res.data)
+  }catch(error){
+    console.log("Error fetching cart items", error)
+    setItems([])
+  }
+}
+
+useEffect(() => {
+  fetchCartItems()
+},[])
+
+console.log("cart items are:" ,items)
+console.log("cart items are:" ,items.length)
+
   // Fungsi untuk menambahkan produk ke dalam cart
   const handleAddToCart = async (product, selectedSize) => {
     const token = localStorage.getItem("token");
@@ -107,6 +127,9 @@ function App() {
     try {
       const res = await addToCart(product._id, 1, selectedSize);
       console.log("Product add to cart", res.data);
+      setCart(res.data);
+      fetchCartItems()
+      console.log(cart);
       toast.success("Product add to cart");
     } catch (err) {
       console.log("Failed add product", err);
@@ -126,9 +149,20 @@ function App() {
   };
 
   // Fungsi untuk menghapus produk dari cart
-  const removeFromCart = (id) => {
-    setCart((prevCart) => prevCart.filter((item) => item.id !== id));
-  };
+  // const removeFromCart = (id) => {
+  //   setCart((prevCart) => prevCart.filter((item) => item.id !== id));
+  //   fetchCartItems()
+  // };
+
+  const removeFromCart = async (id, size) => {
+      try {
+        await removeCartItem(id, size);
+        console.log("Remove complete");
+        fetchCartItems();
+      } catch (err) {
+        console.error("Failed remove item", err);
+      }
+    };
 
   const decreaseQuantity = (id) => {
     setCart((prevCart) => {
@@ -140,6 +174,8 @@ function App() {
     setCart((prevCart) => prevCart.map((item) => (item.id === id ? { ...item, quantity: newQuantity > 0 ? newQuantity : 1 } : item)));
   };
 
+  console.log("dari appjs", cart.items);
+
   return (
     <div>
       <div className="relative min-h-screen overflow-hidden">
@@ -147,7 +183,7 @@ function App() {
           <ScrollToTop />
 
           <Routes>
-            <Route element={<MainLayout onToggleSidebar={() => setIsSidebarOpen(!isSidebarOpen)} cartCount={cart.length} onCartClick={() => setIsCartOpen(true)} onClose={handleCloseModal} />}>
+            <Route element={<MainLayout onToggleSidebar={() => setIsSidebarOpen(!isSidebarOpen)} cartCount={items.length} onCartClick={() => setIsCartOpen(true)} onClose={handleCloseModal} />}>
               <Route
                 path="/"
                 element={
@@ -163,6 +199,7 @@ function App() {
               <Route path="/login" element={<Login setUser={setUser} />} />
               <Route path="/register" element={<Register />} />
               <Route path="/products" element={<ProductPages onAddToCart={handleAddToCart} onOpenModal={handleOpenModal} />} />
+              <Route path="/cart" element={<ShoppingCart removeItem={removeFromCart}/>}/>
               <Route path="/chekout" element={<ChekoutPage cart={cart} onRemoveFromCart={removeFromCart} onQuantityChange={handleQuantityChange} decreaseQuantity={decreaseQuantity} onClose={() => setIsCartOpen(false)} />} />
               <Route path="/orders" element={<OrderPages />} />
               <Route path="/success-order" element={<SuccesPage onOpenModal={handleOpenModal} />} />

@@ -1,8 +1,9 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { getCart, updateCartQuantity, removeCartItem } from "../services/api";
+import MainLayout from "../Layouts/MainLayout";
 
-const ShoppingCart = ({ onClose }) => {
+const ShoppingCart = ({ onClose,removeItem }) => {
   const navigate = useNavigate();
   const [items, setItems] = useState([]);
 
@@ -32,15 +33,15 @@ const ShoppingCart = ({ onClose }) => {
   };
 
   // Function remove cart
-  const removeItemCart = async (productId, size) => {
-    try {
-      await removeCartItem(productId, size);
-      console.log("Remove complete");
-      fetchCart();
-    } catch (err) {
-      console.error("Failed remove item", err);
-    }
-  };
+  // const removeItemCart = async (productId, size) => {
+  //   try {
+  //     await removeCartItem(productId, size);
+  //     console.log("Remove complete");
+  //     fetchCart();
+  //   } catch (err) {
+  //     console.error("Failed remove item", err);
+  //   }
+  // };
 
   const totalPrice = (items || [])
     .filter((item) => item && item.productId && item.finalPrice)
@@ -49,11 +50,12 @@ const ShoppingCart = ({ onClose }) => {
     }, 0);
 
   console.log(items);
+  console.log(items.length);
   // Menghitung total harga
   return (
     <div className="fixed bg-black top-0 right-0 w-full z-50 h-screen bg-white flex flex-col items-center md:p-3">
       {/* Tombol Close */}
-      <button onClick={onClose} className="absolute top-4 left-4 text-2xl font-bold text-gray-600 hover:text-gray-900">
+      <button onClick={() => navigate("/")} className="absolute top-4 left-4 text-2xl font-bold text-gray-600 hover:text-gray-900">
         ×
       </button>
       <h1 className="text-md mt-3 lg:text-2xl font-semibold mb-4 md:mb-6">Your cart</h1>
@@ -100,7 +102,7 @@ const ShoppingCart = ({ onClose }) => {
                             +
                           </button>
                         </div>
-                        <button onClick={() => removeItemCart(item.productId._id, item.size)} className="text-[9px] md:text-sm text-gray-500 hover:text-red-500 md:mt-1">
+                        <button onClick={() => removeItem(item.productId._id, item.size)} className="text-[9px] md:text-sm text-gray-500 hover:text-red-500 md:mt-1">
                           Remove
                         </button>
                       </td>
