@@ -1,57 +1,8 @@
-import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { getCart, updateCartQuantity, removeCartItem } from "../services/api";
-import MainLayout from "../Layouts/MainLayout";
 
-const ShoppingCart = ({ onClose,removeItem }) => {
+const ShoppingCart = ({ removeItem, updateQuantity, cartItems, totalPrice }) => {
   const navigate = useNavigate();
-  const [items, setItems] = useState([]);
 
-  // Fetch cart items from API
-  const fetchCart = async () => {
-    try {
-      const res = await getCart();
-      setItems(res.data.items);
-    } catch (err) {
-      console.error("Failed  to fetch cart", err);
-      setItems([]);
-    }
-  };
-
-  useEffect(() => {
-    fetchCart();
-  }, []);
-
-  // Function update quantity
-  const updateQuantity = async (productId, size, quantity) => {
-    try {
-      await updateCartQuantity(productId, size, quantity);
-      fetchCart();
-    } catch (err) {
-      console.error("Failed to update cart", err);
-    }
-  };
-
-  // Function remove cart
-  // const removeItemCart = async (productId, size) => {
-  //   try {
-  //     await removeCartItem(productId, size);
-  //     console.log("Remove complete");
-  //     fetchCart();
-  //   } catch (err) {
-  //     console.error("Failed remove item", err);
-  //   }
-  // };
-
-  const totalPrice = (items || [])
-    .filter((item) => item && item.productId && item.finalPrice)
-    .reduce((total, item) => {
-      return total + item.finalPrice * item.quantity;
-    }, 0);
-
-  console.log(items);
-  console.log(items.length);
-  // Menghitung total harga
   return (
     <div className="fixed bg-black top-0 right-0 w-full z-50 h-screen bg-white flex flex-col items-center md:p-3">
       {/* Tombol Close */}
@@ -62,7 +13,7 @@ const ShoppingCart = ({ onClose,removeItem }) => {
       {/* Tabel Cart */}
       <div className="w-full h-screen">
         <div className="w-full p-1  bg-white lg:p-6 overflow-x-hidden overflow-y-auto max-h-[60vh] md:max-h-[40vh] lg:max-h-[62vh]">
-          {items.length === 0 ? (
+          {cartItems.length === 0 ? (
             <p className="text-gray-500 text-center">Your cart is empty</p>
           ) : (
             <table className="w-full border-collapse">
@@ -75,7 +26,7 @@ const ShoppingCart = ({ onClose,removeItem }) => {
               </thead>
 
               <tbody>
-                {items.map((item) => {
+                {cartItems.map((item) => {
                   return (
                     <tr key={`${item.productId._id} - ${item.size}`} className="border-b">
                       {/* Produk */}
@@ -125,7 +76,7 @@ const ShoppingCart = ({ onClose,removeItem }) => {
           <div className=" grid grid-cols-2 ">
             <h2 className="text-[16px] md:text-xl font-bold text-left">Sub Total</h2>
             <div className="text-right">
-              {items.length > 0 && (
+              {cartItems.length > 0 && (
                 <h2 className="text-[16px] md:text-xl font-semibold text-right">
                   <span className="text-yellow-500">${totalPrice.toFixed(2)}</span>
                 </h2>
@@ -137,7 +88,7 @@ const ShoppingCart = ({ onClose,removeItem }) => {
             onClick={() => {
               navigate("/chekout", {
                 state: {
-                  chekoutItems: items.map((item) => ({
+                  chekoutItems: cartItems.map((item) => ({
                     id: item.productId._id,
                     name: item.productId.name,
                     image: item.productId.image,
@@ -148,7 +99,6 @@ const ShoppingCart = ({ onClose,removeItem }) => {
                   })),
                 },
               });
-              onClose();
             }}
             className="text-[16px] flex justify-content-center w-full py-2 border bg-gray-200 border-black  hover:text-white hover:bg-black hover:text-white transition "
           >

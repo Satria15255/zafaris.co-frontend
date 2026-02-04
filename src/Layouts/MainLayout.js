@@ -3,11 +3,10 @@ import NavbarSection from "../components/Navbar";
 import Footer from "../components/Footer";
 import { Outlet } from "react-router-dom";
 
-const MainLayout = ({ cartCount, onCartClick, onToggleSidebar }) => {
-  console.log("mainlayout", cartCount)
+const MainLayout = ({ cartItems, cartCount, onCartClick, onToggleSidebar }) => {
   return (
     <>
-      <NavbarSection onToggleSidebar={onToggleSidebar} cartCount={cartCount} onCartClick={onCartClick} />
+      <NavbarSection onToggleSidebar={onToggleSidebar} cartItems={cartItems} cartCount={cartCount} onCartClick={onCartClick} />
       <Outlet />
       <Footer />
     </>

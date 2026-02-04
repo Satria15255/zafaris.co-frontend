@@ -1,17 +1,17 @@
-import React, { useState } from "react";
-import { useCart } from "../context/CartContext";
-import { useLocation } from "react-router-dom";
-import { useNavigate } from "react-router-dom";
+import React, { useState,useMemo } from "react";
+import { useLocation,useNavigate } from "react-router-dom";
 import { createTransaction, clearCart } from "../services/api";
 import { toast } from "react-toastify";
 
-const CheckoutPage = () => {
-  const [cart, setCart] = useCart();
+const CheckoutPage = ({ onClearCart }) => {
   const location = useLocation();
-  const chekoutItems = location.state?.chekoutItems || cart;
-  const items = chekoutItems && chekoutItems.length > 0 ? chekoutItems : cart;
   const navigate = useNavigate();
 
+  const items = useMemo(() => {
+    return location.state?.chekoutItems || [];
+  }, [location.state]) 
+  // Checkout No Cart Items
+  
   // State untuk form data
   const [formData, setFormData] = useState({
     name: "",
@@ -23,7 +23,26 @@ const CheckoutPage = () => {
   });
 
   // Total harga
-  const total = items.reduce((sum, item) => sum + item.finalPrice * item.quantity, 0);
+  const totalPrice = useMemo(() => {
+    return items.reduce(
+      (sum, item) => sum + item.finalPrice * item.quantity,
+      0
+    );
+  }, [items]);
+
+  if(items.length === 0){
+    return(
+       <div className="p-6 text-center">
+        <h2 className="text-xl font-semibold">Your cart is empty</h2>
+        <button
+          onClick={() => navigate("/")}
+          className="mt-4 px-4 py-2 bg-black text-white rounded"
+        >
+          Back to Shop
+        </button>
+      </div>
+    )
+  }
 
   // Handle perubahan input form
   const handleChange = (e) => {
@@ -34,20 +53,17 @@ const CheckoutPage = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const formatedProducts = [];
-      for (const item of items) {
-        for (let i = 0; i < item.quantity; i++) {
-          formatedProducts.push({
-            product: item.id,
-            size: item.size,
-            price: item.finalPrice,
-            discountPercent: item.discountPercent,
-          });
-        }
-      }
+      const products = items.flatMap((item) =>
+        Array(item.quantity).fill({
+          product: item.id,
+          size: item.size,
+          price: item.finalPrice,
+          discountPercent: item.discountPercent,
+        })
+      );
 
-      const body = {
-        products: formatedProducts,
+       const payload = {
+        products,
         message: formData.message,
         shippingMethod: formData.shippingMethod,
         paymentMethod: formData.paymentMethod,
@@ -56,11 +72,11 @@ const CheckoutPage = () => {
         status: "pending_confirmation",
       };
 
-      await createTransaction(body);
+      await createTransaction(payload);
       await clearCart();
+      onClearCart();
       toast.success("Transaction success");
       navigate("/success-order");
-      setCart([]);
     } catch (error) {
       console.error("Failed to submit order:", error);
       alert("Transaction failed");
@@ -99,7 +115,7 @@ const CheckoutPage = () => {
             </ul>
             <div className="mt-4 flex justify-between text-right font-bold text-sm md:text-lg">
               <p>Total:</p>
-              <span className="text-yellow-500"> ${total.toFixed(2)}</span>
+              <span className="text-yellow-500"> ${totalPrice.toFixed(2)}</span>
             </div>
           </div>
 

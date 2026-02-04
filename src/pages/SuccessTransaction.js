@@ -1,10 +1,12 @@
 import React, { useEffect, useState } from "react";
 import ProductCard from "../components/ProductCard";
 import { getNewTransactions, getAllProducts } from "../services/api";
+import { useNavigate } from "react-router-dom";
 
 const SuccesTransaction = ({ onOpenModal }) => {
   const [latestOrder, setlatestOrder] = useState([]);
   const [recommended, setRecommended] = useState([]);
+  const navigate = useNavigate();
 
   useEffect(() => {
     const fetchData = async () => {
@@ -72,6 +74,11 @@ const SuccesTransaction = ({ onOpenModal }) => {
       ) : (
         <p>Memuat detail transaksi...</p>
       )}
+      <div className="flex justify-end items-center w-full">
+        <button onClick={() => navigate("/")} className="text-lg font-semibold h-10 w-1/5 border rounded-xl hover:bg-black hover:text-white">
+          Back to Home
+        </button>
+      </div>
 
       <div>
         <h2 className="text-xl font-bold mb-4">Rekomendasi Produk untuk Kamu</h2>

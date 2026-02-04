@@ -1,34 +1,13 @@
 import { Nav } from "react-bootstrap";
 import { AlignJustify, ShoppingCart, CircleUser } from "lucide-react";
 import { useNavigate } from "react-router-dom";
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import Container from "react-bootstrap/Container";
 import Navbar from "react-bootstrap/Navbar";
-import { getCart } from "../services/api";
 
-function NavbarSection({cartCount, onCartClick, onToggleSidebar }) {
+function NavbarSection({cartCount, onToggleSidebar }) {
   const [scrolled, setScrolled] = useState(false);
-  const [cart, setCart] = useState([]);
   const navigate = useNavigate();
-
-  const fetchCart = async () => {
-      try {
-        const res = await getCart();
-        setCart(res.data.items);
-      } catch (err) {
-        console.error("Failed  to fetch cart", err);
-        setCart([]);
-      }
-    };
-
-  useEffect(() => {
-    fetchCart();
-  }, []);
-
-  console.log("cart", cart)
-  console.log("total cart", cart.length)
-
-//  const cartCount = cart.length
 
   useEffect(() => {
     const handleScroll = () => {

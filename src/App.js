@@ -1,53 +1,70 @@
-import React, { useState, useEffect, useRef } from "react";
-import { Route, Routes } from "react-router-dom";
-import { useCart } from "./context/CartContext";
+// React & Router
+import { useState, useEffect } from "react";
+import { Route, Routes, useNavigate } from "react-router-dom";
+
+// Third-party
 import { motion } from "framer-motion";
 import { jwtDecode } from "jwt-decode";
-import { toast } from "react-toastify";
-import { ToastContainer } from "react-toastify";
-import { addToCart, getCart, removeCartItem } from "./services/api";
-import { useNavigate } from "react-router-dom";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+
+// Context & API
+import { useCart } from "./context/CartContext";
+import { addToCart, getCart, updateCartQuantity, removeCartItem } from "./services/api";
+
+// Layouts
 import MainLayout from "./Layouts/MainLayout";
 import AdminLayout from "./Layouts/AdminLayout";
+
+// Components
 import AdminRoute from "./components/AdminRoute";
-import AdminLoginPage from "./pages/AdminLoginPage";
-import Transaction from "./Admin/pages/Transaction";
-import AdminUserList from "./Admin/pages/AdminUserList";
+import Sidebar from "./components/Sidebar";
+import ProductModal from "./components/ProductModal";
+import ScrollToTop from "./components/ScrollToTop";
+
+// Pages User
 import Login from "./pages/Login";
 import Register from "./pages/Register";
-import Sidebar from "./components/Sidebar";
 import OrderPages from "./pages/OrderPages";
-import AdminDashboard from "./Admin/pages/Dashboard";
-import Product from "./Admin/pages/Product";
+import Banner from "./pages/Banner";
 import LatestProduct from "./pages/LatestProduct";
 import ShoppingCart from "./pages/Cart";
-import ProductModal from "./components/ProductModal";
-import Banner from "./pages/Banner";
-import OnSale from "./pages/OnSale";
 import Bestseller from "./pages/Bestseller";
 import HomeCategory from "./pages/HomeCategory";
 import ProductPages from "./pages/ProductPages";
-import ScrollToTop from "./components/ScrollToTop";
 import ChekoutPage from "./pages/CheckoutPage";
+import OnSale from "./pages/OnSale";
 import SuccesPage from "./pages/SuccessTransaction";
-import "react-toastify/dist/ReactToastify.css";
+
+// Pages Admin
+import AdminLoginPage from "./pages/AdminLoginPage";
+import Product from "./Admin/pages/Product";
+import Transaction from "./Admin/pages/Transaction";
+import AdminUserList from "./Admin/pages/AdminUserList";
+import AdminDashboard from "./Admin/pages/Dashboard";
 
 function App() {
+  // Cart
   const [cart, setCart] = useCart([]);
-  const [items, setItems] = useState([])
+  const [items, setItems] = useState([]);
+
+  // UI State
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const [currentProduct, setCurrentProduct] = useState(null);
-  const [isCartOpen, setIsCartOpen] = useState(false);
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
+
+  // Product Modal
+  const [currentProduct, setCurrentProduct] = useState(null);
+
+  // User
   const [user, setUser] = useState(null);
+
+  // Utils
   const navigate = useNavigate();
-  const cartRef = useRef(null);
 
-  const clearExpiredSession = () => {
+  // Clear expired session
+  useEffect(() => {
     const token = localStorage.getItem("token");
-
     if (!token) return;
-
     try {
       const decoded = jwtDecode(token);
       const now = Date.now() / 1000;
@@ -62,128 +79,105 @@ function App() {
       localStorage.removeItem("user");
       console.log("Invalid token, user logged out");
     }
-  };
-
-  useEffect(() => {
-    clearExpiredSession();
-  });
+  }, []);
 
   useEffect(() => {
     const storedUser = localStorage.getItem("user");
     if (storedUser) setUser(JSON.parse(storedUser));
   }, []);
 
-  // tutup otomatis
-  useEffect(() => {
-    const handleClickOutside = (event) => {
-      if (cartRef.current && !cartRef.current.contains(event.target)) {
-        setIsCartOpen(false);
-      }
-    };
-
-    if (isCartOpen) {
-      document.addEventListener("mousedown", handleClickOutside);
-    } else {
-      document.removeEventListener("mousedown", handleClickOutside);
+  // Fetch Cart Items
+  const fetchCartItems = async () => {
+    try {
+      const res = await getCart();
+      setItems(res.data.items);
+    } catch (error) {
+      console.log("Error fetching cart items", error);
+      setItems([]);
     }
+  };
 
-    return () => {
-      document.removeEventListener("mousedown", handleClickOutside);
-    };
-  }, [isCartOpen]);
+  useEffect(() => {
+    fetchCartItems();
+  }, []);
 
-// Fetch Cart Items
-const fetchCartItems = async () => {
-  try{
-    const res = await getCart()
-    setItems(res.data.items)
-    console.log("cart items:",res.data)
-  }catch(error){
-    console.log("Error fetching cart items", error)
-    setItems([])
-  }
-}
-
-useEffect(() => {
-  fetchCartItems()
-},[])
-
-console.log("cart items are:" ,items)
-console.log("cart items are:" ,items.length)
-
-  // Fungsi untuk menambahkan produk ke dalam cart
+  // Function Add Cart Items
   const handleAddToCart = async (product, selectedSize) => {
     const token = localStorage.getItem("token");
     if (!token) {
       setIsModalOpen(false);
-      navigate("/login");
-      return;
+      return navigate("/login");
     }
 
     if (!selectedSize) {
-      toast.info("Please select a size before adding to cart.");
-      return;
+      return toast.info("Please select a size before adding to cart.");
     }
+
     try {
       const res = await addToCart(product._id, 1, selectedSize);
       console.log("Product add to cart", res.data);
       setCart(res.data);
-      fetchCartItems()
-      console.log(cart);
+      fetchCartItems();
       toast.success("Product add to cart");
     } catch (err) {
       console.log("Failed add product", err);
     }
   };
 
-  // Fungsi untuk membuka modal produk
+  // Function Update Product Quantity
+  const updateQuantity = async (productId, size, quantity) => {
+    try {
+      await updateCartQuantity(productId, size, quantity);
+      fetchCartItems();
+    } catch (err) {
+      console.error("Failed to update cart", err);
+    }
+  };
+
+  // Function Total Price
+  const totalPrice = (items || [])
+    .filter((item) => item && item.productId && item.finalPrice)
+    .reduce((total, item) => {
+      return total + item.finalPrice * item.quantity;
+    }, 0);
+
+  // Function Open Proudct Modal
   const handleOpenModal = (product) => {
     setCurrentProduct(product);
     setIsModalOpen(true);
   };
 
-  // Fungsi untuk menutup modal
+  // Function Close Product Modal
   const handleCloseModal = () => {
     setIsModalOpen(false);
     setCurrentProduct(null);
   };
 
-  // Fungsi untuk menghapus produk dari cart
-  // const removeFromCart = (id) => {
-  //   setCart((prevCart) => prevCart.filter((item) => item.id !== id));
-  //   fetchCartItems()
-  // };
-
+  // Function Delete Cart Items
   const removeFromCart = async (id, size) => {
-      try {
-        await removeCartItem(id, size);
-        console.log("Remove complete");
-        fetchCartItems();
-      } catch (err) {
-        console.error("Failed remove item", err);
-      }
-    };
-
-  const decreaseQuantity = (id) => {
-    setCart((prevCart) => {
-      return prevCart.map((item) => (item.id === id ? { ...item, quantity: item.quantity - 1 } : item)).filter((item) => item.quantity > 0); // Hapus produk jika quantity <= 0
-    });
+    try {
+      await removeCartItem(id, size);
+      fetchCartItems();
+    } catch (err) {
+      toast.error("Failed to remove item");
+      console.error("Failed remove item", err);
+    }
   };
 
-  const handleQuantityChange = (id, newQuantity) => {
-    setCart((prevCart) => prevCart.map((item) => (item.id === id ? { ...item, quantity: newQuantity > 0 ? newQuantity : 1 } : item)));
+  // Function clear cart
+  const clearCartState = () => {
+    setItems([]);
+    setCart({ items: [] });
   };
 
-  console.log("dari appjs", cart.items);
 
   return (
     <div>
       <div className="relative min-h-screen overflow-hidden">
         <div className="relative  z-20">
           <ScrollToTop />
-
           <Routes>
-            <Route element={<MainLayout onToggleSidebar={() => setIsSidebarOpen(!isSidebarOpen)} cartCount={items.length} onCartClick={() => setIsCartOpen(true)} onClose={handleCloseModal} />}>
+            <Route element={<MainLayout onToggleSidebar={() => setIsSidebarOpen(!isSidebarOpen)} cartCount={items.length} onClose={handleCloseModal} />}>
               <Route
                 path="/"
                 element={
@@ -199,8 +193,8 @@ console.log("cart items are:" ,items.length)
               <Route path="/login" element={<Login setUser={setUser} />} />
               <Route path="/register" element={<Register />} />
               <Route path="/products" element={<ProductPages onAddToCart={handleAddToCart} onOpenModal={handleOpenModal} />} />
-              <Route path="/cart" element={<ShoppingCart removeItem={removeFromCart}/>}/>
-              <Route path="/chekout" element={<ChekoutPage cart={cart} onRemoveFromCart={removeFromCart} onQuantityChange={handleQuantityChange} decreaseQuantity={decreaseQuantity} onClose={() => setIsCartOpen(false)} />} />
+              <Route path="/cart" element={<ShoppingCart removeItem={removeFromCart} updateQuantity={updateQuantity} totalPrice={totalPrice} cartItems={items} />} />
+              <Route path="/chekout" element={<ChekoutPage cart={cart} cartItems={items} onClearCart={clearCartState} onRemoveFromCart={removeFromCart} />} />
               <Route path="/orders" element={<OrderPages />} />
               <Route path="/success-order" element={<SuccesPage onOpenModal={handleOpenModal} />} />
             </Route>
@@ -225,7 +219,6 @@ console.log("cart items are:" ,items.length)
           {isSidebarOpen && (
             <>
               <div className="fixed inset-0 z-40" onClick={() => setIsSidebarOpen(false)} />
-
               <motion.div initial={{ x: "0%" }} animate={{ x: 0 }} exit={{ x: "100%" }} transition={{ type: "spring", stiffness: 500, damping: 40 }}>
                 <Sidebar
                   user={user}
@@ -239,27 +232,6 @@ console.log("cart items are:" ,items.length)
               </motion.div>
             </>
           )}
-
-          {isCartOpen && (
-            <>
-              {/* Overlay dengan efek fade-in */}
-              <motion.div initial={{ opacity: 0 }} animate={{ opacity: 0.5 }} exit={{ opacity: 0 }} transition={{ duration: 0.3 }} className="fixed inset-0 bg-black z-40" onClick={() => setIsCartOpen(false)} />
-              {/* Shopping Cart dengan animasi slide-in */}
-              <motion.div initial={{ x: "100%" }} animate={{ x: 0 }} exit={{ x: "100%" }} transition={{ type: "spring", stiffness: 1200, damping: 100 }} className="fixed right-0 top-0 h-full w-full bg-white z-50 shadow-lg">
-                {/* bg gelap */}
-                <div ref={cartRef}>
-                  <ShoppingCart
-                    cart={cart}
-                    onRemoveFromCart={removeFromCart}
-                    onQuantityChange={handleQuantityChange}
-                    decreaseQuantity={decreaseQuantity}
-                    onClose={() => setIsCartOpen(false)} // Menutup sidebar
-                  />
-                </div>
-              </motion.div>
-            </>
-          )}
-
           {isModalOpen && <ProductModal product={currentProduct} onAddToCart={handleAddToCart} onClose={handleCloseModal} />}
         </div>
       </div>
