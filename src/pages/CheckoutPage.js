@@ -84,9 +84,7 @@ const CheckoutPage = ({ onClearCart }) => {
   };
 
   return (
-    <div className=" mx-auto p-6">
-      <h2 className="text-3xl font-bold mb-4">Checkout Paes</h2>
-
+    <div className="mt-12 mx-auto p-6">
       {items.length === 0 ? (
         <div className="h-4/5 border-t">
           <p>No Product</p>

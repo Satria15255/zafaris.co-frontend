@@ -64,15 +64,15 @@ function ProductModal({ product, onClose, onAddToCart }) {
             </div>
             <div className="mt-4">
               <div className="flex justify-between items-center">
-                <p className="text-[9px] md:text-sm text-gray-500">4.9(1k Review)</p>
+                <p className="text-[9px] md:text-sm lg:text-lg text-gray-500">4.9(1k Review)</p>
                 {isDiscount ? (
                   <div className="flex gap-2">
-                    <p className="text-[9px] lg:text-sm font-bold line-through">${product.price.toFixed(2)}</p>
-                    <p className="text-[9px] md:text-sm text-yellow-500 font-bold">${discountPrice.toFixed(2)}</p>
+                    <p className="text-[9px] md:text-sm lg:text-lg font-bold line-through">${product.price.toFixed(2)}</p>
+                    <p className="text-[9px] md:text-sm lg:text-lg text-yellow-500 font-bold">${discountPrice.toFixed(2)}</p>
                   </div>
                 ) : (
                   <>
-                    <p className="text-[9px] md:text-sm text-yellow-500 font-bold">${product.price.toFixed(2)}</p>
+                    <p className="text-[9px] md:text-sm lg:text-lg text-yellow-500 font-bold">${product.price.toFixed(2)}</p>
                   </>
                 )}
               </div>

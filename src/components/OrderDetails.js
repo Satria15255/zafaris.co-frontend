@@ -6,9 +6,9 @@ const OrderDetails = ({ order, handleCancel, handleConfirm }) => {
   return (
     <div className="p-2 md:p-4">
       {order.map((ord) => (
-        <div key={ord._id} className="border mb-6 p-2 md:p-4 rounded-xl shadow">
+        <div key={ord._id} className="border mb-6 p-2 md:p-4 rounded-xl shadow space-y-3">
+          <p className="text-[10px] lg:text-sm font-semibold">Order Details:</p>
           <div className="mt-2 md:mt-4">
-            <h3 className="text-[10px] font-semibold">Order Details:</h3>
             {ord.products.map((item) => (
               <div key={item._id} className="flex justify-between items-center gap-4 mt-2">
                 <div className="flex justify-between gap-2 items-center">
@@ -16,16 +16,16 @@ const OrderDetails = ({ order, handleCancel, handleConfirm }) => {
                   <div className="flex flex-col">
                     <p className="text-[10px] md:text-lg font-bold">{item.product.name}</p>
                     <div className="flex text-xs gap-2">
-                      <p className="text-[10px]">Size: {item.size}</p>
-                      <p className="text-[10px]">Qty: {item.quantity}</p>
+                      <p className="text-[10px] lg:text-sm">Size: {item.size}</p>
+                      <p className="text-[10px] lg:text-sm">Qty: {item.quantity}</p>
                     </div>
                   </div>
                 </div>
-                <p className="text-[12px] font-bold text-yellow-500">${item.subtotal}</p>
+                <p className="text-[12px] lg:text-lg font-bold text-yellow-500">${item.subtotal.toFixed(2)}</p>
               </div>
             ))}
           </div>
-          <div className="text-[10px]">
+          <div className="text-[10px] lg:text-sm">
             <p className="flex justify-between">
               <strong>Order Status:</strong>
               {ord.status}
@@ -35,7 +35,7 @@ const OrderDetails = ({ order, handleCancel, handleConfirm }) => {
               {ord.totalProducts}
             </p>
             <p className="flex justify-between">
-              <strong>Total Price:</strong>${ord.totalPrice}
+              <strong>Total Price:</strong>${ord.totalPrice.toFixed(2)}
             </p>
             <p className="flex justify-between">
               <strong>Address:</strong>
@@ -59,14 +59,14 @@ const OrderDetails = ({ order, handleCancel, handleConfirm }) => {
             <button
               onClick={() => handleCancel(ord._id)}
               disabled={ord.status === "completed"}
-              className="text-[10px] md:text-md lg:text-md border w-1/5 md:w-1/12 py-1 rounded-md font-bold hover:bg-gray-900 hover:text-white transition duration-300"
+              className="text-[10px] md:text-md lg:text-lg border w-1/5 md:w-1/12 py-1 rounded-md font-bold hover:bg-gray-900 hover:text-white transition duration-300"
             >
               Cancel
             </button>
             <button
               onClick={() => handleConfirm(ord._id)}
               disabled={ord.status !== "delivered"}
-              className="text-[10px] md:text-md lg:text-md border w-1/5 md:w-1/12 py-1 rounded-md font-bold hover:bg-gray-900 hover:text-white transition duration-300"
+              className="text-[10px] md:text-md lg:text-lg border w-1/5 md:w-1/12 py-1 rounded-md font-bold hover:bg-gray-900 hover:text-white transition duration-300"
             >
               Submitted
             </button>

@@ -36,7 +36,12 @@ const ShoppingCart = ({ removeItem, updateQuantity, cartItems, totalPrice }) => 
                           <h2 className="text-[10px] md:text-lg text-sm md:text-xl font-medium">{item.productId.name}</h2>
                           <p className="text-[8px] lg:text-sm text-gray-600 font-semibold">Size: {item.size}</p>
                           <div className="flex gap-2 items-center">
-                            {item.discountPercent > 0 && <p className="text-sm">${item.discountPercent} OFF</p>}
+                            {item.discountPercent > 0 && (
+                              <div className="flex gap-2">
+                                <p className="text-sm">${item.discountPercent}OFF</p>
+                                <p className="text-sm line-through">${item.price} </p>
+                              </div>
+                            )}
                             <h2 className="text-[10px] text-yellow-500 text-sm  font-medium">${item.finalPrice}</h2>
                           </div>
                         </div>
@@ -60,7 +65,7 @@ const ShoppingCart = ({ removeItem, updateQuantity, cartItems, totalPrice }) => 
 
                       {/* Total Harga per Item */}
                       <td>
-                        <div className="flex items-center justify-center text-right text-yellow-500 font-semibold  hidden md:block">${item.finalPrice * item.quantity}</div>
+                        <div className="flex items-center text-lg justify-center text-right text-yellow-500 font-semibold  hidden md:block">${item.finalPrice * item.quantity}</div>
                       </td>
                     </tr>
                   );
@@ -71,7 +76,7 @@ const ShoppingCart = ({ removeItem, updateQuantity, cartItems, totalPrice }) => 
         </div>
       </div>
       {/* Total Harga Keseluruhan & chekout */}
-      <div className="w-full bg-gray-100 p-4 mt-4  ">
+      <div className="w-full bg-gray-100 p-4 mt-4 fixed bottom-0">
         <div>
           <div className=" grid grid-cols-2 ">
             <h2 className="text-[16px] md:text-xl font-bold text-left">Sub Total</h2>

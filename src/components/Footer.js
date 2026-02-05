@@ -10,9 +10,9 @@ const Footer = () => {
             ZAFARIS
             <span className="font-bold text-yellow-500">.CO</span>
           </p>
-          <p className="text-[10px] lg:text-xs text-white">
-            Zafaris.co is where style meets comfort in every step. We offer a curated selection of high-quality shoes with modern designs that reflect your unique character. From casual looks to streetwear, every pair is crafted to support
-            your active and confident lifestyle.
+          <p className="text-[10px] w-1/2 md:w-full lg:text-xs text-white">
+            Zafaris.co is where style meets comfort in every step. We offer a curated selection of high-quality shoes with modern designs that reflect your unique character.
+            <span className="hidden md:flex">From casual looks to streetwear, every pair is crafted to support your active and confident lifestyle.</span>
           </p>
         </div>
         <div className="flex flex-col space-y-1">

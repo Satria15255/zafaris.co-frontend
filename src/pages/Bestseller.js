@@ -22,12 +22,12 @@ const Bestseller = ({ onOpenModal }) => {
 
   return (
     <motion.div initial={{ x: 100, opacity: 0 }} whileInView={{ x: 0, opacity: 1 }} transition={{ duration: 1.0 }} viewport={{ once: true }}>
-      <div className=" lg:mt-12">
+      <div className="mt-12">
         <header className="flex flex-col items-center py-4">
           <h2 className="text-center text-lg md:text-sm lg:text-3xl px-4 font-bold text-underline">
             Best Selling <span className="text-yellow-500">Products </span>
           </h2>
-          <p className="text-sm font-semibold">Some of the Best-Selling Products this Month</p>
+          <p className="text-xs md:text-sm font-semibold">Some of the Best-Selling Products this Month</p>
         </header>
         <main className=" w-full mt-2 lg:mt-4 md:gap-4 px-2 md:px-3 grid grid-cols-1 md:grid-cols-2 ">
           {products.map((product) => (

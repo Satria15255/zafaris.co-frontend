@@ -26,63 +26,67 @@ const SuccesTransaction = ({ onOpenModal }) => {
   }, []);
 
   return (
-    <div className="p-4 mx-auto">
-      <h1 className="text-2xl font-bold mb-4 text-green-600">🎉 Transaksi Berhasil!</h1>
+    <div className="mt-8 p-2 md:p-4 mx-auto">
+      <h1 className="text-2xl font-bold mb-4 text-green-600">🎉 Transaction Success!</h1>
 
       {latestOrder ? (
         <div className="mb-8 p-4 border rounded-lg shadow">
-          <h2 className="text-xl font-semibold mb-2">🧾 Rincian Pesanan:</h2>
+          <h2 className="text-xl font-semibold mb-2">🧾 Order Details:</h2>
           <p className="flex justify-between">
-            <strong>ID Transaksi:</strong>
+            <strong>ID Transaction:</strong>
             <p>{latestOrder._id}</p>
           </p>
           <p className="flex justify-between">
             <strong>Status:</strong> {latestOrder.status}
           </p>
           <p className="flex justify-between">
-            <strong>Total Harga:</strong> ${latestOrder.totalPrice}
+            <strong>Total Price:</strong> ${latestOrder.totalPrice}
           </p>
           <p className="flex justify-between">
-            <strong>Alamat Pengiriman:</strong> {latestOrder.shippingAddress}
+            <strong>Address:</strong> {latestOrder.shippingAddress}
           </p>
           <div className="mt-3">
-            <h3 className="font-semibold">Produk:</h3>
+            <h3 className="font-semibold">Product:</h3>
             {latestOrder.products && latestOrder.products.length > 0 ? (
               <ul className="list-disc list-inside border-t mt-1">
                 {latestOrder.products.map((item, i) => (
                   <div key={i}>
-                    <div className="flex justify-between items-center mt-3 border-b pb-3">
+                    <div className="flex items-center mt-3 border-b pb-3">
                       <div className="flex items-center">
                         <img src={item.product.image} alt={item.name} className="w-20 h-20 object-cover rounded mr-4" />
-                        <p className="text-xl font-bold">{item.product.name} </p>
                       </div>
+                      <div className="flex flex-col md:flex-row md:items-center md:justify-bettween md:flex-row">
+                        <p className="text-lg md:text-xl font-bold">{item.product.name} </p>
+                        <div className="flex gap-4">
                       <p>
                         Size:<span className="font-bold">{item.size}</span>{" "}
                       </p>
                       <p>
                         Quantity: <span className="font-bold">{item.quantity}</span>
                       </p>
+                        </div>
+                      </div>
                     </div>
                   </div>
                 ))}
               </ul>
             ) : (
-              <p>Tidak ada product</p>
+              <p>No product</p>
             )}
           </div>
         </div>
       ) : (
-        <p>Memuat detail transaksi...</p>
+        <p>Loading transaction details...</p>
       )}
-      <div className="flex justify-end items-center w-full">
-        <button onClick={() => navigate("/")} className="text-lg font-semibold h-10 w-1/5 border rounded-xl hover:bg-black hover:text-white">
+      <div className="flex md:justify-end md:items-center w-full">
+        <button onClick={() => navigate("/")} className="text-lg font-semibold h-10 w-full md:w-1/5 border rounded-xl hover:bg-black hover:text-white">
           Back to Home
         </button>
       </div>
 
-      <div>
-        <h2 className="text-xl font-bold mb-4">Rekomendasi Produk untuk Kamu</h2>
-        <div className="grid grid-cols-1 sm:grid-cols-2 place-items-center md:grid-cols-4 gap-4">
+      <div className="mt-8">
+        <h2 className="text-xl font-bold mb-4">Recommended Products for You</h2>
+        <div className="grid grid-cols-2 items-center md:grid-cols-4 gap-3">
           {recommended.map((product) => (
             <ProductCard key={product._id} product={product} onOpenModal={onOpenModal} />
           ))}

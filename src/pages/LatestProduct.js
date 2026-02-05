@@ -33,7 +33,7 @@ function ProductList({ onOpenModal }) {
   };
 
   return (
-    <div className="mb-8">
+    <div className="mt-12 md:mt-3 mb-8">
       <motion.div
         initial={{ opacity: 0, y: 50 }} // Awalnya transparan dan turun 50px
         whileInView={{ opacity: 1, y: 0 }} // Saat muncul, fade-in & naik ke atas
@@ -44,7 +44,7 @@ function ProductList({ onOpenModal }) {
           <p className="text-lg md:text-sm lg:text-3xl font-bold text-center mt-6">
             Latest <span className="text-yellow-500">Arrival</span>
           </p>
-          <p className="text-sm font-semibold">Our Newest Product</p>
+          <p className="text-xs md:text-sm font-semibold">Our Newest Product</p>
         </header>
       </motion.div>
       <main className="grid py-2 h-45 grid-cols-2 md:grid-cols-4 gap-2 md:mt-2 lg:mt-4 place-items-center">

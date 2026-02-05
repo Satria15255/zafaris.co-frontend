@@ -107,12 +107,12 @@ function ProductPages({ onAddToCart, onOpenModal }) {
 
   return (
     <div className="mt-12 p-1 md:p-2">
-      <div style={{ backgroundImage: `url(${bgProductPages})` }} className="z-0 flex flex-col justify-between items-center h-[30vh] h-[35vh] md:h-[60vh] bg-center bg-cover rounded-lg md:rounded-3xl mb-2 md:mb-4">
-        <div className="bg-transparant font-light ml-5">.</div>
+      <div style={{ backgroundImage: `url(${bgProductPages})` }} className="z-0 flex flex-col justify-center md:justify-between items-center h-[25vh] md:h-[60vh] bg-center bg-cover rounded-lg md:rounded-3xl mb-2 md:mb-4">
+        <div className="hidden md:flex bg-transparant font-light ml-5">.</div>
         <p className="text-4xl md:text-8xl font-bold text-white">Product</p>
-        <div className="w-[50vh] md:w-[120vh] lg:w-[180vh] rounded-t-2xl bg-white flex justify-between items-center h-[6vh] md:h-[9vh] px-3">
+        <div className="hidden md:flex justify-between items-center w-[50vh] md:w-[120vh] lg:w-[180vh] rounded-t-2xl bg-white  h-[6vh] md:h-[9vh] px-3">
           <p className="hidden md:flex font-bold text-xs md:text-sm lg:text-lg">Give All You Want</p>
-          <div className="flex w-full md:w-1/5 mt-3">
+          <div className="flex justify-center w-full md:w-1/5 mt-3">
             <input type="text" placeholder="Search Products..." value={filter.search} onChange={(e) => setFilter((prev) => ({ ...prev, search: e.target.value }))} className="w-full px-2 h-[5vh] text-sm border rounded-xl" />
           </div>
         </div>
@@ -123,9 +123,11 @@ function ProductPages({ onAddToCart, onOpenModal }) {
           <FilterSidebar categories={categories} size={size} filter={filter} setFilter={setFilter} />
 
           {/* Filter Mobile Version */}
-          <div className="md:hidden w-30 flex justify-end mb-2 mt-2 mr-2">
+          <div className="md:hidden w-30 flex justify-center gap-3 mb-2 mt-2 mr-2">
+            <div className="flex justify-center w-full">
+              <input type="text" placeholder="Search Products..." value={filter.search} onChange={(e) => setFilter((prev) => ({ ...prev, search: e.target.value }))} className="w-full px-2 h-[5vh] text-sm border rounded-xl" />
+            </div>
             <button onClick={() => setFilterOpen(true)} className="flex px-3 items-center text-sm  border rounded-lg ">
-              Filter
               <span className="flex items-center">
                 <MdFilterList />
               </span>
@@ -134,7 +136,7 @@ function ProductPages({ onAddToCart, onOpenModal }) {
           </div>
 
           {/* Products Section */}
-          <div className="flex flex-col justify-between w-4/5 min-h-[100vh]">
+          <div className="flex flex-col justify-between md:w-4/5 min-h-[100vh]">
             <div className="grid grid-cols-2 items-center md:grid-cols-3 gap-3">
               {currentProducts.length === 0 && <p className="text-center col-span-3">No products found.</p>}
               {currentProducts.length > 0 && currentProducts.map((products) => <ProductCard key={products._id} product={products} onAddToCart={onAddToCart} onOpenModal={onOpenModal} />)}
