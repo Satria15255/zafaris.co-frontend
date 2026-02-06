@@ -21,11 +21,11 @@ function NavbarSection({cartCount, onToggleSidebar }) {
 
   return (
     <Navbar
-      className={`fixed top-0 z-20 md:px-4 md:py-3 flex justify-around items-center w-full transition-all duration-500 ease-in-out
+      className={`fixed top-0 z-20 md:px-4 py-2 md:py-3 flex justify-around items-center w-full transition-all duration-500 ease-in-out
   ${scrolled ? " shadow-md rounded-b-xl bg-white" : "bg-white"}`}
     >
       <Container fluid>
-        <p onClick={() => navigate("/")} className="font-semibold font-sans md:flex text-[14px] md:text-xl lg:text-2xl md:px-3">
+        <p onClick={() => navigate("/")} className="font-semibold font-sans md:flex text-sm md:text-xl lg:text-2xl md:px-3">
           Zafaris<span className="text-yellow-500">.Co</span>
         </p>
         <Nav className="font-semibold space-px-5  mx-auto gap-2 hidden md:flex justify-center">

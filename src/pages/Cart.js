@@ -34,7 +34,7 @@ const ShoppingCart = ({ removeItem, updateQuantity, cartItems, totalPrice }) => 
                         <img src={item.productId.image} alt={item.productId.name} className="w-14 h-14 md:w-20 md:h-20 lg:w-30 lg:h-30 object-cover rounded mr-1 md:mr-4" />
                         <div>
                           <h2 className="text-[10px] md:text-lg text-sm md:text-xl font-medium">{item.productId.name}</h2>
-                          <p className="text-[8px] lg:text-sm text-gray-600 font-semibold">Size: {item.size}</p>
+                          <p className="text-xs lg:text-sm text-gray-600 font-semibold">Size: {item.size}</p>
                           <div className="flex gap-2 items-center">
                             {item.discountPercent > 0 && (
                               <div className="flex gap-2">
@@ -42,7 +42,7 @@ const ShoppingCart = ({ removeItem, updateQuantity, cartItems, totalPrice }) => 
                                 <p className="text-sm line-through">${item.price} </p>
                               </div>
                             )}
-                            <h2 className="text-[10px] text-yellow-500 text-sm  font-medium">${item.finalPrice}</h2>
+                            <h2 className="text-yellow-500 text-sm font-medium">${item.finalPrice}</h2>
                           </div>
                         </div>
                       </td>
@@ -50,15 +50,15 @@ const ShoppingCart = ({ removeItem, updateQuantity, cartItems, totalPrice }) => 
                       {/* Quantity */}
                       <td className="flex-col items-center text-center md:table-cell">
                         <div className="flex items-center justify-center">
-                          <button className="text-[10px] lg:text-sm px-2 py-1 border rounded" onClick={() => updateQuantity(item.productId._id, item.size, item.quantity - 1)}>
+                          <button className="text-xs lg:text-sm px-2 py-1 border rounded" onClick={() => updateQuantity(item.productId._id, item.size, item.quantity - 1)}>
                             -
                           </button>
-                          <span className="text-[10px] lg:text-sm px-2 md:px-4">{item.quantity}</span>
-                          <button className="text-[10px] lg:text-sm px-2 py-1 border rounded" onClick={() => updateQuantity(item.productId._id, item.size, item.quantity + 1)}>
+                          <span className="text-xs lg:text-sm px-2 md:px-4">{item.quantity}</span>
+                          <button className="text-xs lg:text-sm px-2 py-1 border rounded" onClick={() => updateQuantity(item.productId._id, item.size, item.quantity + 1)}>
                             +
                           </button>
                         </div>
-                        <button onClick={() => removeItem(item.productId._id, item.size)} className="text-[9px] md:text-sm text-gray-500 hover:text-red-500 md:mt-1">
+                        <button onClick={() => removeItem(item.productId._id, item.size)} className="text-xs md:text-sm text-gray-500 hover:text-red-500 md:mt-1">
                           Remove
                         </button>
                       </td>

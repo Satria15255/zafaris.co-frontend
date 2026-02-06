@@ -52,7 +52,7 @@ function Category({ onOpenModal }) {
             ))}
           </div>
           <div>
-            <Nav.Link as={NavLink} to="/products" className="text-[9px] md:text-[11px] lg:text-lg flex py-2 md:py-4 justify-center mb-4 hover:underline hover:text-gray-900 text-gray-500 font-semibold ">
+            <Nav.Link as={NavLink} to="/products" className="text-sm lg:text-lg flex py-2 md:py-4 justify-center mb-4 hover:underline hover:text-gray-900 text-gray-500 font-semibold ">
               View More Products
             </Nav.Link>
           </div>

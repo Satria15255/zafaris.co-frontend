@@ -32,22 +32,22 @@ const Register = () => {
         >
           ×
         </button>
-        <h2 className="text-[12px] md:text-2xl text-center font-bold mb-2 md:mb-4">Register</h2>
+        <h2 className="text-lg md:text-2xl text-center font-bold mb-2 md:mb-4">Register</h2>
         <form onSubmit={handleSubmit} className="space-y-2 md:space-y-4 flex flex-col justify-center">
-          <input type="text" placeholder="Name" value={name} className="w-full text-[8px] md:text-lg rounded-lg p-2 border" onChange={(e) => setName(e.target.value)} />
-          <input type="email" placeholder="Email" value={email} className="w-full text-[8px] md:text-lg rounded-lg p-2 border" onChange={(e) => setEmail(e.target.value)} />
-          <input type="password" placeholder="Password" value={password} className="w-full text-[8px] md:text-lg rounded-lg p-2 border" onChange={(e) => setPassword(e.target.value)} />
-          <button type="submit" className="text-[8px] md:text-lg border border-black hover:bg-gray-900 hover:text-white transition duration-100 px-4 py-2 rounded">
+          <input type="text" placeholder="Name" value={name} className="w-full text-sm md:text-lg rounded-lg p-2 border" onChange={(e) => setName(e.target.value)} />
+          <input type="email" placeholder="Email" value={email} className="w-full text-sm md:text-lg rounded-lg p-2 border" onChange={(e) => setEmail(e.target.value)} />
+          <input type="password" placeholder="Password" value={password} className="w-full text-sm md:text-lg rounded-lg p-2 border" onChange={(e) => setPassword(e.target.value)} />
+          <button type="submit" className="text-sm md:text-lg border border-black hover:bg-gray-900 hover:text-white transition duration-100 px-4 py-2 rounded">
             Register
           </button>
         </form>
         <div className="flex flex-col items-center mt-2 md:mt-4 ">
-          <p className="text-center text-[8px] md:text-sm">Already have an account?</p>
+          <p className="text-center text-xs md:text-sm">Already have an account?</p>
           <button
             onClick={() => {
               navigate("/login");
             }}
-            className="text-gray-900 text-center hover:underline mb-3 text-[8px] md:text-sm"
+            className="text-gray-900 text-center hover:underline mb-3 text-xs md:text-sm"
           >
             Login
           </button>
