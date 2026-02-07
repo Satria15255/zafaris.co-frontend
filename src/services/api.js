@@ -35,7 +35,7 @@ export const getNewTransactions = () => API.get("/api/transactions/latest");
 // 💳 ORDERS
 // =======================
 export const getMyOrders = () => API.get("/api/transactions/mytransactions");
-export const confirmOrderReceived = (orderId) => API.patch(`/api/transactions/${orderId}/confirm`);
+export const confirmOrderReceived = (Id) => API.patch(`/api/transactions/${Id}/confirm`);
 export const cancelOrder = (Id) => API.put(`/api/transactions/cancel/${Id}`);
 
 // =======================

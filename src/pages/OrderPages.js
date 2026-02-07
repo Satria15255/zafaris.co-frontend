@@ -16,10 +16,9 @@ const OrderPages = () => {
     fetchMyOrders();
   }, []);
 
-  const handleConfirmReceived = async (orderId) => {
+  const handleConfirmReceived = async (id) => {
     try {
-      const token = localStorage.getItem("token");
-      await confirmOrderReceived(orderId, token);
+      await confirmOrderReceived(id);
       toast.success("Order confirmed successfully");
       fetchMyOrders();
     } catch (err) {
@@ -43,6 +42,6 @@ const OrderPages = () => {
       <OrderDetails order={orders} handleCancel={handleCancel} handleConfirm={handleConfirmReceived} />
     </div>
   );
-};
+}; 
 
 export default OrderPages;
