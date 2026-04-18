@@ -25,23 +25,23 @@ function NavbarSection({cartCount, onToggleSidebar }) {
   ${scrolled ? " shadow-md rounded-b-xl bg-white" : "bg-white"}`}
     >
       <Container fluid>
-        <p onClick={() => navigate("/")} className="font-semibold font-sans md:flex text-sm md:text-xl lg:text-2xl md:px-3">
+        <p onClick={() => navigate("/")} className="font-semibold font-sans md:flex text-sm md:text-xl lg:text-3xl md:px-3">
           Zafaris<span className="text-yellow-500">.Co</span>
         </p>
         <Nav className="font-semibold space-px-5  mx-auto gap-2 hidden md:flex justify-center">
-          <p onClick={() => navigate("/")} className="cursor-pointer hover:text-yellow-500 transition duration-100">
+          <p onClick={() => navigate("/")} className="cursor-pointer text-xl hover:text-yellow-500 transition duration-100">
             Home
           </p>
-          <p onClick={() => navigate("/products")} className="cursor-pointer hover:text-yellow-500 transition duration-100">
+          <p onClick={() => navigate("/products")} className="cursor-pointer text-xl hover:text-yellow-500 transition duration-100">
             Product
           </p>
         </Nav>
         <div className="flex items-center">
-          <button onClick={() => navigate("/cart")} className="relative px-2 hover:text-yellow-500 transition duration-100">
+          <button onClick={() => navigate("/cart")} className="relative px-2 text-xl hover:text-yellow-500 transition duration-100">
             <ShoppingCart />
             {cartCount > 0 && <span className="absolute top-2 right-4 bg-red-500 text-white text-xs w-5 h-5 flex items-center justify-center rounded-full">{cartCount}</span>}
           </button>
-          <button onClick={onToggleSidebar} className="relative hidden md:flex px-2 hover:text-yellow-500 transition duration-100">
+          <button onClick={onToggleSidebar} className="relative text-xl hidden md:flex px-2 hover:text-yellow-500 transition duration-100">
             <CircleUser />
           </button>
           {/* Hamburger icon */}
