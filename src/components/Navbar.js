@@ -21,7 +21,7 @@ function NavbarSection({cartCount, onToggleSidebar }) {
 
   return (
     <Navbar
-      className={`fixed top-0 z-20 md:px-4 py-2 md:py-3 flex justify-around items-center w-full transition-all duration-500 ease-in-out
+      className={`fixed top-0 z-20 md:px-4 py-2 h-20 flex justify-around items-center w-full transition-all duration-500 ease-in-out
   ${scrolled ? " shadow-md rounded-b-xl bg-white" : "bg-white"}`}
     >
       <Container fluid>
