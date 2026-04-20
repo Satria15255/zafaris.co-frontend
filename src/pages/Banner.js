@@ -11,8 +11,8 @@ import "swiper/css/effect-fade";
 
 function Banner() {
   return (
-    <div className="relative mt-8 w-full justify-center items-center">
-      <Swiper modules={[Autoplay, EffectFade]} effect="fade" autoplay={{ delay: 4000 }} loop className="h-screen z-0  ">
+    <div className="relative w-full justify-center items-center">
+      <Swiper modules={[Autoplay, EffectFade]} effect="fade" autoplay={{ delay: 4000 }} loop className="h-50 lg:h-screen z-0  ">
         <SwiperSlide>
           <img src={Image1} alt="image1" className="w-full h-full object-cover" />
         </SwiperSlide>
@@ -22,11 +22,11 @@ function Banner() {
       </Swiper>
       <div className="absolute inset-0 bg-black/50"></div>
       <div className="absolute justify-center items-center inset-0 z-100 p-4 lg:pl-7 flex flex-col gap-1 lg:space-y-5">
-        <h2 className="text-center text-4xl md:text-4xl lg:text-7xl text-white drop-shadow-2xl font-bold flex flex-col">
+        <h2 className="text-center text-4xl md:text-4xl lg:text-6xl text-white drop-shadow-2xl font-semibold flex flex-col">
           Walk in Comfort <span>Step in Style.</span>
         </h2>
-        <p className="text-center text-xs md:text-xs lg:text-sm text-white max-w-xs md:max-w-sm text-gray-500 drop-shadow-2xl md:mt-2 ">
-          Zafaris.co is where style meets comfort in every step. We offer a curated selection of high-quality shoes with modern designs that reflect your unique character.
+        <p className="text-center text-xs md:text-xs lg:text-xs text-white max-w-xs md:max-w-sm text-gray-500 drop-shadow-2xl md:mt-2 ">
+          Zafaris.co is where style meets comfort in every step. High-quality shoes with modern designs that reflect your unique character.
         </p>
         <div className="flex justify-center gap-2 py-2 md:mt-2 w-100 w-10 md:w-50">
           <Nav.Link
