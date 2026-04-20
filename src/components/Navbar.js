@@ -20,23 +20,27 @@ function NavbarSection({cartCount, onToggleSidebar }) {
   }, []);
 
   return (
-    <Navbar
-      className={`fixed top-0 z-20 md:px-4 py-2 h-20 flex justify-around items-center w-full transition-all duration-500 ease-in-out
+    <div
+      className={`fixed top-0 z-20 md:px-4 py-2 h-20 w-full grid grid-cols-3 transition-all duration-500 ease-in-out
   ${scrolled ? " shadow-md rounded-b-xl bg-white" : "bg-white"}`}
     >
-      <Container fluid>
-        <p onClick={() => navigate("/")} className="font-bold font-sans md:flex text-sm md:text-xl lg:text-3xl md:px-3">
-          Zafaris<span className="text-yellow-500">.Co</span>
-        </p>
-        <Nav className="font-semibold space-px-5  mx-auto gap-2 hidden md:flex justify-center">
-          <p onClick={() => navigate("/")} className="cursor-pointer text-xl hover:text-yellow-500 transition duration-100">
-            Home
+        <div className="font-semibold gap-4 hidden md:flex justify-start items-center">
+          <p onClick={() => navigate("/")} className="cursor-pointer text-lg hover:text-yellow-500 transition duration-100">
+            HOME
           </p>
-          <p onClick={() => navigate("/products")} className="cursor-pointer text-xl hover:text-yellow-500 transition duration-100">
-            Product
+          <p onClick={() => navigate("/products")} className="cursor-pointer text-lg hover:text-yellow-500 transition duration-100">
+            PRODUCTS
           </p>
-        </Nav>
-        <div className="flex items-center">
+          <p onClick={() => navigate("/products")} className="cursor-pointer text-lg hover:text-yellow-500 transition duration-100">
+            BLOG
+          </p>
+        </div>
+        <div className="flex justify-center items-center">
+          <p onClick={() => navigate("/")} className="font-bold italic font-sans text-sm md:text-xl lg:text-4xl ">
+            ZAFARIS<span className="text-yellow-500">.CO</span>
+          </p>
+        </div>
+        <div className="flex justify-end items-center">
           <p onClick={() => navigate("/cart")} className="relative px-2  hover:text-yellow-500 transition duration-100">
             <ShoppingCart size={30} />
             {cartCount > 0 && <span className="absolute top-2 right-4 bg-red-500 text-white text-xs w-5 h-5 flex items-center justify-center rounded-full">{cartCount}</span>}
@@ -49,8 +53,7 @@ function NavbarSection({cartCount, onToggleSidebar }) {
             <AlignJustify />
           </button>
         </div>
-      </Container>
-    </Navbar>
+    </div>
   );
 }
 

@@ -12,7 +12,7 @@ import "swiper/css/effect-fade";
 function Banner() {
   return (
     <div className="relative w-full justify-center items-center">
-      <Swiper modules={[Autoplay, EffectFade]} effect="fade" autoplay={{ delay: 4000 }} loop className="h-50 lg:h-screen z-0  ">
+      <Swiper modules={[Autoplay, EffectFade]} effect="fade" autoplay={{ delay: 4000 }} loop className="h-screen z-0  ">
         <SwiperSlide>
           <img src={Image1} alt="image1" className="w-full h-full object-cover" />
         </SwiperSlide>
